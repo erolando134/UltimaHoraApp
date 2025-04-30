@@ -12,6 +12,46 @@ header {
   color: white;
   padding: 20px;
   text-align: center;
+ /* Estilo del menú */
+header {
+  background-color: #1e1e1e;
+  padding: 10px 0;
+  color: #fff;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.menu .logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffce00;
+}
+
+.menu-links {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-links li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.menu-links li a:hover {
+  color: #ffce00;
+} 
 }
 
 /* Contenedor principal */
