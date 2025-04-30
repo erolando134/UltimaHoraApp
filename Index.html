@@ -7,6 +7,64 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+ <header style="background-color:#003366; color:white; padding:20px; text-align:center;">
+  <h1>Última Hora</h1>
+  <p>Tu viaje al instante - Conectamos chóferes y clientes con precisión</p>
+</header>
+
+<main style="padding:20px;">
+  <section style="margin-bottom:30px;">
+    <h2>Solicita tu viaje</h2>
+    <form id="solicitudForm">
+      <label for="origen">Origen:</label><br>
+      <input type="text" id="origen" name="origen" required><br><br>
+      
+      <label for="destino">Destino:</label><br>
+      <input type="text" id="destino" name="destino" required><br><br>
+      
+      <label for="tipo">Tipo de viaje:</label><br>
+      <select id="tipo" name="tipo" required>
+        <option value="local">Local</option>
+        <option value="interprovincial">Interprovincial</option>
+        <option value="carga">Carga</option>
+      </select><br><br>
+
+      <button type="submit" style="padding:10px 20px; background-color:#003366; color:white; border:none;">Solicitar</button>
+    </form>
+    <p id="estadoSolicitud" style="margin-top:20px; color:green;"></p>
+  </section>
+
+  <section>
+    <h2>¿Cómo funciona?</h2>
+    <ol>
+      <li>El cliente solicita el viaje.</li>
+      <li>Los chóferes reciben la solicitud.</li>
+      <li>Cuando un chófer acepta, el cliente y el administrador son notificados.</li>
+      <li>El chófer marca el viaje como realizado y queda disponible.</li>
+    </ol>
+  </section>
+</main>
+
+<footer style="background-color:#003366; color:white; padding:10px; text-align:center;">
+  <p>&copy; 2025 Última Hora. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+  const form = document.getElementById('solicitudForm');
+  const estado = document.getElementById('estadoSolicitud');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const origen = document.getElementById('origen').value;
+    const destino = document.getElementById('destino').value;
+    const tipo = document.getElementById('tipo').value;
+
+    estado.innerText = "Solicitud enviada a chóferes disponibles...";
+    setTimeout(() => {
+      estado.innerText = "Un chófer ha aceptado tu solicitud. En breve te contactará.";
+    }, 3000);
+  });
+</script> 
   <header>
     <img src="img/logo.png" alt="Logo Última Hora" class="logo">
     <h1>Última Hora</h1>
