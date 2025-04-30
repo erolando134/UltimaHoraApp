@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel del Chófer - Última Hora</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef2f3;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #004d40;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    main {
+      padding: 2rem;
+    }
+    .panel {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    h2 {
+      color: #004d40;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #ccc;
+    }
+    .estado {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #e65100;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Última Hora - Panel del Chófer</h1>
+  </header>
+  <main>
+    <div class="panel">
+      <h2>Historial de Viajes</h2>
+      <ul>
+        <li>Viaje 1: Origen - Destino | Ganancia: $300 | Descuento: $30</li>
+        <li>Viaje 2: Origen - Destino | Ganancia: $200 | Descuento: $20</li>
+        <li>Viaje 3: Origen - Destino | Ganancia: $400 | Descuento: $40</li>
+      </ul>
+
+      <p class="estado">Depósito actual: $850</p>
+      <p class="estado">Última recarga: 29 de abril</p>
+      <p class="estado">Recuerde: debe recargar el mismo día del mes o será desactivado automáticamente.</p>
+    </div>
+  </main>
+</body>
+</html>
