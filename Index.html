@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Última Hora - Transporte</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <img src="img/logo.png" alt="Logo Última Hora" class="logo">
+    <h1>Última Hora</h1>
+    <p>Gestión rápida de chóferes y viajes</p>
+  </header>
+
+  <main>
+    <section id="solicitud">
+      <h2>Solicita tu viaje</h2>
+      <form id="formulario-viaje">
+        <input type="text" placeholder="Nombre del cliente" required>
+        <input type="text" placeholder="Origen" required>
+        <input type="text" placeholder="Destino" required>
+        <input type="datetime-local" required>
+        <button type="submit">Enviar Solicitud</button>
+      </form>
+    </section>
+
+    <section id="estado">
+      <h2>Estado del viaje</h2>
+      <p id="estado-actual">Esperando asignación...</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
