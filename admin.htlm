@@ -49,6 +49,40 @@
   }
 </style>
 <body>
+<body>
+  <h1>Panel del Administrador</h1>
+
+  <section class="section">
+    <h2>Resumen de Chóferes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre del Chófer</th>
+          <th>Viajes Realizados</th>
+          <th>Ganancias Totales</th>
+          <th>Descuento Aplicado</th>
+          <th>Depósito Actual</th>
+          <th>Última Recarga</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Juan Pérez</td>
+          <td>12</td>
+          <td>$2400 CUP</td>
+          <td>$240 CUP</td>
+          <td>$1260 CUP</td>
+          <td>2025-04-10</td>
+        </tr>
+        <!-- Puedes agregar más filas como esta -->
+      </tbody>
+    </table>
+  </section>
+
+  <div class="warning">
+    <strong>Atención:</strong> Todo chófer debe recargar su depósito en la misma fecha de su última recarga, aunque no haya realizado viajes. Si no lo hace, será considerado como desactivado voluntariamente de la plataforma.
+  </div>
+</body>
     <h1>Bienvenido al Panel del Administrador</h1>
     <p>Aquí puedes revisar usuarios, viajes, quejas y estadísticas.</p>
 </body>
