@@ -5,6 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Administrador - Última Hora</title>
 </head>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #343a40;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+  }
+
+  th, td {
+    border: 1px solid #dee2e6;
+    padding: 12px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #007bff;
+    color: white;
+  }
+
+  tr:nth-child(even) {
+    background-color: #e9ecef;
+  }
+
+  .advertencia {
+    background-color: #ffc107;
+    color: #212529;
+    padding: 15px;
+    margin-top: 20px;
+    border-left: 6px solid #ff9800;
+    font-weight: bold;
+  }
+</style>
 <body>
     <h1>Bienvenido al Panel del Administrador</h1>
     <p>Aquí puedes revisar usuarios, viajes, quejas y estadísticas.</p>
