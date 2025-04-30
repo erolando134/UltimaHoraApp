@@ -1,121 +1,95 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Administrador - Última Hora</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Administrador - Última Hora</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    header {
+      background-color: #222;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    h2 {
+      margin-top: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    table, th, td {
+      border: 1px solid #999;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+    .alerta {
+      color: red;
+      font-weight: bold;
+    }
+    .aprobadas {
+      background-color: #e3fbe3;
+      padding: 10px;
+      margin-top: 20px;
+      border: 1px solid #90ee90;
+    }
+  </style>
 </head>
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 20px;
-  }
-
-  h1 {
-    text-align: center;
-    color: #343a40;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 30px;
-  }
-
-  th, td {
-    border: 1px solid #dee2e6;
-    padding: 12px;
-    text-align: center;
-  }
-
-  th {
-    background-color: #007bff;
-    color: white;
-  }
-
-  tr:nth-child(even) {
-    background-color: #e9ecef;
-  }
-
-  .advertencia {
-    background-color: #ffc107;
-    color: #212529;
-    padding: 15px;
-    margin-top: 20px;
-    border-left: 6px solid #ff9800;
-    font-weight: bold;
-  }
-</style>
 <body>
-<body>
-  <h1>Panel del Administrador</h1>
 
-  <section class="section">
-    <h2>Resumen de Chóferes</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Nombre del Chófer</th>
-          <th>Viajes Realizados</th>
-          <th>Ganancias Totales</th>
-          <th>Descuento Aplicado</th>
-          <th>Depósito Actual</th>
-          <th>Última Recarga</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Juan Pérez</td>
-          <td>12</td>
-          <td>$2400 CUP</td>
-          <td>$240 CUP</td>
-          <td>$1260 CUP</td>
-          <td>2025-04-10</td>
-        </tr>
-        <!-- Puedes agregar más filas como esta -->
-      </tbody>
-    </table>
-  </section>
+  <header>
+    <h1>Panel del Administrador</h1>
+    <p>Gestión de chóferes y solicitudes</p>
+  </header>
 
-  <div class="warning">
-    <strong>Atención:</strong> Todo chófer debe recargar su depósito en la misma fecha de su última recarga, aunque no haya realizado viajes. Si no lo hace, será considerado como desactivado voluntariamente de la plataforma.
-  </div>
-</body>
-    <h1>Bienvenido al Panel del Administrador</h1>
-    <p>Aquí puedes revisar usuarios, viajes, quejas y estadísticas.</p>
-</body>
-<section id="registro-chofer">
-  <h2>Registro de Ganancias y Descuentos</h2>
-  <table border="1">
+  <h2>Resumen de Chóferes</h2>
+  <table>
     <thead>
       <tr>
-        <th>Nombre del Chófer</th>
+        <th>Nombre</th>
         <th>Viajes Realizados</th>
-        <th>Ganancias Totales</th>
-        <th>Descuentos Aplicados</th>
-        <th>Depósito Actual</th>
-        <th>Fecha del Último Depósito</th>
+        <th>Ganancias</th>
+        <th>Descuentos</th>
+        <th>Depósito</th>
         <th>Estado</th>
       </tr>
     </thead>
     <tbody>
-      <!-- Aquí se llenarán los datos dinámicamente con JS o manualmente -->
       <tr>
-        <td>Ejemplo Pérez</td>
-        <td>15</td>
-        <td>$750 CUP</td>
-        <td>$75 CUP</td>
-        <td>$500 CUP</td>
-        <td>01/04/2025</td>
+        <td>Juan Pérez</td>
+        <td>12</td>
+        <td>$2400</td>
+        <td>$240</td>
+        <td>$1260</td>
+        <td class="alerta">Depósito vencido</td>
+      </tr>
+      <tr>
+        <td>Ana Torres</td>
+        <td>5</td>
+        <td>$1000</td>
+        <td>$100</td>
+        <td>$1400</td>
         <td>Activo</td>
       </tr>
     </tbody>
   </table>
 
-  <div class="alerta-deposito">
-    <p><strong>Nota:</strong> Si el chófer no recarga su depósito en la misma fecha del mes siguiente, el sistema lo marcará como <span style="color:red;">inactivo por voluntad propia</span>.</p>
+  <div class="aprobadas">
+    <h2>Solicitudes Aprobadas por Chóferes</h2>
+    <ul>
+      <li>Cliente: Marta González | Viaje Habana - Matanzas | Aprobado por: Juan Pérez</li>
+      <li>Cliente: Luis Herrera | Viaje Habana - Cienfuegos | Aprobado por: Ana Torres</li>
+    </ul>
   </div>
-</section>
+
+</body>
 </html>
