@@ -61,7 +61,9 @@
     } else {
       document.getElementById("respuestaUbicacion").innerText =
         "Geolocalización no disponible.";
-    }
+     
+    }<button onclick="compartirUbicacion()">Compartir mi ubicación</button>
+<p id="estadoUbicacion"></p>
   }
 </script>   
      <header>
@@ -202,6 +204,24 @@
       alert("Tu navegador no permite obtener la ubicación.");
     }
   }
+ <script>
+  function compartirUbicacion() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        const datos = {
+          lat: pos.coords.latitude,
+          lon: pos.coords.longitude
+        };
+        localStorage.setItem("ubicacionCliente", JSON.stringify(datos));
+        document.getElementById("estadoUbicacion").textContent = "Ubicación compartida exitosamente.";
+      }, function(error) {
+        document.getElementById("estadoUbicacion").textContent = "Error al obtener ubicación.";
+      });
+    } else {
+      document.getElementById("estadoUbicacion").textContent = "Tu navegador no soporta geolocalización.";
+    }
+  }
+</script>
 </script> 
 </body>
 </html>
