@@ -67,5 +67,15 @@
       <p class="estado">Recuerde: debe recargar el mismo día del mes o será desactivado automáticamente.</p>
     </div>
   </main>
+ <script>
+  // Revisar si el cliente ya envió su ubicación
+  const ubicacion = localStorage.getItem("ubicacionCliente");
+
+  if (ubicacion) {
+    document.getElementById("infoUbicacion").textContent = ubicacion;
+  } else {
+    document.getElementById("infoUbicacion").textContent = "No disponible o aún no enviada.";
+  }
+</script> 
 </body>
 </html>
