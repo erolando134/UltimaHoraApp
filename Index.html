@@ -8,6 +8,30 @@
   <title>Última Hora - Solicita tu viaje</title>
   <style>
     body {
+  <script>
+  function solicitarUbicacion() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        // Aquí simulamos el envío al chófer
+        document.getElementById("respuestaUbicacion").innerText =
+          "Ubicación enviada: Latitud " + lat + ", Longitud " + lon;
+
+        // Aquí se puede enviar la ubicación a un servidor si deseas
+        // Ejemplo: fetch('/guardar-ubicacion', { method: 'POST', body: JSON.stringify({ lat, lon }) })
+
+      }, function (error) {
+        document.getElementById("respuestaUbicacion").innerText =
+          "Error al obtener la ubicación: " + error.message;
+      });
+    } else {
+      document.getElementById("respuestaUbicacion").innerText =
+        "Geolocalización no disponible.";
+    }
+  }
+</script>   
      <header>
   <nav class="menu">
     <div class="logo">Última Hora</div>
