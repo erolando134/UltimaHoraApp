@@ -8,6 +8,28 @@
   <title>Última Hora - Solicita tu viaje</title>
   <style>
     body {
+   <h3>Enviar mi ubicación al chófer:</h3>
+<button onclick="enviarUbicacion()">Compartir ubicación</button>
+<p id="estadoUbicacion">Esperando acción del usuario...</p>
+
+<script>
+  function enviarUbicacion() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        document.getElementById("estadoUbicacion").innerText = `Ubicación enviada: Lat ${lat}, Lon ${lon}`;
+
+        // Aquí puedes enviar la ubicación a un servidor o backend
+        console.log("Ubicación:", lat, lon);
+      }, function(error) {
+        document.getElementById("estadoUbicacion").innerText = "No se pudo obtener la ubicación.";
+      });
+    } else {
+      document.getElementById("estadoUbicacion").innerText = "Tu navegador no soporta geolocalización.";
+    }
+  }
+</script>  
   <script>
   function solicitarUbicacion() {
     if ("geolocation" in navigator) {
