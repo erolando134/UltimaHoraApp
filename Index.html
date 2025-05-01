@@ -42,6 +42,10 @@
       navigator.geolocation.getCurrentPosition(function (position) {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
+       function borrarUbicacion() {
+  localStorage.removeItem("ubicacionCliente");
+  alert("Tu ubicación ha sido eliminada.");
+}
 
         // Aquí simulamos el envío al chófer
         document.getElementById("respuestaUbicacion").innerText =
