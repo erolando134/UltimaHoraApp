@@ -120,6 +120,32 @@
     }
   </style>
 </head>
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  // Espera a que cargue la página
+  document.addEventListener("DOMContentLoaded", function () {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+
+        // Crear el mapa
+        var map = L.map('map').setView([lat, lng], 15);
+
+        // Agregar capa de OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Agregar marcador
+        L.marker([lat, lng]).addTo(map).bindPopup("Tu ubicación").openPopup();
+      });
+    } else {
+      alert("Tu navegador no soporta geolocalización.");
+    }
+  });
+</script> 
 <body>
   <header>
     <h1>Última Hora - Solicita tu Viaje</h1>
