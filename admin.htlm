@@ -90,6 +90,20 @@
       <li>Cliente: Luis Herrera | Viaje Habana - Cienfuegos | Aprobado por: Ana Torres</li>
     </ul>
   </div>
+<h3>Ubicación del cliente:</h3>
+<p id="ubicacionCliente">Esperando ubicación...</p>
 
+<script>
+  // Simulamos recepción de la ubicación
+  function mostrarUbicacionCliente(lat, lon) {
+    const mapaURL = `https://www.google.com/maps?q=${lat},${lon}`;
+    document.getElementById("ubicacionCliente").innerHTML =
+      `Latitud: ${lat}, Longitud: ${lon} <br><a href="${mapaURL}" target="_blank">Ver en el mapa</a>`;
+  }
+
+  // Puedes probar esta función con coordenadas reales mientras no esté conectado al backend
+  // Ejemplo:
+  mostrarUbicacionCliente(23.1136, -82.3666); // La Habana
+</script>
 </body>
 </html>
