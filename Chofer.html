@@ -45,7 +45,9 @@
       color: #e65100;
     }
 <button onclick="solicitarUbicacion()">Solicitar ubicación al cliente</button>
-<p id="respuestaUbicacion"></p>    
+<p id="respuestaUbicacion"></p>  
+  <h3>Ubicación del Cliente:</h3>
+<div id="ubicacionCliente"></div>  
   </style>
 </head>
 <bodylínea??
@@ -81,8 +83,21 @@
   <p id="longitud"></p>
 </div>
   }
-</script> 
+</script>
   <script>
+  window.onload = function() {
+    const ubicacion = localStorage.getItem("ubicacionCliente");
+    if (ubicacion) {
+      const { lat, lon } = JSON.parse(ubicacion);
+      const enlace = `https://www.google.com/maps?q=${lat},${lon}`;
+      document.getElementById("ubicacionCliente").innerHTML = `
+        <p>Ubicación recibida: <a href="${enlace}" target="_blank">Ver en Google Maps</a></p>
+      `;
+    } else {
+      document.getElementById("ubicacionCliente").textContent = "Ubicación no disponible o no compartida.";
+    }
+  };
+</script> 
   const ubicacion = localStorage.getItem("ubicacionCliente");
   if (ubicacion) {
     const datos = JSON.parse(ubicacion);
