@@ -179,5 +179,25 @@
       </form>
     </div>
   </main>
+<script>
+  function enviarUbicacion() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        const ubicacion = `Lat: ${lat.toFixed(5)}, Lon: ${lon.toFixed(5)}`;
+        
+        localStorage.setItem("ubicacionCliente", ubicacion);
+
+        alert("¡Ubicación enviada al chófer!");
+        document.getElementById("bloqueUbicacion").innerHTML = "<p>Ubicación compartida</p>";
+      }, function(error) {
+        alert("No se pudo obtener tu ubicación.");
+      });
+    } else {
+      alert("Tu navegador no permite obtener la ubicación.");
+    }
+  }
+</script> 
 </body>
 </html>
