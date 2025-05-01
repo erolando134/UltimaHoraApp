@@ -75,7 +75,22 @@
     document.getElementById("infoUbicacion").textContent = ubicacion;
   } else {
     document.getElementById("infoUbicacion").textContent = "No disponible o aún no enviada.";
+    <div id="ubicacionCliente">
+  <h3>Ubicación del cliente:</h3>
+  <p id="latitud"></p>
+  <p id="longitud"></p>
+</div>
   }
 </script> 
+  <script>
+  const ubicacion = localStorage.getItem("ubicacionCliente");
+  if (ubicacion) {
+    const datos = JSON.parse(ubicacion);
+    document.getElementById("latitud").textContent = "Latitud: " + datos.lat;
+    document.getElementById("longitud").textContent = "Longitud: " + datos.lon;
+  } else {
+    document.getElementById("ubicacionCliente").innerHTML = "<p>El cliente no ha compartido su ubicación.</p>";
+  }
+</script>
 </body>
 </html>
