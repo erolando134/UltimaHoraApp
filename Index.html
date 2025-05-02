@@ -1,83 +1,17 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" /> 
-<!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> 
- <link rel="stylesheet" href="style.css"> 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Última Hora - Solicita tu viaje</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Tu CSS personalizado -->
+  <link rel="stylesheet" href="style.css" />
+
   <style>
     body {
-   <h3>Enviar mi ubicación al chófer:</h3>
-<button onclick="enviarUbicacion()">Compartir ubicación</button>
-<p id="estadoUbicacion">Esperando acción del usuario...</p>
-
-<script>
-  function enviarUbicacion() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        document.getElementById("estadoUbicacion").innerText = `Ubicación enviada: Lat ${lat}, Lon ${lon}`;
-
-        // Aquí puedes enviar la ubicación a un servidor o backend
-        console.log("Ubicación:", lat, lon);
-      }, function(error) {
-        document.getElementById("estadoUbicacion").innerText = "No se pudo obtener la ubicación.";
-      });
-    } else {
-      document.getElementById("estadoUbicacion").innerText = "Tu navegador no soporta geolocalización.";
-    }
-  }
-</script>  
-  <script>
-  function solicitarUbicacion() {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-       function borrarUbicacion() {
-  localStorage.removeItem("ubicacionCliente");
-  alert("Tu ubicación ha sido eliminada.");
-}
-
-        // Aquí simulamos el envío al chófer
-        document.getElementById("respuestaUbicacion").innerText =
-          "Ubicación enviada: Latitud " + lat + ", Longitud " + lon;
-
-        // Aquí se puede enviar la ubicación a un servidor si deseas
-        // Ejemplo: fetch('/guardar-ubicacion', { method: 'POST', body: JSON.stringify({ lat, lon }) })
-
-      }, function (error) {
-        document.getElementById("respuestaUbicacion").innerText =
-          "Error al obtener la ubicación: " + error.message;
-      });
-    } else {
-      document.getElementById("respuestaUbicacion").innerText =
-        "Geolocalización no disponible.";
-     
-    }<button onclick="compartirUbicacion()">Compartir mi ubicación</button>
-<p id="estadoUbicacion"></p>
-  }
-</script>   
-     <header>
-  <nav class="menu">
-    <div class="logo">Última Hora</div>
-    <ul class="menu-links">
-      <li><a href="#">Solicitar Viaje</a></li>
-      <li><a href="#">Historial</a></li>
-      <li><a href="#">Perfil</a></li>
-      <li><a href="#">Contacto</a></li>
-      <li><a href="#">Cerrar Sesión</a></li>
-    </ul>
-  </nav>
-</header>
       font-family: Arial, sans-serif;
       background: #f5f5f5;
       margin: 0;
@@ -98,7 +32,7 @@
       border-radius: 10px;
       max-width: 500px;
       margin: auto;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     }
     label {
       display: block;
@@ -126,40 +60,12 @@
     }
   </style>
 </head>
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script>
-  // Espera a que cargue la página
-  document.addEventListener("DOMContentLoaded", function () {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        var lat = position.coords.latitude;
-        var lng = position.coords.longitude;
-
-        // Crear el mapa
-        var map = L.map('map').setView([lat, lng], 15);
-
-        // Agregar capa de OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
-
-        // Agregar marcador
-        L.marker([lat, lng]).addTo(map).bindPopup("Tu ubicación").openPopup();
-      });
-    } else {
-      alert("Tu navegador no soporta geolocalización.");
-    }
-  });
-</script> 
 <body>
-<div id="bloqueUbicacion">
-  <p>¿Deseas compartir tu ubicación con el chófer?</p>
-  <button onclick="enviarUbicacion()">Sí, compartir</button>
-</div> 
+
   <header>
     <h1>Última Hora - Solicita tu Viaje</h1>
   </header>
+
   <main>
     <div class="formulario">
       <h2>Formulario de Solicitud</h2>
@@ -184,44 +90,57 @@
         <button type="submit">Solicitar</button>
       </form>
     </div>
-  </main>
-<script>
-  function enviarUbicacion() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        const ubicacion = `Lat: ${lat.toFixed(5)}, Lon: ${lon.toFixed(5)}`;
-        
-        localStorage.setItem("ubicacionCliente", ubicacion);
 
-        alert("¡Ubicación enviada al chófer!");
-        document.getElementById("bloqueUbicacion").innerHTML = "<p>Ubicación compartida</p>";
-      }, function(error) {
-        alert("No se pudo obtener tu ubicación.");
-      });
-    } else {
-      alert("Tu navegador no permite obtener la ubicación.");
+    <div id="bloqueUbicacion" style="margin-top: 2rem; text-align: center;">
+      <p>¿Deseas compartir tu ubicación con el chófer?</p>
+      <button onclick="enviarUbicacion()">Sí, compartir</button>
+      <p id="estadoUbicacion">Esperando acción del usuario...</p>
+    </div>
+
+    <div id="map" style="height: 300px; margin-top: 2rem;"></div>
+  </main>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    // Mostrar mapa con ubicación del usuario
+    document.addEventListener("DOMContentLoaded", function () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+
+          const map = L.map('map').setView([lat, lon], 15);
+
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+          }).addTo(map);
+
+          L.marker([lat, lon]).addTo(map).bindPopup("Tu ubicación").openPopup();
+        });
+      } else {
+        alert("Tu navegador no soporta geolocalización.");
+      }
+    });
+
+    function enviarUbicacion() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          const ubicacion = `Lat: ${lat.toFixed(5)}, Lon: ${lon.toFixed(5)}`;
+
+          localStorage.setItem("ubicacionCliente", ubicacion);
+          document.getElementById("estadoUbicacion").textContent = "Ubicación compartida exitosamente.";
+          document.getElementById("bloqueUbicacion").innerHTML = "<p>Ubicación compartida</p>";
+        }, function () {
+          document.getElementById("estadoUbicacion").textContent = "No se pudo obtener la ubicación.";
+        });
+      } else {
+        document.getElementById("estadoUbicacion").textContent = "Tu navegador no soporta geolocalización.";
+      }
     }
-  }
- <script>
-  function compartirUbicacion() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(pos) {
-        const datos = {
-          lat: pos.coords.latitude,
-          lon: pos.coords.longitude
-        };
-        localStorage.setItem("ubicacionCliente", JSON.stringify(datos));
-        document.getElementById("estadoUbicacion").textContent = "Ubicación compartida exitosamente.";
-      }, function(error) {
-        document.getElementById("estadoUbicacion").textContent = "Error al obtener ubicación.";
-      });
-    } else {
-      document.getElementById("estadoUbicacion").textContent = "Tu navegador no soporta geolocalización.";
-    }
-  }
-</script>
-</script> 
+  </script>
 </body>
 </html>
