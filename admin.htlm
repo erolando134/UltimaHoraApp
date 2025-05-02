@@ -1,137 +1,143 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel de Administración - Última Hora</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <title>Administrador - Última Hora</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      background: #f4f4f4;
       margin: 0;
-      background: #f0f2f5;
+      padding: 0;
     }
+
     header {
-      background-color: #212121;
+      background-color: #1a237e;
       color: white;
-      text-align: center;
       padding: 1rem;
+      text-align: center;
     }
-    main {
+
+    .contenedor {
+      max-width: 850px;
+      margin: 2rem auto;
       padding: 2rem;
-    }
-    .panel {
       background: white;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
       border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
     }
+
     h2 {
-      margin-top: 0;
+      margin-top: 1rem;
     }
-    .boton {
-      padding: 0.5rem 1rem;
-      border: none;
-      background-color: #ff6f00;
+
+    input[type="password"] {
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      margin: 1rem 0;
+      padding: 1rem;
+      background-color: #3949ab;
       color: white;
-      border-radius: 5px;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
+      font-size: 1rem;
     }
-    .boton:hover {
-      background-color: #e65100;
+
+    button:hover {
+      background-color: #283593;
     }
-    .oculto {
+
+    .seccion {
       display: none;
     }
-    #map {
-      height: 300px;
+
+    .enlace-externo {
+      display: inline-block;
       margin-top: 1rem;
+      color: #1565c0;
+      text-decoration: underline;
+    }
+
+    .alerta {
+      margin-top: 1rem;
+      color: green;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Panel de Administración - Última Hora</h1>
-  </header>
-  <main>
-    <div class="panel">
-      <h2>Modo Seguro (Visualización sin Interacción)</h2>
-      <button class="boton" onclick="toggleModoSeguro()">Activar Modo Seguro</button>
-      <p id="estadoModo">Modo seguro desactivado</p>
-    </div><div class="panel">
-  <h2>Mapa de Chóferes Activos</h2>
-  <div id="map"></div>
+
+<header>
+  <h1>Panel del Administrador - Última Hora</h1>
+</header>
+
+<div class="contenedor">
+  <h2>Acceso restringido</h2>
+  <input type="password" id="claveAdmin" placeholder="Ingrese su contraseña" />
+  <button onclick="verificarClave()">Entrar</button>
+
+  <div class="seccion" id="panelAdmin">
+    <h2>Herramientas del Administrador</h2>
+
+    <button onclick="abrirVista('vista-cliente.html')">Ver como cliente</button>
+    <button onclick="abrirVista('vista-chofer.html')">Ver como chófer</button>
+    <button onclick="crearAvisoMantenimiento()">Crear aviso de mantenimiento</button>
+    <button onclick="enviarActualizacion()">Montar actualización</button>
+
+    <h3>Gestión técnica y ajustes con IA</h3>
+    <a class="enlace-externo" href="https://chat.openai.com/" target="_blank">
+      Acceder al soporte con IA
+    </a>
+
+    <h3>Control delegado</h3>
+    <p>Este panel puede compartirse con empleados para operaciones generales. No muestra información sensible.</p>
+
+    <div class="alerta" id="mensajeEstado"></div>
+  </div>
 </div>
 
-<div class="panel">
-  <h2>Acceso por Roles</h2>
-  <p><strong>Rol actual:</strong> <span id="rolActual">Dueño</span></p>
-  <select id="selectorRol" onchange="cambiarRol()">
-    <option value="dueno">Dueño</option>
-    <option value="empleado">Empleado</option>
-  </select>
-</div>
+<script>
+  const CONTRASEÑA_ADMIN = "admin123"; // Reemplaza con tu clave segura
 
-<div class="panel">
-  <h2>Acciones disponibles</h2>
-  <ul id="accionesLista">
-    <li>Revisar solicitudes en tiempo real</li>
-    <li>Consultar historial de viajes</li>
-    <li>Evaluar desempeño de chóferes</li>
-    <li>Gestionar reportes y quejas</li>
-    <li>Expulsar o bonificar chóferes</li>
-  </ul>
-</div>
+  function verificarClave() {
+    const clave = document.getElementById("claveAdmin").value;
+    const panel = document.getElementById("panelAdmin");
+    const estado = document.getElementById("mensajeEstado");
 
-  </main>  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>  <script>
-    let modoSeguro = false;
-
-    function toggleModoSeguro() {
-      modoSeguro = !modoSeguro;
-      document.getElementById("estadoModo").textContent = modoSeguro ? "Modo seguro ACTIVADO (solo lectura)" : "Modo seguro DESACTIVADO";
+    if (clave === CONTRASEÑA_ADMIN) {
+      panel.style.display = "block";
+      estado.innerText = "Acceso concedido.";
+    } else {
+      alert("Contraseña incorrecta.");
     }
+  }
 
-    function cambiarRol() {
-      const rol = document.getElementById("selectorRol").value;
-      document.getElementById("rolActual").textContent = rol === "dueno" ? "Dueño" : "Empleado";
+  function abrirVista(ruta) {
+    window.open(ruta, "_blank");
+  }
 
-      // Mostrar u ocultar acciones según el rol
-      const acciones = document.getElementById("accionesLista");
-      if (rol === "empleado") {
-        acciones.innerHTML = `
-          <li>Revisar solicitudes</li>
-          <li>Reportar incidencias</li>
-        `;
-      } else {
-        acciones.innerHTML = `
-          <li>Revisar solicitudes en tiempo real</li>
-          <li>Consultar historial de viajes</li>
-          <li>Evaluar desempeño de chóferes</li>
-          <li>Gestionar reportes y quejas</li>
-          <li>Expulsar o bonificar chóferes</li>
-        `;
-      }
+  function crearAvisoMantenimiento() {
+    const hora = prompt("¿A qué hora será el mantenimiento?");
+    if (hora) {
+      alert(`Mantenimiento programado para las ${hora}. Los usuarios serán notificados.`);
+      // Aquí iría lógica de backend para notificar a clientes y chóferes
     }
+  }
 
-    // Simular mapa con varios puntos de Cuba
-    document.addEventListener("DOMContentLoaded", function () {
-      const map = L.map("map").setView([21.5218, -79.6814], 6);
+  function enviarActualizacion() {
+    alert("Actualización cargada correctamente.");
+    // Aquí se conectaría con el sistema de despliegue o backend real
+  }
+</script>
 
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: "© OpenStreetMap contributors"
-      }).addTo(map);
-
-      const ciudades = [
-        { nombre: "La Habana", lat: 23.1136, lon: -82.3666 },
-        { nombre: "Santiago de Cuba", lat: 20.025, lon: -75.8213 },
-        { nombre: "Santa Clara", lat: 22.4069, lon: -79.9643 },
-        { nombre: "Camagüey", lat: 21.3833, lon: -77.9167 },
-        { nombre: "Holguín", lat: 20.8872, lon: -76.2631 }
-      ];
-
-      ciudades.forEach(c => {
-        L.marker([c.lat, c.lon]).addTo(map).bindPopup(`Chófer en ${c.nombre}`);
-      });
-    });
-  </script></body>
+</body>
 </html>
