@@ -2,108 +2,124 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel de Administrador - Última Hora</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Administración - Última Hora</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background: #f4f4f4;
       margin: 0;
-      padding: 20px;
+      padding: 0;
     }
     header {
-      background-color: #222;
+      background-color: #212121;
       color: white;
-      padding: 15px;
+      padding: 1rem;
       text-align: center;
+    }
+    main {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
     }
     h2 {
-      margin-top: 30px;
+      margin-top: 0;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
+    .botones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
     }
-    table, th, td {
-      border: 1px solid #999;
+    .botones button {
+      flex: 1 1 200px;
+      padding: 1rem;
+      background-color: #0288d1;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
     }
-    th, td {
-      padding: 10px;
-      text-align: center;
+    .botones button:hover {
+      background-color: #0277bd;
+    }
+    #map {
+      height: 400px;
+      margin-top: 1rem;
+      border-radius: 10px;
     }
     .alerta {
-      color: red;
-      font-weight: bold;
-    }
-    .aprobadas {
-      background-color: #e3fbe3;
-      padding: 10px;
-      margin-top: 20px;
-      border: 1px solid #90ee90;
+      padding: 1rem;
+      background-color: #ffe082;
+      color: #5d4037;
+      border-left: 5px solid #ffca28;
+      margin-bottom: 1rem;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Panel del Administrador</h1>
-    <p>Gestión de chóferes y solicitudes</p>
+    <h1>Administración - Última Hora</h1>
   </header>
 
-  <h2>Resumen de Chóferes</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Viajes Realizados</th>
-        <th>Ganancias</th>
-        <th>Descuentos</th>
-        <th>Depósito</th>
-        <th>Estado</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Juan Pérez</td>
-        <td>12</td>
-        <td>$2400</td>
-        <td>$240</td>
-        <td>$1260</td>
-        <td class="alerta">Depósito vencido</td>
-      </tr>
-      <tr>
-        <td>Ana Torres</td>
-        <td>5</td>
-        <td>$1000</td>
-        <td>$100</td>
-        <td>$1400</td>
-        <td>Activo</td>
-      </tr>
-    </tbody>
-  </table>
+  <main>
+    <div class="card alerta">
+      <strong>Atención:</strong> Revisa diariamente los reportes y depósitos de los chóferes para evitar interrupciones en el servicio.
+    </div>
 
-  <div class="aprobadas">
-    <h2>Solicitudes Aprobadas por Chóferes</h2>
-    <ul>
-      <li>Cliente: Marta González | Viaje Habana - Matanzas | Aprobado por: Juan Pérez</li>
-      <li>Cliente: Luis Herrera | Viaje Habana - Cienfuegos | Aprobado por: Ana Torres</li>
-    </ul>
-  </div>
-<h3>Ubicación del cliente:</h3>
-<p id="ubicacionCliente">Esperando ubicación...</p>
+    <div class="card">
+      <h2>Resumen del Sistema</h2>
+      <p>Total de chóferes activos: <strong>128</strong></p>
+      <p>Solicitudes de viaje hoy: <strong>245</strong></p>
+      <p>Reportes por revisar: <strong>3</strong></p>
+    </div>
 
-<script>
-  // Simulamos recepción de la ubicación
-  function mostrarUbicacionCliente(lat, lon) {
-    const mapaURL = `https://www.google.com/maps?q=${lat},${lon}`;
-    document.getElementById("ubicacionCliente").innerHTML =
-      `Latitud: ${lat}, Longitud: ${lon} <br><a href="${mapaURL}" target="_blank">Ver en el mapa</a>`;
-  }
+    <div class="card">
+      <h2>Mapa de cobertura nacional (Cuba)</h2>
+      <div id="map"></div>
+    </div>
 
-  // Puedes probar esta función con coordenadas reales mientras no esté conectado al backend
-  // Ejemplo:
-  mostrarUbicacionCliente(23.1136, -82.3666); // La Habana
-</script>
+    <div class="card">
+      <h2>Gestión rápida</h2>
+      <div class="botones">
+        <button onclick="alert('Listado de chóferes cargado')">Ver chóferes</button>
+        <button onclick="alert('Revisar depósitos')">Revisar depósitos</button>
+        <button onclick="alert('Configuraciones abiertas')">Configuración</button>
+        <button onclick="alert('Cerrar sesión')">Cerrar sesión</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Crear mapa centrado en Cuba
+    document.addEventListener("DOMContentLoaded", function () {
+      const map = L.map('map').setView([21.5, -79.5], 6); // Coordenadas centro de Cuba
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      // Puedes añadir marcadores si lo deseas por provincias
+      // Ejemplo:
+      // L.marker([23.13, -82.38]).addTo(map).bindPopup("La Habana").openPopup();
+    });
+  </script>
+
 </body>
 </html>
