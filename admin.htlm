@@ -1,125 +1,137 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Panel de Administración - Última Hora</title>
-
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f4f4;
       margin: 0;
-      padding: 0;
+      background: #f0f2f5;
     }
     header {
       background-color: #212121;
       color: white;
-      padding: 1rem;
       text-align: center;
+      padding: 1rem;
     }
     main {
       padding: 2rem;
-      max-width: 1000px;
-      margin: auto;
     }
-    .card {
+    .panel {
       background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
       padding: 1.5rem;
       margin-bottom: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     h2 {
       margin-top: 0;
     }
-    .botones {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    .botones button {
-      flex: 1 1 200px;
-      padding: 1rem;
-      background-color: #0288d1;
-      color: white;
+    .boton {
+      padding: 0.5rem 1rem;
       border: none;
+      background-color: #ff6f00;
+      color: white;
       border-radius: 5px;
       cursor: pointer;
-      transition: background 0.3s;
     }
-    .botones button:hover {
-      background-color: #0277bd;
+    .boton:hover {
+      background-color: #e65100;
+    }
+    .oculto {
+      display: none;
     }
     #map {
-      height: 400px;
+      height: 300px;
       margin-top: 1rem;
-      border-radius: 10px;
-    }
-    .alerta {
-      padding: 1rem;
-      background-color: #ffe082;
-      color: #5d4037;
-      border-left: 5px solid #ffca28;
-      margin-bottom: 1rem;
-      border-radius: 5px;
     }
   </style>
 </head>
 <body>
-
   <header>
-    <h1>Administración - Última Hora</h1>
+    <h1>Panel de Administración - Última Hora</h1>
   </header>
-
   <main>
-    <div class="card alerta">
-      <strong>Atención:</strong> Revisa diariamente los reportes y depósitos de los chóferes para evitar interrupciones en el servicio.
-    </div>
+    <div class="panel">
+      <h2>Modo Seguro (Visualización sin Interacción)</h2>
+      <button class="boton" onclick="toggleModoSeguro()">Activar Modo Seguro</button>
+      <p id="estadoModo">Modo seguro desactivado</p>
+    </div><div class="panel">
+  <h2>Mapa de Chóferes Activos</h2>
+  <div id="map"></div>
+</div>
 
-    <div class="card">
-      <h2>Resumen del Sistema</h2>
-      <p>Total de chóferes activos: <strong>128</strong></p>
-      <p>Solicitudes de viaje hoy: <strong>245</strong></p>
-      <p>Reportes por revisar: <strong>3</strong></p>
-    </div>
+<div class="panel">
+  <h2>Acceso por Roles</h2>
+  <p><strong>Rol actual:</strong> <span id="rolActual">Dueño</span></p>
+  <select id="selectorRol" onchange="cambiarRol()">
+    <option value="dueno">Dueño</option>
+    <option value="empleado">Empleado</option>
+  </select>
+</div>
 
-    <div class="card">
-      <h2>Mapa de cobertura nacional (Cuba)</h2>
-      <div id="map"></div>
-    </div>
+<div class="panel">
+  <h2>Acciones disponibles</h2>
+  <ul id="accionesLista">
+    <li>Revisar solicitudes en tiempo real</li>
+    <li>Consultar historial de viajes</li>
+    <li>Evaluar desempeño de chóferes</li>
+    <li>Gestionar reportes y quejas</li>
+    <li>Expulsar o bonificar chóferes</li>
+  </ul>
+</div>
 
-    <div class="card">
-      <h2>Gestión rápida</h2>
-      <div class="botones">
-        <button onclick="alert('Listado de chóferes cargado')">Ver chóferes</button>
-        <button onclick="alert('Revisar depósitos')">Revisar depósitos</button>
-        <button onclick="alert('Configuraciones abiertas')">Configuración</button>
-        <button onclick="alert('Cerrar sesión')">Cerrar sesión</button>
-      </div>
-    </div>
-  </main>
+  </main>  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>  <script>
+    let modoSeguro = false;
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    // Crear mapa centrado en Cuba
+    function toggleModoSeguro() {
+      modoSeguro = !modoSeguro;
+      document.getElementById("estadoModo").textContent = modoSeguro ? "Modo seguro ACTIVADO (solo lectura)" : "Modo seguro DESACTIVADO";
+    }
+
+    function cambiarRol() {
+      const rol = document.getElementById("selectorRol").value;
+      document.getElementById("rolActual").textContent = rol === "dueno" ? "Dueño" : "Empleado";
+
+      // Mostrar u ocultar acciones según el rol
+      const acciones = document.getElementById("accionesLista");
+      if (rol === "empleado") {
+        acciones.innerHTML = `
+          <li>Revisar solicitudes</li>
+          <li>Reportar incidencias</li>
+        `;
+      } else {
+        acciones.innerHTML = `
+          <li>Revisar solicitudes en tiempo real</li>
+          <li>Consultar historial de viajes</li>
+          <li>Evaluar desempeño de chóferes</li>
+          <li>Gestionar reportes y quejas</li>
+          <li>Expulsar o bonificar chóferes</li>
+        `;
+      }
+    }
+
+    // Simular mapa con varios puntos de Cuba
     document.addEventListener("DOMContentLoaded", function () {
-      const map = L.map('map').setView([21.5, -79.5], 6); // Coordenadas centro de Cuba
+      const map = L.map("map").setView([21.5218, -79.6814], 6);
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap contributors"
       }).addTo(map);
 
-      // Puedes añadir marcadores si lo deseas por provincias
-      // Ejemplo:
-      // L.marker([23.13, -82.38]).addTo(map).bindPopup("La Habana").openPopup();
-    });
-  </script>
+      const ciudades = [
+        { nombre: "La Habana", lat: 23.1136, lon: -82.3666 },
+        { nombre: "Santiago de Cuba", lat: 20.025, lon: -75.8213 },
+        { nombre: "Santa Clara", lat: 22.4069, lon: -79.9643 },
+        { nombre: "Camagüey", lat: 21.3833, lon: -77.9167 },
+        { nombre: "Holguín", lat: 20.8872, lon: -76.2631 }
+      ];
 
-</body>
+      ciudades.forEach(c => {
+        L.marker([c.lat, c.lon]).addTo(map).bindPopup(`Chófer en ${c.nombre}`);
+      });
+    });
+  </script></body>
 </html>
