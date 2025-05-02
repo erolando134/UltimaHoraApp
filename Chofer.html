@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Panel del Chófer - Última Hora</title>
   <style>
     body {
@@ -44,14 +44,9 @@
       font-weight: bold;
       color: #e65100;
     }
-<button onclick="solicitarUbicacion()">Solicitar ubicación al cliente</button>
-<p id="respuestaUbicacion"></p>  
-  <h3>Ubicación del Cliente:</h3>
-<div id="ubicacionCliente"></div>  
   </style>
 </head>
-<bodylínea??
-  <div id="map" style="height: 300px; width: 100%; margin-top: 20px;"></div>
+<body>
   <header>
     <h1>Última Hora - Panel del Chófer</h1>
   </header>
@@ -67,45 +62,34 @@
       <p class="estado">Depósito actual: $850</p>
       <p class="estado">Última recarga: 29 de abril</p>
       <p class="estado">Recuerde: debe recargar el mismo día del mes o será desactivado automáticamente.</p>
+
+      <button onclick="solicitarUbicacion()">Solicitar ubicación al cliente</button>
+      <div id="ubicacionCliente" style="margin-top: 1rem;"></div>
     </div>
   </main>
- <script>
-  // Revisar si el cliente ya envió su ubicación
-  const ubicacion = localStorage.getItem("ubicacionCliente");
 
-  if (ubicacion) {
-    document.getElementById("infoUbicacion").textContent = ubicacion;
-  } else {
-    document.getElementById("infoUbicacion").textContent = "No disponible o aún no enviada.";
-    <div id="ubicacionCliente">
-  <h3>Ubicación del cliente:</h3>
-  <p id="latitud"></p>
-  <p id="longitud"></p>
-</div>
-  }
-</script>
   <script>
-  window.onload = function() {
-    const ubicacion = localStorage.getItem("ubicacionCliente");
-    if (ubicacion) {
-      const { lat, lon } = JSON.parse(ubicacion);
-      const enlace = `https://www.google.com/maps?q=${lat},${lon}`;
-      document.getElementById("ubicacionCliente").innerHTML = `
-        <p>Ubicación recibida: <a href="${enlace}" target="_blank">Ver en Google Maps</a></p>
-      `;
-    } else {
-      document.getElementById("ubicacionCliente").textContent = "Ubicación no disponible o no compartida.";
+    function solicitarUbicacion() {
+      alert("Se solicitó la ubicación al cliente (esto es solo una simulación).");
     }
-  };
-</script> 
-  const ubicacion = localStorage.getItem("ubicacionCliente");
-  if (ubicacion) {
-    const datos = JSON.parse(ubicacion);
-    document.getElementById("latitud").textContent = "Latitud: " + datos.lat;
-    document.getElementById("longitud").textContent = "Longitud: " + datos.lon;
-  } else {
-    document.getElementById("ubicacionCliente").innerHTML = "<p>El cliente no ha compartido su ubicación.</p>";
-  }
-</script>
+
+    window.onload = function() {
+      const ubicacion = localStorage.getItem("ubicacionCliente");
+      const div = document.getElementById("ubicacionCliente");
+
+      if (ubicacion) {
+        const datos = JSON.parse(ubicacion);
+        const enlace = `https://www.google.com/maps?q=${datos.lat},${datos.lon}`;
+        div.innerHTML = `
+          <p>Ubicación recibida:</p>
+          <p>Latitud: ${datos.lat}</p>
+          <p>Longitud: ${datos.lon}</p>
+          <p><a href="${enlace}" target="_blank">Ver en Google Maps</a></p>
+        `;
+      } else {
+        div.innerHTML = "<p>El cliente no ha compartido su ubicación.</p>";
+      }
+    };
+  </script>
 </body>
 </html>
