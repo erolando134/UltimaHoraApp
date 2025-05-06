@@ -1,1 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seguridad - Última Hora</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #b71c1c;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .contenedor {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    input[type="password"],
+    input[type="text"] {
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      padding: 0.8rem;
+      margin-top: 1rem;
+      width: 100%;
+      background-color: #d32f2f;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #b71c1c;
+    }
+
+    .seccion-segura {
+      display: none;
+      margin-top: 2rem;
+    }
+
+    .alerta {
+      margin-top: 1rem;
+      color: green;
+    }
+
+    .oculto {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Centro de Seguridad - Última Hora</h1>
+</header>
+
+<div class="contenedor">
+  <h2>Acceso restringido</h2>
+  <input type="password" id="claveSeguridad" placeholder="Ingresa tu clave de seguridad" />
+  <button onclick="verificarAcceso()">Entrar</button>
+
+  <div id="seccionSegura" class="seccion-segura">
+    <h2>Panel de Seguridad del Dueño</h2>
+
+    <h3>Información de tarjeta bancaria</h3>
+    <input type="text" id="numeroTarjeta" placeholder="Número de tarjeta actual">
+    <input type="text" id="nombreTitular" placeholder="Nombre del titular">
+    <button onclick="guardarTarjeta()">Guardar Cambios</button>
+
+    <h3>Control de ingresos</h3>
+    <p>Saldo diario: <strong id="saldoDia">₱0</strong></p>
+    <p>Saldo mensual: <strong id="saldoMes">₱0</strong></p>
+    <p>Saldo anual: <strong id="saldoAno">₱0</strong></p>
+
+    <h3>Respaldo y recuperación</h3>
+    <button onclick="activarRespaldo()">Activar modo seguro</button>
+    <button onclick="bloquearTodo()">Bloquear app remotamente</button>
+    
+    <div class="alerta" id="mensajeEstado"></div>
+  </div>
+</div>
+
+<script>
+  const CLAVE_DUENO = "MiClave123Segura!"; // Cambia esta clave por una personal
+  const AUTORIZADO = true; // Simula que estás accediendo desde tu móvil
+  let saldoDiario = 850;
+  let saldoMensual = 16250;
+  let saldoAnual = 183000;
+
+  function verificarAcceso() {
+    const clave = document.getElementById("claveSeguridad").value;
+    const panel = document.getElementById("seccionSegura");
+    const estado = document.getElementById("mensajeEstado");
+
+    if (clave === CLAVE_DUENO && AUTORIZADO) {
+      panel.style.display = "block";
+      estado.innerText = "Acceso seguro concedido.";
+      document.getElementById("saldoDia").innerText = `₱${saldoDiario}`;
+      document.getElementById("saldoMes").innerText = `₱${saldoMensual}`;
+      document.getElementById("saldoAno").innerText = `₱${saldoAnual}`;
+    } else {
+      alert("Acceso denegado. Este dispositivo no está autorizado.");
+      bloquearTodo();
+    }
+  }
+
+  function guardarTarjeta() {
+    const numero = document.getElementById("numeroTarjeta").value;
+    const nombre = document.getElementById("nombreTitular").value;
+
+    if (numero && nombre) {
+      alert("Información de tarjeta actualizada.");
+      // Aquí guardarías la nueva tarjeta al backend
+    } else {
+      alert("Debes ingresar ambos campos.");
+    }
+  }
+
+  function activarRespaldo() {
+    alert("Modo seguro activado. Tus datos están protegidos aunque pierdas el acceso.");
+    // Simularía guardar la configuración de respaldo
+  }
+
+  function bloquearTodo() {
+    alert("TODOS LOS ACCESOS han sido bloqueados remotamente.");
+    // Simular bloqueo general desde backend
+    // Por seguridad podrías incluso cerrar la sesión automáticamente
+  }
+</script>
+
+</body>
+</html>
 
