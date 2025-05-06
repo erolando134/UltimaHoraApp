@@ -6,34 +6,39 @@ body {
   padding: 0;
 }
 
-/* Encabezado y menú */
+/* Encabezado */
 header {
   background-color: #1e1e1e;
-  padding: 10px 0;
   color: #fff;
+  padding: 20px;
+  text-align: center;
 }
 
+/* Estilo del menú */
 .menu {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   max-width: 900px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 10px 20px;
 }
 
 .menu .logo {
   font-size: 24px;
   font-weight: bold;
   color: #ffce00;
+  margin-bottom: 10px;
 }
 
 .menu-links {
   list-style: none;
   display: flex;
-  gap: 15px;
-  margin: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   padding: 0;
+  margin: 0;
 }
 
 .menu-links li a {
@@ -58,8 +63,7 @@ header {
 }
 
 /* Botones */
-button,
-.btn {
+button, .btn {
   background-color: #009688;
   color: white;
   border: none;
@@ -68,8 +72,7 @@ button,
   cursor: pointer;
 }
 
-button:hover,
-.btn:hover {
+button:hover, .btn:hover {
   background-color: #00796b;
 }
 
@@ -84,6 +87,7 @@ th, td {
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #ccc;
+  word-wrap: break-word;
 }
 
 /* Mensajes o alertas */
@@ -102,4 +106,20 @@ footer {
   background-color: #eee;
   margin-top: 40px;
   font-size: 0.9em;
+}
+
+/* Responsive: mejora para pantallas pequeñas */
+@media (min-width: 600px) {
+  .menu {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .menu .logo {
+    margin-bottom: 0;
+  }
+
+  .menu-links {
+    flex-direction: row;
+  }
 }
