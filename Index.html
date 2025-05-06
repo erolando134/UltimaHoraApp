@@ -3,213 +3,106 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Última Hora - Solicita tu viaje</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <title>Última Hora - Plataforma de Transporte</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f0f0f0;
+      background: #f2f2f2;
       margin: 0;
       padding: 0;
     }
+
     header {
       background-color: #212121;
       color: white;
-      padding: 1rem;
+      padding: 2rem;
       text-align: center;
     }
+
     main {
       padding: 2rem;
+      text-align: center;
     }
-    .formulario {
-      background: #fff;
-      padding: 2rem;
-      border-radius: 10px;
-      max-width: 500px;
-      margin: auto;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-    label {
+
+    .btn {
       display: block;
-      margin-top: 1rem;
-    }
-    input, select {
-      width: 100%;
-      padding: 0.8rem;
-      margin-top: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    button {
       background-color: #ff6f00;
       color: white;
       padding: 1rem;
-      border: none;
-      border-radius: 5px;
-      margin-top: 1.5rem;
-      cursor: pointer;
-      width: 100%;
+      margin: 1rem auto;
+      width: 90%;
+      max-width: 400px;
+      font-size: 1.2rem;
+      text-decoration: none;
+      border-radius: 8px;
       font-weight: bold;
+      cursor: pointer;
     }
-    button:hover {
+
+    .btn:hover {
       background-color: #e65100;
     }
-    #map {
-      height: 300px;
+
+    .section {
       margin-top: 2rem;
-      border-radius: 10px;
-    }
-    .notificacion {
-      display: none;
       padding: 1rem;
+      background-color: #ffffff;
+      border-radius: 8px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
       margin-top: 1rem;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.8rem;
       text-align: center;
-      border-radius: 5px;
     }
-    .exito {
-      background-color: #4caf50;
-      color: white;
+
+    th {
+      background-color: #eeeeee;
     }
-    .error {
-      background-color: #f44336;
-      color: white;
+
+    .tarjeta {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      background-color: #fff3e0;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 2px solid #ffa726;
+      display: inline-block;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Última Hora - Solicita tu Viaje</h1>
+    <h1>Última Hora</h1>
+    <p>Tu plataforma para viajes urbanos, interprovinciales, excursiones y transporte de carga</p>
   </header>
 
   <main>
-    <div class="formulario">
-      <h2>Formulario de Solicitud</h2>
-      <form id="formViaje">
-        <label for="nombre">Nombre completo</label>
-        <input type="text" id="nombre" name="nombre" required minlength="3"/>
+    <a class="btn" href="cliente.html">Clientes - Solicita tu Viaje</a>
+    <a class="btn" href="choferes.html">Chóferes por Modalidad</a>
+    <a class="btn" href="tarifas.html">Tipos de Tarifas y Contratos</a>
 
-        <label for="origen">Dirección de origen</label>
-        <input type="text" id="origen" name="origen" required/>
-
-        <label for="destino">Dirección de destino</label>
-        <input type="text" id="destino" name="destino" required/>
-
-        <label for="tipo">Tipo de viaje</label>
-        <select id="tipo" name="tipo" required>
-          <option value="" disabled selected>Selecciona una opción</option>
-          <option value="local">Local</option>
-          <option value="interprovincial">Interprovincial</option>
-          <option value="excursion">Excursión</option>
-          <option value="carga">Transporte de carga</option>
-        </select>
-
-        <button type="submit">Solicitar</button>
-      </form>
-      <div id="notiExito" class="notificacion exito">Formulario enviado y guardado.</div>
-      <div id="notiError" class="notificacion error">Error al enviar. Guardado en archivo.</div>
+    <div class="section">
+      <h2>Número de Tarjeta para Depósitos</h2>
+      <div class="tarjeta">9227 9598 7147 8801</div>
+      <p>Recuerda que el depósito es necesario para activar tu acceso a los servicios.</p>
     </div>
-
-    <div style="text-align: center; margin-top: 2rem;">
-      <p>¿Deseas compartir tu ubicación con el chófer?</p>
-      <button onclick="enviarUbicacion()">Sí, compartir ubicación</button>
-      <p id="estadoUbicacion">Esperando acción del usuario...</p>
-    </div>
-
-    <div id="map"></div>
   </main>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    // Mostrar mapa con ubicación actual
-    document.addEventListener("DOMContentLoaded", () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(pos => {
-          const lat = pos.coords.latitude;
-          const lon = pos.coords.longitude;
-          const map = L.map('map').setView([lat, lon], 15);
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-          }).addTo(map);
-          L.marker([lat, lon]).addTo(map).bindPopup("Tu ubicación actual").openPopup();
-        });
-      }
-    });
-
-    // Guardar respaldo como archivo si falla el envío
-    function guardarArchivo(datos) {
-      const blob = new Blob([JSON.stringify(datos, null, 2)], { type: 'text/plain' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'respaldo_solicitud.txt';
-      a.click();
-    }
-
-    // Compartir ubicación
-    function enviarUbicacion() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(pos => {
-          const lat = pos.coords.latitude.toFixed(6);
-          const lon = pos.coords.longitude.toFixed(6);
-          const ubicacion = `Lat: ${lat}, Lon: ${lon}`;
-          localStorage.setItem("ubicacionCliente", ubicacion);
-          document.getElementById("estadoUbicacion").textContent = "Ubicación compartida.";
-        }, () => {
-          document.getElementById("estadoUbicacion").textContent = "No se pudo obtener ubicación.";
-        });
-      }
-    }
-
-    // Enviar datos
-    document.getElementById("formViaje").addEventListener("submit", e => {
-      e.preventDefault();
-
-      const datos = {
-        nombre: document.getElementById("nombre").value,
-        origen: document.getElementById("origen").value,
-        destino: document.getElementById("destino").value,
-        tipo: document.getElementById("tipo").value,
-        ubicacion: localStorage.getItem("ubicacionCliente") || "No compartida"
-      };
-
-      // Guardar local
-      localStorage.setItem("datosViaje", JSON.stringify(datos));
-
-      // Enviar al servidor
-      fetch("https://tuservidor.com/api/solicitud", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(datos)
-      })
-      .then(resp => {
-        if (!resp.ok) throw new Error("Respuesta no válida");
-        document.getElementById("notiExito").style.display = "block";
-        document.getElementById("notiError").style.display = "none";
-      })
-      .catch(() => {
-        document.getElementById("notiExito").style.display = "none";
-        document.getElementById("notiError").style.display = "block";
-        guardarArchivo(datos);
-      });
-    });
-
-    // Auto-reintento de envío al recuperar conexión
-    window.addEventListener("online", () => {
-      const datos = localStorage.getItem("datosViaje");
-      if (datos) {
-        fetch("https://tuservidor.com/api/solicitud", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: datos
-        })
-        .then(resp => {
-          if (resp.ok) {
-            localStorage.removeItem("datosViaje");
-            console.log("Reenvío automático exitoso.");
-          }
-        });
-      }
-    });
-  </script>
 </body>
 </html>
