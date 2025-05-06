@@ -28,7 +28,7 @@
       box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
     }
 
-    h2 {
+    h2, h3 {
       margin-top: 1rem;
     }
 
@@ -72,7 +72,28 @@
       margin-top: 1rem;
       color: green;
     }
+
+    .tabla-finanzas {
+      margin-top: 1rem;
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .tabla-finanzas th,
+    .tabla-finanzas td {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    .tabla-finanzas th {
+      background-color: #e3e3e3;
+    }
   </style>
+
+  <!-- Librerías para exportar -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 
@@ -94,19 +115,57 @@
     <button onclick="enviarActualizacion()">Montar actualización</button>
 
     <h3>Gestión técnica y ajustes con IA</h3>
-    <a class="enlace-externo" href="https://chat.openai.com/" target="_blank">
-      Acceder al soporte con IA
-    </a>
+    <a class="enlace-externo" href="https://chat.openai.com/" target="_blank">Acceder al soporte con IA</a>
 
     <h3>Control delegado</h3>
     <p>Este panel puede compartirse con empleados para operaciones generales. No muestra información sensible.</p>
+
+    <h3>Resumen financiero</h3>
+    <table class="tabla-finanzas">
+      <thead>
+        <tr>
+          <th>Modalidad</th>
+          <th>Monto (CUP)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Taxi Local</td><td id="montoLocal">3500</td></tr>
+        <tr><td>Interprovincial</td><td id="montoInter">4600</td></tr>
+        <tr><td>Carga</td><td id="montoCarga">2100</td></tr>
+        <tr><td>Excursiones</td><td id="montoExc">1300</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Saldos</h4>
+    <ul>
+      <li>Saldo Diario: <span id="saldoDia">600</span> CUP</li>
+      <li>Saldo Mensual: <span id="saldoMes">12500</span> CUP</li>
+      <li>Saldo Anual: <span id="saldoAnual">142300</span> CUP</li>
+    </ul>
+
+    <h3>Exportar Reportes</h3>
+    <button onclick="exportarExcel()">Exportar a Excel</button>
+    <button onclick="exportarPDF()">Exportar a PDF</button>
 
     <div class="alerta" id="mensajeEstado"></div>
   </div>
 </div>
 
 <script>
-  const CONTRASEÑA_ADMIN = "admin123"; // Reemplaza con tu clave segura
+  const CONTRASEÑA_ADMIN = "admin123"; // Cambiar por una clave segura
+
+  const datosFacturacion = {
+    local: 3500,
+    inter: 4600,
+    carga: 2100,
+    excursiones: 1300
+  };
+
+  const saldo = {
+    dia: 600,
+    mes: 12500,
+    año: 142300
+  };
 
   function verificarClave() {
     const clave = document.getElementById("claveAdmin").value;
@@ -129,13 +188,62 @@
     const hora = prompt("¿A qué hora será el mantenimiento?");
     if (hora) {
       alert(`Mantenimiento programado para las ${hora}. Los usuarios serán notificados.`);
-      // Aquí iría lógica de backend para notificar a clientes y chóferes
+      // Aquí iría la lógica de backend
     }
   }
 
   function enviarActualizacion() {
     alert("Actualización cargada correctamente.");
-    // Aquí se conectaría con el sistema de despliegue o backend real
+    // Aquí se conectaría con sistema de despliegue real
+  }
+
+  function exportarExcel() {
+    const data = [
+      ["Modalidad", "Monto"],
+      ["Taxi Local", datosFacturacion.local],
+      ["Interprovincial", datosFacturacion.inter],
+      ["Carga", datosFacturacion.carga],
+      ["Excursiones", datosFacturacion.excursiones],
+      ["", ""],
+      ["Resumen de Saldos", ""],
+      ["Saldo Diario", saldo.dia],
+      ["Saldo Mensual", saldo.mes],
+      ["Saldo Anual", saldo.año]
+    ];
+
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Finanzas");
+    XLSX.writeFile(wb, "resumen_finanzas.xlsx");
+  }
+
+  async function exportarPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFontSize(14);
+    doc.text("Resumen de Finanzas - Última Hora", 10, 10);
+
+    let y = 20;
+    doc.setFontSize(12);
+
+    const entries = [
+      ["Taxi Local", datosFacturacion.local],
+      ["Interprovincial", datosFacturacion.inter],
+      ["Carga", datosFacturacion.carga],
+      ["Excursiones", datosFacturacion.excursiones],
+      ["", ""],
+      ["Saldo Diario", saldo.dia],
+      ["Saldo Mensual", saldo.mes],
+      ["Saldo Anual", saldo.año]
+    ];
+
+    entries.forEach(([label, value]) => {
+      doc.text(`${label}: $${value}`, 10, y);
+      y += 10;
+    });
+
+    doc.save("resumen_finanzas.pdf");
   }
 </script>
 
