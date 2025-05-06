@@ -6,13 +6,7 @@ body {
   padding: 0;
 }
 
-/* Encabezado */
-header {
-  background-color: #222;
-  color: white;
-  padding: 20px;
-  text-align: center;
- /* Estilo del menú */
+/* Encabezado y menú */
 header {
   background-color: #1e1e1e;
   padding: 10px 0;
@@ -51,7 +45,6 @@ header {
 
 .menu-links li a:hover {
   color: #ffce00;
-} 
 }
 
 /* Contenedor principal */
@@ -65,7 +58,8 @@ header {
 }
 
 /* Botones */
-button, .btn {
+button,
+.btn {
   background-color: #009688;
   color: white;
   border: none;
@@ -74,7 +68,8 @@ button, .btn {
   cursor: pointer;
 }
 
-button:hover, .btn:hover {
+button:hover,
+.btn:hover {
   background-color: #00796b;
 }
 
