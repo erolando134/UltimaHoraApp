@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Última Hora - Plataforma de Transporte</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background: #f2f2f2;
@@ -36,7 +40,7 @@
       text-decoration: none;
       border-radius: 8px;
       font-weight: bold;
-      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
     .btn:hover {
@@ -45,7 +49,7 @@
 
     .section {
       margin-top: 2rem;
-      padding: 1rem;
+      padding: 1.5rem;
       background-color: #ffffff;
       border-radius: 8px;
       max-width: 700px;
@@ -58,30 +62,25 @@
       margin-top: 0;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-    }
-
-    th, td {
-      border: 1px solid #ccc;
-      padding: 0.8rem;
-      text-align: center;
-    }
-
-    th {
-      background-color: #eeeeee;
-    }
-
     .tarjeta {
       margin-top: 1rem;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       background-color: #fff3e0;
       padding: 1rem;
       border-radius: 8px;
       border: 2px solid #ffa726;
       display: inline-block;
+    }
+
+    @media (max-width: 600px) {
+      .btn {
+        font-size: 1rem;
+        padding: 0.8rem;
+      }
+
+      .tarjeta {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
