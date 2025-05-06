@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,52 +55,87 @@
     button:hover {
       background-color: #e65100;
     }
+    .alerta {
+      background-color: #fff3cd;
+      border-left: 5px solid #ffa000;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      color: #856404;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Panel del Chófer - Última Hora</h1>
-  </header>  <main>
+  </header>
+  <main>
     <div id="infoChofer" class="seccion">
       <h2>Información general</h2>
       <p><strong>Nombre:</strong> Juan Pérez</p>
       <p><strong>Tipo de chófer:</strong> <span id="tipoChoferTexto">Cargando...</span></p>
-    </div><div id="seccionLocal" class="seccion" style="display: none;">
-  <h2>Servicios de Taxi Local</h2>
-  <p>Aquí aparecerán los viajes locales disponibles.</p>
-</div>
+      <p><strong>Saldo actual:</strong> <span id="saldoActual">1500</span> CUP</p>
+      <div id="alertaSaldo" class="alerta" style="display: none;">
+        Tu saldo es insuficiente para cubrir el 10% de la próxima carrera. Por favor, recarga tu depósito.
+      </div>
+    </div>
 
-<div id="seccionInter" class="seccion" style="display: none;">
-  <h2>Viajes Interprovinciales</h2>
-  <p>Controla tus salidas, llegadas y horarios de regreso.</p>
-</div>
+    <div id="seccionLocal" class="seccion" style="display: none;">
+      <h2>Servicios de Taxi Local</h2>
+      <p>Aquí aparecerán los viajes locales disponibles.</p>
+    </div>
 
-<div id="seccionCarga" class="seccion" style="display: none;">
-  <h2>Transporte de Carga</h2>
-  <label for="tipoCarga">Tipo de carga</label>
-  <input type="text" id="tipoCarga" placeholder="Ej. alimentos, materiales...">
+    <div id="seccionInter" class="seccion" style="display: none;">
+      <h2>Viajes Interprovinciales</h2>
+      <p>Controla tus salidas, llegadas y horarios de regreso.</p>
+    </div>
 
-  <label for="peso">Peso aproximado (kg)</label>
-  <input type="number" id="peso" placeholder="Ej. 500">
-</div>
+    <div id="seccionCarga" class="seccion" style="display: none;">
+      <h2>Transporte de Carga</h2>
+      <label for="tipoCarga">Tipo de carga</label>
+      <input type="text" id="tipoCarga" placeholder="Ej. alimentos, materiales...">
 
-<div id="seccionExcursion" class="seccion" style="display: none;">
-  <h2>Excursiones</h2>
-  <p>Lista de excursiones programadas y reservas asignadas.</p>
-</div>
+      <label for="peso">Peso aproximado (kg)</label>
+      <input type="number" id="peso" placeholder="Ej. 500">
+    </div>
 
-<div class="seccion">
-  <button onclick="cerrarSesion()">Cerrar sesión</button>
-</div>
+    <div id="seccionExcursion" class="seccion" style="display: none;">
+      <h2>Excursiones</h2>
+      <p>Lista de excursiones programadas y reservas asignadas.</p>
+    </div>
 
-  </main>  <script>
-    // Simulamos el tipo de chófer (esto debe venir del login real en el futuro)
+    <div id="seccionControl" class="seccion">
+      <h2>Control de Viajes</h2>
+      <label for="montoViaje">Monto del viaje (CUP)</label>
+      <input type="number" id="montoViaje" placeholder="Ej. 1000" />
+
+      <button onclick="registrarViaje()">Registrar viaje</button>
+      <p id="resultadoViaje"></p>
+    </div>
+
+    <div id="seccionOpiniones" class="seccion">
+      <h2>Opiniones del servicio</h2>
+      <p>Última calificación: <strong>Excelente</strong></p>
+      <button onclick="aplicarExencion()">Aplicar exención por buena opinión</button>
+      <p id="resultadoExencion"></p>
+    </div>
+
+    <div class="seccion">
+      <button onclick="cerrarSesion()">Cerrar sesión</button>
+    </div>
+  </main>
+
+  <script>
     let tipoChofer = localStorage.getItem("tipoChofer") || "local";
+    let saldo = parseFloat(localStorage.getItem("saldoChofer")) || 1500;
+    let exencionUsada = localStorage.getItem("exencionUsada") === "true";
 
-    // Mostramos el tipo textual
     document.getElementById("tipoChoferTexto").textContent = tipoChofer.charAt(0).toUpperCase() + tipoChofer.slice(1);
+    document.getElementById("saldoActual").textContent = saldo.toFixed(2);
 
-    // Mostrar solo la sección correspondiente
+    if (saldo < 100) {
+      document.getElementById("alertaSaldo").style.display = "block";
+    }
+
     switch(tipoChofer) {
       case "local":
         document.getElementById("seccionLocal").style.display = "block";
@@ -113,14 +149,56 @@
       case "excursion":
         document.getElementById("seccionExcursion").style.display = "block";
         break;
-      default:
-        console.warn("Tipo de chófer no reconocido");
+    }
+
+    function registrarViaje() {
+      let monto = parseFloat(document.getElementById("montoViaje").value);
+      let descuento = exencionUsada ? 0 : monto * 0.10;
+
+      if (isNaN(monto) || monto <= 0) {
+        alert("Introduce un monto válido.");
+        return;
+      }
+
+      if (saldo < descuento) {
+        document.getElementById("resultadoViaje").textContent = "Saldo insuficiente para registrar el viaje.";
+        return;
+      }
+
+      saldo -= descuento;
+      localStorage.setItem("saldoChofer", saldo.toFixed(2));
+      document.getElementById("saldoActual").textContent = saldo.toFixed(2);
+      document.getElementById("resultadoViaje").textContent = exencionUsada
+        ? "Viaje registrado sin descuento. (Exención aplicada)"
+        : `Viaje registrado. Se descontaron ${descuento.toFixed(2)} CUP.`;
+      
+      exencionUsada = false;
+      localStorage.setItem("exencionUsada", "false");
+
+      if (saldo < 100) {
+        document.getElementById("alertaSaldo").style.display = "block";
+      } else {
+        document.getElementById("alertaSaldo").style.display = "none";
+      }
+    }
+
+    function aplicarExencion() {
+      if (exencionUsada) {
+        document.getElementById("resultadoExencion").textContent = "Ya has usado tu exención.";
+      } else {
+        exencionUsada = true;
+        localStorage.setItem("exencionUsada", "true");
+        document.getElementById("resultadoExencion").textContent = "Exención activada para el próximo viaje.";
+      }
     }
 
     function cerrarSesion() {
       localStorage.removeItem("tipoChofer");
+      localStorage.removeItem("saldoChofer");
+      localStorage.removeItem("exencionUsada");
       alert("Sesión cerrada.");
-      window.location.href = "index.html"; // Redirige al inicio
+      window.location.href = "index.html";
     }
-  </script></body>
+  </script>
+</body>
 </html>
