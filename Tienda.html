@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tienda - Última Hora</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    h1 {
+      color: #222;
+    }
+    .seccion {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    label, input, textarea, select, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    input, textarea, select {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .advertencia {
+      color: red;
+      font-weight: bold;
+    }
+    .chat-box {
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    .mensaje {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tienda - Última Hora</h1>
+
+  <div class="seccion">
+    <p class="advertencia">
+      Sólo se permite publicar autos, piezas o partes de vehículos. Si publicas otro tipo de artículo, la plataforma bloqueará tu acceso, aunque hayas pagado.
+    </p>
+    <p>
+      El costo de publicación es de <strong>100 CUP</strong>. Realiza el pago a la tarjeta: <strong>9227 9598 7147 8801</strong> usando Transfermóvil.
+    </p>
+  </div>
+
+  <div class="seccion">
+    <h2>Publicar artículo</h2>
+    <form id="formularioPublicacion">
+      <label for="tipo">Tipo de artículo:</label>
+      <select id="tipo" required>
+        <option value="">Seleccionar</option>
+        <option value="auto">Auto</option>
+        <option value="pieza">Pieza</option>
+        <option value="parte">Parte</option>
+      </select>
+
+      <label for="descripcion">Descripción del artículo:</label>
+      <textarea id="descripcion" rows="4" required></textarea>
+
+      <label for="numeroTransferencia">Número de transferencia (de Transfermóvil):</label>
+      <input type="text" id="numeroTransferencia" required>
+
+      <label for="telefonoVendedor">Tu teléfono:</label>
+      <input type="tel" id="telefonoVendedor" required>
+
+      <button type="submit">Publicar</button>
+    </form>
+    <div id="mensajeResultado"></div>
+  </div>
+
+  <div class="seccion">
+    <h2>Artículos publicados</h2>
+    <div id="listaPublicaciones"></div>
+  </div>
+
+  <div class="seccion">
+    <h2>Chat comprador - vendedor</h2>
+    <div class="chat-box" id="chatBox"></div>
+    <input type="text" id="mensajeChat" placeholder="Escribe tu mensaje...">
+    <button onclick="enviarMensaje()">Enviar</button>
+  </div>
+
+  <div class="seccion">
+    <h2>Configuración de tarjeta (solo dueño)</h2>
+    <label for="nuevaTarjeta">Cambiar número de tarjeta:</label>
+    <input type="text" id="nuevaTarjeta" placeholder="Solo dueño autorizado">
+    <button onclick="cambiarTarjeta()">Actualizar tarjeta</button>
+    <p id="tarjetaActual">Tarjeta actual: <strong id="tarjetaNumero">9227 9598 7147 8801</strong></p>
+  </div>
+
+  <script>
+    let tarjetaActual = "9227 9598 7147 8801";
+
+    document.getElementById('formularioPublicacion').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const tipo = document.getElementById('tipo').value.toLowerCase();
+      const descripcion = document.getElementById('descripcion').value;
+      const transferencia = document.getElementById('numeroTransferencia').value;
+      const telefono = document.getElementById('telefonoVendedor').value;
+
+      if (!["auto", "pieza", "parte"].includes(tipo)) {
+        document.getElementById('mensajeResultado').innerHTML = '<p class="advertencia">Tipo de artículo no permitido. Acceso bloqueado.</p>';
+        return;
+      }
+
+      if (!transferencia.startsWith("NM")) {
+        document.getElementById('mensajeResultado').innerHTML = '<p class="advertencia">Número de transferencia inválido.</p>';
+        return;
+      }
+
+      const articuloHTML = `
+        <div class="articulo">
+          <p><strong>Tipo:</strong> ${tipo}</p>
+          <p><strong>Descripción:</strong> ${descripcion}</p>
+          <p><strong>Teléfono:</strong> ${telefono}</p>
+        </div>
+      `;
+
+      document.getElementById('listaPublicaciones').innerHTML += articuloHTML;
+      document.getElementById('mensajeResultado').innerHTML = '<p style="color: green;">Artículo publicado con éxito.</p>';
+      this.reset();
+    });
+
+    function enviarMensaje() {
+      const mensaje = document.getElementById('mensajeChat').value;
+      if (mensaje.trim() === '') return;
+      const div = document.createElement('div');
+      div.className = 'mensaje';
+      div.textContent = 'Tú: ' + mensaje;
+      document.getElementById('chatBox').appendChild(div);
+      document.getElementById('mensajeChat').value = '';
+    }
+
+    function cambiarTarjeta() {
+      const nueva = document.getElementById('nuevaTarjeta').value;
+      if (nueva.length >= 16) {
+        tarjetaActual = nueva;
+        document.getElementById('tarjetaNumero').textContent = tarjetaActual;
+        alert("Número de tarjeta actualizado.");
+      } else {
+        alert("Número inválido.");
+      }
+    }
+  </script>
+</body>
+</html>
