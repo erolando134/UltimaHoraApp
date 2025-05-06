@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Última Hora - Panel del Chófer</title>
   <link rel="stylesheet" href="style.css" />
   <style>
@@ -62,12 +62,33 @@
       margin-bottom: 1rem;
       color: #856404;
     }
+    nav {
+      background-color: #333;
+      padding: 0.5rem;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Panel del Chófer - Última Hora</h1>
   </header>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="chofer.html">Chófer</a>
+    <a href="cliente.html">Cliente</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+
   <main>
     <div id="infoChofer" class="seccion">
       <h2>Información general</h2>
@@ -93,7 +114,6 @@
       <h2>Transporte de Carga</h2>
       <label for="tipoCarga">Tipo de carga</label>
       <input type="text" id="tipoCarga" placeholder="Ej. alimentos, materiales...">
-
       <label for="peso">Peso aproximado (kg)</label>
       <input type="number" id="peso" placeholder="Ej. 500">
     </div>
@@ -107,7 +127,6 @@
       <h2>Control de Viajes</h2>
       <label for="montoViaje">Monto del viaje (CUP)</label>
       <input type="number" id="montoViaje" placeholder="Ej. 1000" />
-
       <button onclick="registrarViaje()">Registrar viaje</button>
       <p id="resultadoViaje"></p>
     </div>
@@ -171,15 +190,11 @@
       document.getElementById("resultadoViaje").textContent = exencionUsada
         ? "Viaje registrado sin descuento. (Exención aplicada)"
         : `Viaje registrado. Se descontaron ${descuento.toFixed(2)} CUP.`;
-      
+
       exencionUsada = false;
       localStorage.setItem("exencionUsada", "false");
 
-      if (saldo < 100) {
-        document.getElementById("alertaSaldo").style.display = "block";
-      } else {
-        document.getElementById("alertaSaldo").style.display = "none";
-      }
+      document.getElementById("alertaSaldo").style.display = saldo < 100 ? "block" : "none";
     }
 
     function aplicarExencion() {
