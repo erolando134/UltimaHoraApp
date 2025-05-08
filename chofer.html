@@ -4,82 +4,50 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Última Hora - Panel del Chófer</title>
+  
+  <!-- Vinculación de CSS -->
   <link rel="stylesheet" href="styles.css" />
+  
+  <!-- Puedes incluir aquí los iconos o fuentes que quieras usar -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Vinculación de JS -->
+  <script src="app.js" defer></script>
 </head>
 <body>
-  <header>
-    <h1>Panel del Chófer - Última Hora</h1>
-  </header>
+  <!-- Aquí va el contenido principal de la página del chófer -->
+  <div class="panel">
+    <header>
+      <h1>Bienvenido al Panel del Chófer</h1>
+      <nav>
+        <ul>
+          <li><a href="#informacion">Información</a></li>
+          <li><a href="#cargarSaldo">Recargar Saldo</a></li>
+          <li><a href="#misViajes">Mis Viajes</a></li>
+        </ul>
+      </nav>
+    </header>
 
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="chofer.html">Chófer</a>
-    <a href="cliente.html">Cliente</a>
-    <a href="admin.html">Admin</a>
-  </nav>
+    <!-- Aquí empiezan las secciones de la página -->
+    <section id="informacion">
+      <h2>Información del Chófer</h2>
+      <p>Nombre: Juan Pérez</p>
+      <p>Saldo Actual: 5000 pesos</p>
+    </section>
 
-  <main>
-    <div id="infoChofer" class="seccion">
-      <h2>Información general</h2>
-      <p><strong>Nombre:</strong> Juan Pérez</p>
-      <p><strong>Tipo de chófer:</strong> <span id="tipoChoferTexto">Cargando...</span></p>
-      <p><strong>Saldo actual:</strong> <span id="saldoActual">1500</span> CUP</p>
-      <div id="alertaSaldo" class="alerta" style="display: none;">
-        Tu saldo es insuficiente para cubrir el 10% de la próxima carrera. Por favor, recarga tu depósito.
-      </div>
-      <!-- Aquí agregamos el número de tarjeta de la cuenta -->
-      <p><strong>Número de tarjeta:</strong> <span id="numeroTarjeta">9227 9598 7147 8801</span></p>
-    </div>
+    <section id="cargarSaldo">
+      <h2>Recargar Saldo</h2>
+      <form action="#">
+        <label for="montoRecarga">Monto a Recargar:</label>
+        <input type="number" id="montoRecarga" name="montoRecarga" min="1" step="any" required />
+        <button type="submit">Recargar</button>
+      </form>
+    </section>
 
-    <!-- Sección de servicios -->
-    <div id="seccionLocal" class="seccion" style="display: none;">
-      <h2>Servicios de Taxi Local</h2>
-      <p>Aquí aparecerán los viajes locales disponibles.</p>
-      <button onclick="recargarSaldo('local')">Recargar Saldo</button>
-    </div>
-
-    <div id="seccionInter" class="seccion" style="display: none;">
-      <h2>Viajes Interprovinciales</h2>
-      <p>Controla tus salidas, llegadas y horarios de regreso.</p>
-      <button onclick="recargarSaldo('interprovincial')">Recargar Saldo</button>
-    </div>
-
-    <div id="seccionCarga" class="seccion" style="display: none;">
-      <h2>Transporte de Carga</h2>
-      <label for="tipoCarga">Tipo de carga</label>
-      <input type="text" id="tipoCarga" placeholder="Ej. alimentos, materiales...">
-      <label for="peso">Peso aproximado (kg)</label>
-      <input type="number" id="peso" placeholder="Ej. 500">
-      <button onclick="recargarSaldo('carga')">Recargar Saldo</button>
-    </div>
-
-    <div id="seccionExcursion" class="seccion" style="display: none;">
-      <h2>Excursiones</h2>
-      <p>Lista de excursiones programadas y reservas asignadas.</p>
-      <button onclick="recargarSaldo('excursion')">Recargar Saldo</button>
-    </div>
-
-    <div id="seccionControl" class="seccion">
-      <h2>Control de Viajes</h2>
-      <label for="montoViaje">Monto del viaje (CUP)</label>
-      <input type="number" id="montoViaje" placeholder="Ej. 1000" />
-      <button onclick="registrarViaje()">Registrar viaje</button>
-      <p id="resultadoViaje"></p>
-    </div>
-
-    <div id="seccionOpiniones" class="seccion">
-      <h2>Opiniones del servicio</h2>
-      <p>Última calificación: <strong>Excelente</strong></p>
-      <button onclick="aplicarExencion()">Aplicar exención por buena opinión</button>
-      <p id="resultadoExencion"></p>
-    </div>
-
-    <div class="seccion">
-      <button onclick="cerrarSesion()">Cerrar sesión</button>
-    </div>
-  </main>
-
-  <script src="app.js"></script>
+    <section id="misViajes">
+      <h2>Mis Viajes</h2>
+      <p>Aquí podrás ver tus viajes y el saldo que se ha descontado por cada uno.</p>
+    </section>
+  </div>
 </body>
 </html>
-
