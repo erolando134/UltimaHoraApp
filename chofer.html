@@ -3,53 +3,98 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Última Hora - Panel del Chófer</title>
-  
-  <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <script src="app.js" defer></script>
+  <title>Última Hora - Chóferes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #212121;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    header img {
+      width: 80px;
+      height: auto;
+      margin-bottom: 1rem;
+    }
+
+    main {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .btn {
+      display: block;
+      background-color: #ff6f00;
+      color: white;
+      padding: 1rem;
+      margin: 1rem auto;
+      width: 90%;
+      max-width: 400px;
+      font-size: 1.2rem;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #e65100;
+    }
+
+    .section {
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #ffffff;
+      border-radius: 8px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    ul {
+      margin-left: 2rem;
+    }
+  </style>
 </head>
 <body>
-  <div class="panel">
-    <header>
-      <h1>Bienvenido al Panel del Chófer</h1>
-      <nav>
-        <ul>
-          <li><a href="#informacion">Información</a></li>
-          <li><a href="#cargarSaldo">Recargar Saldo</a></li>
-          <li><a href="#misViajes">Mis Viajes</a></li>
-          <li><a href="interprovincial.html">Interprovincial</a></li>
-          <li><a href="carga.html">Carga</a></li>
-          <li><a href="excursiones.html">Excursiones</a></li>
-        </ul>
-      </nav>
-    </header>
 
-    <!-- Información del Chófer -->
-    <section id="informacion">
-      <h2>Información del Chófer</h2>
-      <p>Nombre: Juan Pérez</p>
-      <p>Tipo de chófer: Local</p>
-      <p>Saldo Actual: <span id="saldoActual">5000</span> pesos</p>
-    </section>
+  <header>
+    <img src="img/logo.png" alt="Logo Última Hora">
+    <h1>Chóferes</h1>
+    <p>Requisitos y accesos para cada modalidad</p>
+  </header>
 
-    <!-- Recargar Saldo -->
-    <section id="cargarSaldo">
-      <h2>Recargar Saldo</h2>
-      <form id="formRecarga">
-        <label for="montoRecarga">Monto a Recargar:</label>
-        <input type="number" id="montoRecarga" name="montoRecarga" min="1" required />
-        <button type="submit">Recargar</button>
-      </form>
-    </section>
+  <main>
+    <a class="btn" href="interprovincial.html">Viajes Interprovinciales</a>
+    <a class="btn" href="excursiones.html">Excursiones</a>
+    <a class="btn" href="carga.html">Transporte de Carga</a>
 
-    <!-- Mis Viajes -->
-    <section id="misViajes">
-      <h2>Mis Viajes</h2>
-      <ul id="listaViajes">
-        <!-- Aquí se mostrarán los viajes con sus descuentos -->
+    <div class="section">
+      <h2>Reglas Generales</h2>
+      <ul>
+        <li>Debes realizar un depósito previo según la modalidad.</li>
+        <li>La plataforma retiene el 10% por viajes urbanos y el 20% en interprovinciales y carga.</li>
+        <li>Al finalizar tu saldo, se te notificará para recargar y continuar.</li>
+        <li>La cuenta puede ser suspendida si violas reglas o alteras precios.</li>
+        <li>Buena atención puede hacerte merecedor de una exención del % por una sola vez.</li>
       </ul>
-    </section>
-  </div>
+    </div>
+  </main>
+
 </body>
 </html>
