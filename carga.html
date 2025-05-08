@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Última Hora - Transporte de Carga</title>
+
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="panel">
+    <header>
+      <h1>Panel Chófer - Transporte de Carga</h1>
+      <nav>
+        <ul>
+          <li><a href="chofer.html">Volver al Panel Principal</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section>
+      <h2>Datos del Envío</h2>
+      <form id="formCarga">
+        <label for="origenCarga">Origen:</label>
+        <input type="text" id="origenCarga" name="origenCarga" required />
+
+        <label for="destinoCarga">Destino:</label>
+        <input type="text" id="destinoCarga" name="destinoCarga" required />
+
+        <label for="tipoCarga">Tipo de Carga:</label>
+        <input type="text" id="tipoCarga" name="tipoCarga" required />
+
+        <label for="pesoCarga">Peso Estimado (kg):</label>
+        <input type="number" id="pesoCarga" name="pesoCarga" min="1" required />
+
+        <label for="precioCarga">Precio del Servicio:</label>
+        <input type="number" id="precioCarga" name="precioCarga" min="1" required />
+
+        <button type="submit">Registrar Envío</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Historial de Envíos</h2>
+      <ul id="historialCarga">
+        <!-- Aquí se mostrará el historial de cargas enviadas -->
+      </ul>
+    </section>
+  </div>
+</body>
+</html>
