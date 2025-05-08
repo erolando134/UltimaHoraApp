@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Última Hora - Excursiones Programadas</title>
+
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="panel">
+    <header>
+      <h1>Panel Chófer - Excursiones Programadas</h1>
+      <nav>
+        <ul>
+          <li><a href="chofer.html">Volver al Panel Principal</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section>
+      <h2>Registrar Nueva Excursión</h2>
+      <form id="formExcursion">
+        <label for="nombreExcursion">Nombre de la Excursión:</label>
+        <input type="text" id="nombreExcursion" name="nombreExcursion" required />
+
+        <label for="fechaExcursion">Fecha:</label>
+        <input type="date" id="fechaExcursion" name="fechaExcursion" required />
+
+        <label for="horaSalidaExcursion">Hora de Salida:</label>
+        <input type="time" id="horaSalidaExcursion" name="horaSalidaExcursion" required />
+
+        <label for="lugarSalidaExcursion">Lugar de Salida:</label>
+        <input type="text" id="lugarSalidaExcursion" name="lugarSalidaExcursion" required />
+
+        <label for="precioExcursion">Precio por Persona:</label>
+        <input type="number" id="precioExcursion" name="precioExcursion" min="1" required />
+
+        <button type="submit">Registrar Excursión</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Historial de Excursiones</h2>
+      <ul id="historialExcursiones">
+        <!-- Aquí se mostrará el historial de excursiones -->
+      </ul>
+    </section>
+  </div>
+</body>
+</html>
