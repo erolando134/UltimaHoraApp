@@ -36,7 +36,7 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 15px;  /* Espacio entre los elementos del menú */
   padding: 0;
   margin: 0;
 }
@@ -70,10 +70,12 @@ button, .btn {
   padding: 10px 15px;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 button:hover, .btn:hover {
   background-color: #00796b;
+  transform: scale(1.05);  /* Efecto de aumento de tamaño */
 }
 
 /* Tabla de registros */
@@ -90,6 +92,10 @@ th, td {
   word-wrap: break-word;
 }
 
+tr:nth-child(even) {
+  background-color: #f9f9f9; /* Fondo alternado para las filas */
+}
+
 /* Mensajes o alertas */
 .alert {
   background-color: #ff9800;
@@ -97,6 +103,11 @@ th, td {
   padding: 10px;
   margin: 10px 0;
   border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.alert:hover {
+  background-color: #fb8c00; /* Cambio de color cuando el cursor pasa por encima */
 }
 
 /* Pie de página */
@@ -106,6 +117,8 @@ footer {
   background-color: #eee;
   margin-top: 40px;
   font-size: 0.9em;
+  border-top: 1px solid #ccc; /* Borde superior para separar el contenido */
+  color: #555; /* Color de texto ligeramente más oscuro */
 }
 
 /* Responsive: mejora para pantallas pequeñas */
@@ -121,5 +134,6 @@ footer {
 
   .menu-links {
     flex-direction: row;
+    gap: 20px;  /* Añadir más espacio entre los links en pantallas grandes */
   }
 }
