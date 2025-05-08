@@ -3,83 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel del Dueño - Última Hora</title>
+  <title>Administrador - Última Hora</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-      padding: 20px;
+      background: #eeeeee;
+      margin: 0;
+      padding: 0;
     }
 
-    h1 {
-      color: #333;
+    header {
+      background-color: #212121;
+      color: white;
+      padding: 2rem;
+      text-align: center;
     }
 
-    .seccion {
-      background-color: #fff;
-      padding: 15px;
-      margin-bottom: 20px;
+    main {
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
 
     h2 {
-      color: #444;
-      margin-bottom: 10px;
+      color: #ff6f00;
     }
 
     ul {
-      padding-left: 20px;
+      padding-left: 1.2rem;
     }
 
-    a.boton {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      text-decoration: none;
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    .alerta {
+      background: #ffebee;
+      color: #c62828;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-left: 5px solid #c62828;
       border-radius: 5px;
-      margin-top: 10px;
-    }
-
-    a.boton:hover {
-      background-color: #0056b3;
     }
   </style>
 </head>
 <body>
 
-  <h1>Panel del Dueño - Última Hora</h1>
+  <header>
+    <h1>Panel de Administración</h1>
+    <p>Gestión de usuarios, quejas y reglas de la plataforma</p>
+  </header>
 
-  <div class="seccion">
-    <h2>Control General</h2>
+  <main>
+    <h2>Funciones del Administrador</h2>
     <ul>
-      <li>Acceso completo al código abierto de la app.</li>
-      <li>Modificar funciones según necesidades diarias.</li>
-      <li>Visualizar en tiempo real la app del cliente y del chófer.</li>
+      <li>Revisar los registros de viajes.</li>
+      <li>Ver quejas de clientes y chóferes.</li>
+      <li>Enviar advertencias y aplicar sanciones.</li>
+      <li>Realizar exenciones por buen comportamiento.</li>
+      <li>Revisar en tiempo real cualquier alteración.</li>
     </ul>
-  </div>
 
-  <div class="seccion">
-    <h2>Control de Reglas y Comportamiento</h2>
-    <ul>
-      <li>Notificaciones de violaciones de reglas.</li>
-      <li>Intervención directa ante irregularidades.</li>
-      <li>Enviar quejas y medidas a clientes o chóferes.</li>
-      <li>Expulsión definitiva del chófer si reincide.</li>
-    </ul>
-  </div>
-
-  <div class="seccion">
-    <h2>Bonificaciones y Reconocimientos</h2>
-    <ul>
-      <li>Evaluar chóferes con buenas opiniones.</li>
-      <li>Exoneración única del % de descuento como recompensa.</li>
-    </ul>
-  </div>
-
-  <a href="index.html" class="boton">Volver al Inicio</a>
+    <div class="alerta">
+      Recuerda: el administrador puede expulsar permanentemente a cualquier usuario reincidente en faltas graves.
+    </div>
+  </main>
 
 </body>
 </html>
-
