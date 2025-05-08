@@ -1,212 +1,48 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tienda - Última Hora</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f9f9f9;
       margin: 0;
-      padding: 20px;
+      background: #f2f2f2;
     }
-
     header {
-      background-color: #007bff;
+      background: #212121;
       color: white;
-      padding: 15px;
+      padding: 2rem;
       text-align: center;
-      border-radius: 0 0 10px 10px;
     }
-
-    .seccion {
-      background: #fff;
-      padding: 15px;
-      margin: 20px auto;
+    main {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+    .box {
+      background: #fff8e1;
+      border: 2px dashed #ff9800;
+      padding: 2rem;
       border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      max-width: 700px;
-    }
-
-    label, input, textarea, select, button {
-      display: block;
-      width: 100%;
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
-
-    input, textarea, select {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      cursor: pointer;
-      padding: 12px;
-      border-radius: 5px;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    .advertencia {
-      color: red;
-      font-weight: bold;
-    }
-
-    .chat-box {
-      max-height: 200px;
-      overflow-y: auto;
-      border: 1px solid #ccc;
-      padding: 10px;
-    }
-
-    .mensaje {
-      margin-bottom: 10px;
-    }
-
-    .avatar-flotante {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #ffcc00;
-      padding: 10px 15px;
-      border-radius: 50px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 1000;
-    }
-
-    .avatar-flotante:hover {
-      background-color: #ffb800;
+      font-size: 1.2rem;
+      display: inline-block;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>🛒 Tienda Digital - Última Hora</h1>
+    <h1>Tienda Última Hora</h1>
+    <p>Próximamente productos útiles para nuestros choferes y clientes</p>
   </header>
 
-  <div class="seccion">
-    <p class="advertencia">
-      Sólo se permite publicar autos, piezas o partes de vehículos. Si publicas otro tipo de artículo, la plataforma bloqueará tu acceso aunque hayas pagado.
-    </p>
-    <p>
-      Publicar cuesta <strong>100 CUP</strong>. Paga usando Transfermóvil a esta tarjeta:
-      <strong id="tarjetaNumero">9227 9598 7147 8801</strong>
-    </p>
-  </div>
+  <main>
+    <div class="box">
+      Esta sección se encuentra en construcción. Muy pronto podrás adquirir productos como identificaciones, pulóveres, calcomanías, accesorios y más.
+    </div>
+  </main>
 
-  <div class="seccion">
-    <h2>📦 Publicar artículo</h2>
-    <form id="formularioPublicacion">
-      <label for="tipo">Tipo de artículo:</label>
-      <select id="tipo" required>
-        <option value="">Seleccionar</option>
-        <option value="auto">Auto</option>
-        <option value="pieza">Pieza</option>
-        <option value="parte">Parte</option>
-      </select>
-
-      <label for="descripcion">Descripción:</label>
-      <textarea id="descripcion" rows="4" required></textarea>
-
-      <label for="numeroTransferencia">Número de transferencia:</label>
-      <input type="text" id="numeroTransferencia" placeholder="Ej: NM123456..." required />
-
-      <label for="telefonoVendedor">Teléfono de contacto:</label>
-      <input type="tel" id="telefonoVendedor" required />
-
-      <button type="submit">Publicar</button>
-    </form>
-    <div id="mensajeResultado"></div>
-  </div>
-
-  <div class="seccion">
-    <h2>🛍 Artículos publicados</h2>
-    <div id="listaPublicaciones"></div>
-  </div>
-
-  <div class="seccion">
-    <h2>💬 Chat comprador - vendedor</h2>
-    <div class="chat-box" id="chatBox"></div>
-    <input type="text" id="mensajeChat" placeholder="Escribe tu mensaje..." />
-    <button onclick="enviarMensaje()">Enviar</button>
-  </div>
-
-  <div class="seccion">
-    <h2>🔧 Configuración (solo dueño)</h2>
-    <label for="nuevaTarjeta">Cambiar número de tarjeta:</label>
-    <input type="text" id="nuevaTarjeta" placeholder="Nuevo número (solo dueño)" />
-    <button onclick="cambiarTarjeta()">Actualizar tarjeta</button>
-  </div>
-
-  <!-- Avatar flotante que recuerda visitar la tienda -->
-  <div class="avatar-flotante" onclick="window.location.href='Tienda.html'">
-    🛍 ¡Visita la tienda!
-  </div>
-
-  <script>
-    let tarjetaActual = "9227 9598 7147 8801";
-
-    document.getElementById('formularioPublicacion').addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const tipo = document.getElementById('tipo').value;
-      const descripcion = document.getElementById('descripcion').value.trim();
-      const transferencia = document.getElementById('numeroTransferencia').value.trim();
-      const telefono = document.getElementById('telefonoVendedor').value.trim();
-      const mensaje = document.getElementById('mensajeResultado');
-
-      if (!["auto", "pieza", "parte"].includes(tipo)) {
-        mensaje.innerHTML = '<p class="advertencia">Tipo de artículo no permitido.</p>';
-        return;
-      }
-
-      if (!transferencia.startsWith("NM")) {
-        mensaje.innerHTML = '<p class="advertencia">Número de transferencia inválido.</p>';
-        return;
-      }
-
-      const articuloHTML = `
-        <div class="articulo">
-          <p><strong>Tipo:</strong> ${tipo}</p>
-          <p><strong>Descripción:</strong> ${descripcion}</p>
-          <p><strong>Teléfono:</strong> ${telefono}</p>
-        </div>
-      `;
-
-      document.getElementById('listaPublicaciones').innerHTML += articuloHTML;
-      mensaje.innerHTML = '<p style="color: green;">Artículo publicado con éxito.</p>';
-      this.reset();
-    });
-
-    function enviarMensaje() {
-      const mensaje = document.getElementById('mensajeChat').value.trim();
-      if (mensaje === '') return;
-      const div = document.createElement('div');
-      div.className = 'mensaje';
-      div.textContent = 'Tú: ' + mensaje;
-      document.getElementById('chatBox').appendChild(div);
-      document.getElementById('mensajeChat').value = '';
-    }
-
-    function cambiarTarjeta() {
-      const nueva = document.getElementById('nuevaTarjeta').value.trim();
-      if (nueva.length >= 16) {
-        tarjetaActual = nueva;
-        document.getElementById('tarjetaNumero').textContent = tarjetaActual;
-        alert("Número de tarjeta actualizado.");
-      } else {
-        alert("Número inválido.");
-      }
-    }
-  </script>
 </body>
 </html>
