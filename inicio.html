@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inicio - Última Hora</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      background-image: url('https://files.oaiusercontent.com/file-7L1RRbfybAsQKCYwdFzWm3/ultima-hora.jpg');
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: 150px;
+      padding-top: 180px;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: #FFCC00;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    main {
+      text-align: center;
+      padding: 30px;
+    }
+
+    .btn {
+      display: block;
+      width: 80%;
+      max-width: 300px;
+      margin: 15px auto;
+      padding: 14px;
+      font-size: 18px;
+      background-color: #FF7F00;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #e06b00;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Inicio - Última Hora</h1>
+  </header>
+
+  <main>
+    <button class="btn" onclick="window.location.href='cliente.html'">Clientes</button>
+    <button class="btn" onclick="window.location.href='chofer.html'">Choferes</button>
+    <button class="btn" onclick="window.location.href='duenno.html'">Dueño</button>
+    <button class="btn" onclick="window.location.href='excursiones.html'">Excursiones</button>
+    <button class="btn" onclick="window.location.href='carga.html'">Transporte de Carga</button>
+  </main>
+
+</body>
+</html>
