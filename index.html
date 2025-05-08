@@ -8,18 +8,14 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background-image: url('https://files.oaiusercontent.com/file-7L1RRbfybAsQKCYwdFzWm3/ultima-hora.jpg');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-attachment: fixed;
-      background-size: cover;
+      background-color: #f8f8f8;
     }
 
     #bienvenida {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(255,255,255,0.95);
+      background: white;
       z-index: 9999;
       display: flex;
       flex-direction: column;
@@ -36,42 +32,45 @@
       }
     }
 
-    h1 {
-      color: #FFCC00;
+    #bienvenida img {
+      width: 200px;
+      height: auto;
+    }
+
+    #bienvenida h1 {
+      color: #FF7F00;
       margin-top: 20px;
     }
 
-    p {
+    #bienvenida p {
       font-size: 18px;
       color: #333;
     }
 
     main {
       text-align: center;
-      padding: 50px 20px;
+      padding: 100px 20px;
+    }
+
+    h2 {
+      font-size: 28px;
+      color: #333;
     }
 
     .btn {
-      padding: 12px 24px;
-      margin: 10px;
+      padding: 14px 28px;
+      margin: 15px;
       font-size: 18px;
-      background-color: #FFCC00;
-      color: black;
+      background-color: #FF7F00;
+      color: white;
       border: none;
-      border-radius: 10px;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+      border-radius: 8px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
     .btn:hover {
-      background-color: #e6b800;
-    }
-
-    .logo {
-      width: 200px;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      background-color: #e06b00;
     }
   </style>
 </head>
@@ -79,9 +78,9 @@
 
   <!-- Pantalla de Bienvenida -->
   <div id="bienvenida">
-    <img src="https://files.oaiusercontent.com/file-7L1RRbfybAsQKCYwdFzWm3/ultima-hora.jpg" alt="Logo Última Hora" class="logo">
+    <img src="img/logo.png" alt="Logo Última Hora">
     <h1>Bienvenido a Última Hora</h1>
-    <p>Tu app de taxis, choferes y servicios</p>
+    <p>Tu app de taxis, chóferes y servicios</p>
   </div>
 
   <!-- Contenido principal -->
@@ -89,7 +88,7 @@
     <h2>¿A dónde quieres ir?</h2>
     <button class="btn" onclick="window.location.href='cliente.html'">Entrar como Cliente</button>
     <button class="btn" onclick="window.location.href='chofer.html'">Entrar como Chofer</button>
-    <button class="btn" onclick="window.location.href='duenno.html'">Entrar como Dueño</button>
+    <button class="btn" onclick="window.location.href='admin.html'">Entrar como Dueño</button>
   </main>
 
 </body>
