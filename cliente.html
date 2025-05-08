@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Última Hora - Plataforma de Transporte</title>
+  <title>Última Hora - Clientes</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -17,6 +17,12 @@
       color: white;
       padding: 2rem;
       text-align: center;
+    }
+
+    header img {
+      width: 80px;
+      height: auto;
+      margin-bottom: 1rem;
     }
 
     main {
@@ -58,22 +64,6 @@
       margin-top: 0;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-    }
-
-    th, td {
-      border: 1px solid #ccc;
-      padding: 0.8rem;
-      text-align: center;
-    }
-
-    th {
-      background-color: #eeeeee;
-    }
-
     .tarjeta {
       margin-top: 1rem;
       font-size: 1.2rem;
@@ -88,20 +78,21 @@
 <body>
 
   <header>
-    <h1>Última Hora</h1>
-    <p>Tu plataforma para viajes urbanos, interprovinciales, excursiones y transporte de carga</p>
+    <img src="img/logo.png" alt="Logo Última Hora">
+    <h1>Clientes</h1>
+    <p>Solicita viajes, excursiones o transporte de carga desde aquí</p>
   </header>
 
   <main>
-    <!-- Verifica que "cliente/cliente.html" exista y esté en la carpeta correcta -->
-    <a class="btn" href="cliente.html">Clientes - Solicita tu Viaje</a>
-    <a class="btn" href="choferes.html">Chóferes por Modalidad</a>
-    <a class="btn" href="tarifas.html">Tipos de Tarifas y Contratos</a>
+    <a class="btn" href="interprovincial.html">Viajes Interprovinciales</a>
+    <a class="btn" href="excursiones.html">Excursiones Programadas</a>
+    <a class="btn" href="carga.html">Solicitar Transporte de Carga</a>
+    <a class="btn" href="tienda.html">Visitar la Tienda</a>
 
     <div class="section">
       <h2>Número de Tarjeta para Depósitos</h2>
       <div class="tarjeta">9227 9598 7147 8801</div>
-      <p>Recuerda que el depósito es necesario para activar tu acceso a los servicios.</p>
+      <p>El depósito es necesario para acceder a nuestros servicios. Usa tu nombre real como referencia.</p>
     </div>
   </main>
 
