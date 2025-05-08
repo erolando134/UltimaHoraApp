@@ -1,43 +1,88 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Última Hora - Inicio</title>
-  <link rel="stylesheet" href="estilo.css">
+  <meta charset="UTF-8">
+  <title>Última Hora - Página de Entrada</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('https://chat.openai.com/mnt/data/file-7L1RRbfybAsQKCYwdFzWm3');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+      background-size: 200px;
+      opacity: 0.98;
+    }
+
+    #bienvenida {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: white;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: fadeOut 3s ease-in-out forwards;
+      animation-delay: 4s;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    h1 {
+      color: #FF7F00;
+      margin-top: 20px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    main {
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 18px;
+      background-color: #FF7F00;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #e06b00;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Pantalla de bienvenida -->
-  <div id="bienvenida" class="bienvenida">
+  <!-- Pantalla de Bienvenida -->
+  <div id="bienvenida">
+    <img src="https://chat.openai.com/mnt/data/file-7L1RRbfybAsQKCYwdFzWm3" alt="Logo Última Hora" style="width: 200px; height: auto;">
     <h1>Bienvenido a Última Hora</h1>
-    <p>Tu plataforma de taxis, cargas y excursiones</p>
+    <p>Tu app de taxis, choferes y servicios</p>
   </div>
 
-  <!-- Contenido principal oculto al inicio -->
-  <main id="contenido" class="oculto">
-    <!-- Imagen decorativa -->
-    <div class="imagen-principal">
-      <img src="img/portada.png" alt="Imagen representativa de la empresa Última Hora">
-    </div>
-
-    <!-- Botones de navegación -->
-    <div class="botones">
-      <a class="btn" href="cliente.html">Clientes - Solicita tu Viaje</a>
-      <a class="btn" href="modalidad.html">Chóferes - Selecciona Modalidad</a>
-      <a class="btn" href="tarifas.html">Ver Tarifas y Contratos</a>
-      <a class="btn" href="duenno.html">Administrador</a>
-      <a class="btn tienda" href="tienda.html">Ir a la Tienda</a>
-    </div>
+  <!-- Contenido principal -->
+  <main>
+    <h2>¿A dónde quieres ir?</h2>
+    <button class="btn" onclick="window.location.href='cliente.html'">Entrar como Cliente</button>
+    <button class="btn" onclick="window.location.href='chofer.html'">Entrar como Chofer</button>
+    <button class="btn" onclick="window.location.href='duenno.html'">Entrar como Dueño</button>
   </main>
-
-  <!-- Script para mostrar la página principal tras 4 segundos -->
-  <script>
-    setTimeout(() => {
-      document.getElementById('bienvenida').style.display = 'none';
-      document.getElementById('contenido').classList.remove('oculto');
-    }, 4000);
-  </script>
 
 </body>
 </html>
