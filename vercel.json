@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/admin", "destination": "/admin.html" },
@@ -6,6 +7,6 @@
     { "source": "/cliente", "destination": "/cliente.html" },
     { "source": "/seguridad", "destination": "/seguridad.html" },
     { "source": "/tienda", "destination": "/tienda.html" }
-  ],
-  "cleanUrls": true
+  ]
 }
+
