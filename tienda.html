@@ -1,76 +1,110 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Tienda - Última Hora</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f4f4;
+      background: #f9f9f9;
+      margin: 0;
       padding: 20px;
     }
-    h1 {
-      color: #222;
+
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      border-radius: 0 0 10px 10px;
     }
+
     .seccion {
       background: #fff;
       padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 8px;
+      margin: 20px auto;
+      border-radius: 10px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      max-width: 700px;
     }
+
     label, input, textarea, select, button {
       display: block;
       width: 100%;
       margin-bottom: 10px;
       font-size: 16px;
     }
+
     input, textarea, select {
-      padding: 8px;
+      padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
+
     button {
       background-color: #007bff;
       color: white;
       border: none;
       cursor: pointer;
-      padding: 10px;
+      padding: 12px;
       border-radius: 5px;
     }
+
     button:hover {
       background-color: #0056b3;
     }
+
     .advertencia {
       color: red;
       font-weight: bold;
     }
+
     .chat-box {
       max-height: 200px;
       overflow-y: auto;
       border: 1px solid #ccc;
       padding: 10px;
     }
+
     .mensaje {
       margin-bottom: 10px;
+    }
+
+    .avatar-flotante {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ffcc00;
+      padding: 10px 15px;
+      border-radius: 50px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .avatar-flotante:hover {
+      background-color: #ffb800;
     }
   </style>
 </head>
 <body>
-  <h1>Tienda - Última Hora</h1>
+  <header>
+    <h1>🛒 Tienda Digital - Última Hora</h1>
+  </header>
 
   <div class="seccion">
     <p class="advertencia">
-      Sólo se permite publicar autos, piezas o partes de vehículos. Si publicas otro tipo de artículo, la plataforma bloqueará tu acceso, aunque hayas pagado.
+      Sólo se permite publicar autos, piezas o partes de vehículos. Si publicas otro tipo de artículo, la plataforma bloqueará tu acceso aunque hayas pagado.
     </p>
     <p>
-      El costo de publicación es de <strong>100 CUP</strong>. Realiza el pago a la tarjeta: <strong>9227 9598 7147 8801</strong> usando Transfermóvil.
+      Publicar cuesta <strong>100 CUP</strong>. Paga usando Transfermóvil a esta tarjeta:
+      <strong id="tarjetaNumero">9227 9598 7147 8801</strong>
     </p>
   </div>
 
   <div class="seccion">
-    <h2>Publicar artículo</h2>
+    <h2>📦 Publicar artículo</h2>
     <form id="formularioPublicacion">
       <label for="tipo">Tipo de artículo:</label>
       <select id="tipo" required>
@@ -80,14 +114,14 @@
         <option value="parte">Parte</option>
       </select>
 
-      <label for="descripcion">Descripción del artículo:</label>
+      <label for="descripcion">Descripción:</label>
       <textarea id="descripcion" rows="4" required></textarea>
 
-      <label for="numeroTransferencia">Número de transferencia (de Transfermóvil):</label>
-      <input type="text" id="numeroTransferencia" required>
+      <label for="numeroTransferencia">Número de transferencia:</label>
+      <input type="text" id="numeroTransferencia" placeholder="Ej: NM123456..." required />
 
-      <label for="telefonoVendedor">Tu teléfono:</label>
-      <input type="tel" id="telefonoVendedor" required>
+      <label for="telefonoVendedor">Teléfono de contacto:</label>
+      <input type="tel" id="telefonoVendedor" required />
 
       <button type="submit">Publicar</button>
     </form>
@@ -95,40 +129,43 @@
   </div>
 
   <div class="seccion">
-    <h2>Artículos publicados</h2>
+    <h2>🛍 Artículos publicados</h2>
     <div id="listaPublicaciones"></div>
   </div>
 
   <div class="seccion">
-    <h2>Chat comprador - vendedor</h2>
+    <h2>💬 Chat comprador - vendedor</h2>
     <div class="chat-box" id="chatBox"></div>
-    <input type="text" id="mensajeChat" placeholder="Escribe tu mensaje...">
+    <input type="text" id="mensajeChat" placeholder="Escribe tu mensaje..." />
     <button onclick="enviarMensaje()">Enviar</button>
   </div>
 
   <div class="seccion">
-    <h2>Configuración de tarjeta (solo dueño)</h2>
+    <h2>🔧 Configuración (solo dueño)</h2>
     <label for="nuevaTarjeta">Cambiar número de tarjeta:</label>
-    <input type="text" id="nuevaTarjeta" placeholder="Solo dueño autorizado">
+    <input type="text" id="nuevaTarjeta" placeholder="Nuevo número (solo dueño)" />
     <button onclick="cambiarTarjeta()">Actualizar tarjeta</button>
-    <p id="tarjetaActual">Tarjeta actual: <strong id="tarjetaNumero">9227 9598 7147 8801</strong></p>
+  </div>
+
+  <!-- Avatar flotante que recuerda visitar la tienda -->
+  <div class="avatar-flotante" onclick="window.location.href='Tienda.html'">
+    🛍 ¡Visita la tienda!
   </div>
 
   <script>
     let tarjetaActual = "9227 9598 7147 8801";
 
-    document.getElementById('formularioPublicacion').addEventListener('submit', function(e) {
+    document.getElementById('formularioPublicacion').addEventListener('submit', function (e) {
       e.preventDefault();
 
-      const tipo = document.getElementById('tipo').value.toLowerCase();
+      const tipo = document.getElementById('tipo').value;
       const descripcion = document.getElementById('descripcion').value.trim();
       const transferencia = document.getElementById('numeroTransferencia').value.trim();
       const telefono = document.getElementById('telefonoVendedor').value.trim();
-
       const mensaje = document.getElementById('mensajeResultado');
 
       if (!["auto", "pieza", "parte"].includes(tipo)) {
-        mensaje.innerHTML = '<p class="advertencia">Tipo de artículo no permitido. Acceso bloqueado.</p>';
+        mensaje.innerHTML = '<p class="advertencia">Tipo de artículo no permitido.</p>';
         return;
       }
 
@@ -136,9 +173,6 @@
         mensaje.innerHTML = '<p class="advertencia">Número de transferencia inválido.</p>';
         return;
       }
-
-      // Marca que el usuario ha pagado correctamente
-      localStorage.setItem('pagoRealizado', 'sí');
 
       const articuloHTML = `
         <div class="articulo">
