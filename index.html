@@ -8,19 +8,18 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background-image: url('https://chat.openai.com/mnt/data/file-7L1RRbfybAsQKCYwdFzWm3');
+      background-image: url('https://files.oaiusercontent.com/file-7L1RRbfybAsQKCYwdFzWm3/ultima-hora.jpg');
       background-repeat: no-repeat;
       background-position: center;
       background-attachment: fixed;
-      background-size: 200px;
-      opacity: 0.98;
+      background-size: cover;
     }
 
     #bienvenida {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: white;
+      background: rgba(255,255,255,0.95);
       z-index: 9999;
       display: flex;
       flex-direction: column;
@@ -38,12 +37,13 @@
     }
 
     h1 {
-      color: #FF7F00;
+      color: #FFCC00;
       margin-top: 20px;
     }
 
     p {
       font-size: 18px;
+      color: #333;
     }
 
     main {
@@ -55,15 +55,23 @@
       padding: 12px 24px;
       margin: 10px;
       font-size: 18px;
-      background-color: #FF7F00;
-      color: white;
+      background-color: #FFCC00;
+      color: black;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
       cursor: pointer;
     }
 
     .btn:hover {
-      background-color: #e06b00;
+      background-color: #e6b800;
+    }
+
+    .logo {
+      width: 200px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
     }
   </style>
 </head>
@@ -71,7 +79,7 @@
 
   <!-- Pantalla de Bienvenida -->
   <div id="bienvenida">
-    <img src="https://chat.openai.com/mnt/data/file-7L1RRbfybAsQKCYwdFzWm3" alt="Logo Última Hora" style="width: 200px; height: auto;">
+    <img src="https://files.oaiusercontent.com/file-7L1RRbfybAsQKCYwdFzWm3/ultima-hora.jpg" alt="Logo Última Hora" class="logo">
     <h1>Bienvenido a Última Hora</h1>
     <p>Tu app de taxis, choferes y servicios</p>
   </div>
