@@ -3,50 +3,92 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Última Hora - Excursiones Programadas</title>
+  <title>Última Hora - Excursiones</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
 
-  <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    header {
+      background-color: #212121;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    header img {
+      width: 80px;
+      height: auto;
+      margin-bottom: 1rem;
+    }
+
+    main {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .section {
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #ffffff;
+      border-radius: 8px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    ul {
+      margin-left: 2rem;
+    }
+
+    .info-box {
+      background-color: #fff8e1;
+      border-left: 5px solid #fbc02d;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+  </style>
 </head>
 <body>
-  <div class="panel">
-    <header>
-      <h1>Panel Chófer - Excursiones Programadas</h1>
-      <nav>
-        <ul>
-          <li><a href="chofer.html">Volver al Panel Principal</a></li>
-        </ul>
-      </nav>
-    </header>
 
-    <section>
-      <h2>Registrar Nueva Excursión</h2>
-      <form id="formExcursion">
-        <label for="nombreExcursion">Nombre de la Excursión:</label>
-        <input type="text" id="nombreExcursion" name="nombreExcursion" required />
+  <header>
+    <img src="img/logo.png" alt="Logo Última Hora">
+    <h1>Excursiones Programadas</h1>
+    <p>Organiza y ofrece viajes turísticos con nuestra plataforma</p>
+  </header>
 
-        <label for="fechaExcursion">Fecha:</label>
-        <input type="date" id="fechaExcursion" name="fechaExcursion" required />
-
-        <label for="horaSalidaExcursion">Hora de Salida:</label>
-        <input type="time" id="horaSalidaExcursion" name="horaSalidaExcursion" required />
-
-        <label for="lugarSalidaExcursion">Lugar de Salida:</label>
-        <input type="text" id="lugarSalidaExcursion" name="lugarSalidaExcursion" required />
-
-        <label for="precioExcursion">Precio por Persona:</label>
-        <input type="number" id="precioExcursion" name="precioExcursion" min="1" required />
-
-        <button type="submit">Registrar Excursión</button>
-      </form>
-    </section>
-
-    <section>
-      <h2>Historial de Excursiones</h2>
-      <ul id="historialExcursiones">
-        <!-- Aquí se mostrará el historial de excursiones -->
+  <main>
+    <div class="section">
+      <h2>Requisitos y Beneficios</h2>
+      <ul>
+        <li>Inscripción inicial: <strong>2000 CUP</strong>.</li>
+        <li>La plataforma retiene el <strong>20%</strong> del pago total de cada excursión.</li>
+        <li>Debes detallar:
+          <ul>
+            <li>Destino y fecha</li>
+            <li>Hora de salida y regreso</li>
+            <li>Precio por persona</li>
+          </ul>
+        </li>
+        <li>La excursión debe tener al menos <strong>5 participantes</strong> confirmados para activarse.</li>
+        <li>El chofer será informado del % retenido y sus ganancias por cada excursión.</li>
       </ul>
-    </section>
-  </div>
+
+      <div class="info-box">
+        Recuerda que el éxito de tus excursiones depende de la claridad de la oferta y el cumplimiento del horario.
+      </div>
+    </div>
+  </main>
+
 </body>
 </html>
