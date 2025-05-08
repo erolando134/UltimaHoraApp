@@ -1,251 +1,85 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Administrador - Última Hora</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel del Dueño - Última Hora</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      margin: 0;
-      padding: 0;
+      background-color: #f2f2f2;
+      padding: 20px;
     }
 
-    header {
-      background-color: #1a237e;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-    }
-
-    .contenedor {
-      max-width: 850px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-    }
-
-    h2, h3 {
-      margin-top: 1rem;
-    }
-
-    input[type="password"] {
-      width: 100%;
-      padding: 0.8rem;
-      margin-top: 1rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      display: block;
-      width: 100%;
-      margin: 1rem 0;
-      padding: 1rem;
-      background-color: #3949ab;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    button:hover {
-      background-color: #283593;
+    h1 {
+      color: #333;
     }
 
     .seccion {
-      display: none;
+      background-color: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
-    .enlace-externo {
+    h2 {
+      color: #444;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    a.boton {
       display: inline-block;
-      margin-top: 1rem;
-      color: #1565c0;
-      text-decoration: underline;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 10px;
     }
 
-    .alerta {
-      margin-top: 1rem;
-      color: green;
-    }
-
-    .tabla-finanzas {
-      margin-top: 1rem;
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .tabla-finanzas th,
-    .tabla-finanzas td {
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      text-align: left;
-    }
-
-    .tabla-finanzas th {
-      background-color: #e3e3e3;
+    a.boton:hover {
+      background-color: #0056b3;
     }
   </style>
-
-  <!-- Librerías para exportar -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 
-<header>
-  <h1>Panel del Administrador - Última Hora</h1>
-</header>
+  <h1>Panel del Dueño - Última Hora</h1>
 
-<div class="contenedor">
-  <h2>Acceso restringido</h2>
-  <input type="password" id="claveAdmin" placeholder="Ingrese su contraseña" />
-  <button onclick="verificarClave()">Entrar</button>
-
-  <div class="seccion" id="panelAdmin">
-    <h2>Herramientas del Administrador</h2>
-
-    <button onclick="abrirVista('vista-cliente.html')">Ver como cliente</button>
-    <button onclick="abrirVista('vista-chofer.html')">Ver como chófer</button>
-    <button onclick="crearAvisoMantenimiento()">Crear aviso de mantenimiento</button>
-    <button onclick="enviarActualizacion()">Montar actualización</button>
-
-    <h3>Gestión técnica y ajustes con IA</h3>
-    <a class="enlace-externo" href="https://chat.openai.com/" target="_blank">Acceder al soporte con IA</a>
-
-    <h3>Control delegado</h3>
-    <p>Este panel puede compartirse con empleados para operaciones generales. No muestra información sensible.</p>
-
-    <h3>Resumen financiero</h3>
-    <table class="tabla-finanzas">
-      <thead>
-        <tr>
-          <th>Modalidad</th>
-          <th>Monto (CUP)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Taxi Local</td><td id="montoLocal">3500</td></tr>
-        <tr><td>Interprovincial</td><td id="montoInter">4600</td></tr>
-        <tr><td>Carga</td><td id="montoCarga">2100</td></tr>
-        <tr><td>Excursiones</td><td id="montoExc">1300</td></tr>
-      </tbody>
-    </table>
-
-    <h4>Saldos</h4>
+  <div class="seccion">
+    <h2>Control General</h2>
     <ul>
-      <li>Saldo Diario: <span id="saldoDia">600</span> CUP</li>
-      <li>Saldo Mensual: <span id="saldoMes">12500</span> CUP</li>
-      <li>Saldo Anual: <span id="saldoAnual">142300</span> CUP</li>
+      <li>Acceso completo al código abierto de la app.</li>
+      <li>Modificar funciones según necesidades diarias.</li>
+      <li>Visualizar en tiempo real la app del cliente y del chófer.</li>
     </ul>
-
-    <h3>Exportar Reportes</h3>
-    <button onclick="exportarExcel()">Exportar a Excel</button>
-    <button onclick="exportarPDF()">Exportar a PDF</button>
-
-    <div class="alerta" id="mensajeEstado"></div>
   </div>
-</div>
 
-<script>
-  const CONTRASEÑA_ADMIN = "admin123"; // Cambiar por una clave segura
+  <div class="seccion">
+    <h2>Control de Reglas y Comportamiento</h2>
+    <ul>
+      <li>Notificaciones de violaciones de reglas.</li>
+      <li>Intervención directa ante irregularidades.</li>
+      <li>Enviar quejas y medidas a clientes o chóferes.</li>
+      <li>Expulsión definitiva del chófer si reincide.</li>
+    </ul>
+  </div>
 
-  const datosFacturacion = {
-    local: 3500,
-    inter: 4600,
-    carga: 2100,
-    excursiones: 1300
-  };
+  <div class="seccion">
+    <h2>Bonificaciones y Reconocimientos</h2>
+    <ul>
+      <li>Evaluar chóferes con buenas opiniones.</li>
+      <li>Exoneración única del % de descuento como recompensa.</li>
+    </ul>
+  </div>
 
-  const saldo = {
-    dia: 600,
-    mes: 12500,
-    año: 142300
-  };
-
-  function verificarClave() {
-    const clave = document.getElementById("claveAdmin").value;
-    const panel = document.getElementById("panelAdmin");
-    const estado = document.getElementById("mensajeEstado");
-
-    if (clave === CONTRASEÑA_ADMIN) {
-      panel.style.display = "block";
-      estado.innerText = "Acceso concedido.";
-    } else {
-      alert("Contraseña incorrecta.");
-    }
-  }
-
-  function abrirVista(ruta) {
-    window.open(ruta, "_blank");
-  }
-
-  function crearAvisoMantenimiento() {
-    const hora = prompt("¿A qué hora será el mantenimiento?");
-    if (hora) {
-      alert(`Mantenimiento programado para las ${hora}. Los usuarios serán notificados.`);
-      // Aquí iría la lógica de backend
-    }
-  }
-
-  function enviarActualizacion() {
-    alert("Actualización cargada correctamente.");
-    // Aquí se conectaría con sistema de despliegue real
-  }
-
-  function exportarExcel() {
-    const data = [
-      ["Modalidad", "Monto"],
-      ["Taxi Local", datosFacturacion.local],
-      ["Interprovincial", datosFacturacion.inter],
-      ["Carga", datosFacturacion.carga],
-      ["Excursiones", datosFacturacion.excursiones],
-      ["", ""],
-      ["Resumen de Saldos", ""],
-      ["Saldo Diario", saldo.dia],
-      ["Saldo Mensual", saldo.mes],
-      ["Saldo Anual", saldo.año]
-    ];
-
-    const ws = XLSX.utils.aoa_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Finanzas");
-    XLSX.writeFile(wb, "resumen_finanzas.xlsx");
-  }
-
-  async function exportarPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    doc.setFontSize(14);
-    doc.text("Resumen de Finanzas - Última Hora", 10, 10);
-
-    let y = 20;
-    doc.setFontSize(12);
-
-    const entries = [
-      ["Taxi Local", datosFacturacion.local],
-      ["Interprovincial", datosFacturacion.inter],
-      ["Carga", datosFacturacion.carga],
-      ["Excursiones", datosFacturacion.excursiones],
-      ["", ""],
-      ["Saldo Diario", saldo.dia],
-      ["Saldo Mensual", saldo.mes],
-      ["Saldo Anual", saldo.año]
-    ];
-
-    entries.forEach(([label, value]) => {
-      doc.text(`${label}: $${value}`, 10, y);
-      y += 10;
-    });
-
-    doc.save("resumen_finanzas.pdf");
-  }
-</script>
+  <a href="index.html" class="boton">Volver al Inicio</a>
 
 </body>
 </html>
+
