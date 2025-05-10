@@ -1,139 +1,70 @@
-/* Estilo general */
+/* ESTILOS GENERALES */
+:root {
+  --amarillo-taxi: #FFD700;
+  --amarillo-oscuro: #FFC107;
+  --blanco: #FFFFFF;
+  --negro: #212121;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  font-family: 'Arial', sans-serif;
   margin: 0;
-  padding: 0;
+  background-color: #f5f5f5;
 }
 
-/* Encabezado */
-header {
-  background-color: #1e1e1e;
-  color: #fff;
-  padding: 20px;
+/* LOGO PRINCIPAL (index.html) */
+.logo-principal {
   text-align: center;
+  padding: 2rem 0;
+  background: var(--negro);
 }
 
-/* Estilo del menú */
-.menu {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 10px 20px;
-}
-
-.menu .logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: #ffce00;
-  margin-bottom: 10px;
-}
-
-.menu-links {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;  /* Espacio entre los elementos del menú */
-  padding: 0;
+.logo-principal h1 {
+  font-size: 3rem;
+  color: var(--amarillo-taxi);
   margin: 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
-.menu-links li a {
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
+.iniciales {
+  font-size: 1.8rem;
+  color: var(--amarillo-oscuro);
+  letter-spacing: 2px;
+  font-family: 'Courier New', monospace;
 }
 
-.menu-links li a:hover {
-  color: #ffce00;
+.eslogan {
+  color: var(--blanco);
+  font-style: italic;
+  margin-top: 0.5rem;
 }
 
-/* Contenedor principal */
-.container {
-  max-width: 900px;
-  margin: 20px auto;
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-/* Botones */
-button, .btn {
-  background-color: #009688;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-button:hover, .btn:hover {
-  background-color: #00796b;
-  transform: scale(1.05);  /* Efecto de aumento de tamaño */
-}
-
-/* Tabla de registros */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-th, td {
-  text-align: left;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-  word-wrap: break-word;
-}
-
-tr:nth-child(even) {
-  background-color: #f9f9f9; /* Fondo alternado para las filas */
-}
-
-/* Mensajes o alertas */
-.alert {
-  background-color: #ff9800;
-  color: white;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
-
-.alert:hover {
-  background-color: #fb8c00; /* Cambio de color cuando el cursor pasa por encima */
-}
-
-/* Pie de página */
-footer {
+/* LOGO HEADER (demás páginas) */
+.logo-header {
+  background: var(--negro);
+  padding: 1rem;
   text-align: center;
-  padding: 10px;
-  background-color: #eee;
-  margin-top: 40px;
-  font-size: 0.9em;
-  border-top: 1px solid #ccc; /* Borde superior para separar el contenido */
-  color: #555; /* Color de texto ligeramente más oscuro */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* Responsive: mejora para pantallas pequeñas */
-@media (min-width: 600px) {
-  .menu {
-    flex-direction: row;
-    justify-content: space-between;
-  }
+.logo-header span {
+  color: var(--amarillo-taxi);
+  font-size: 1.5rem;
+}
 
-  .menu .logo {
-    margin-bottom: 0;
-  }
+.logo-header sup {
+  font-size: 0.8rem;
+  color: var(--amarillo-oscuro);
+  letter-spacing: 1px;
+}
 
-  .menu-links {
-    flex-direction: row;
-    gap: 20px;  /* Añadir más espacio entre los links en pantallas grandes */
-  }
+/* EFECTOS ESPECIALES */
+@keyframes palpitar {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.iniciales {
+  animation: palpitar 3s infinite;
 }
