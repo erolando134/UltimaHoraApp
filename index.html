@@ -2,94 +2,52 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Última Hora - Página de Entrada</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f8f8f8;
-    }
-
-    #bienvenida {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: white;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      animation: fadeOut 3s ease-in-out forwards;
-      animation-delay: 4s;
-    }
-
-    @keyframes fadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
-    }
-
-    #bienvenida img {
-      width: 200px;
-      height: auto;
-    }
-
-    #bienvenida h1 {
-      color: #FF7F00;
-      margin-top: 20px;
-    }
-
-    #bienvenida p {
-      font-size: 18px;
-      color: #333;
-    }
-
-    main {
-      text-align: center;
-      padding: 100px 20px;
-    }
-
-    h2 {
-      font-size: 28px;
-      color: #333;
-    }
-
-    .btn {
-      padding: 14px 28px;
-      margin: 15px;
-      font-size: 18px;
-      background-color: #FF7F00;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .btn:hover {
-      background-color: #e06b00;
-    }
-  </style>
+  <title>Última Hora R.M.K. | Servicios de Taxis</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="img/favicon.ico">
 </head>
 <body>
-
-  <!-- Pantalla de Bienvenida -->
-  <div id="bienvenida">
-    <img src="img/logo.png" alt="Logo Última Hora">
-    <h1>Bienvenido a Última Hora</h1>
-    <p>Tu app de taxis, chóferes y servicios</p>
+  <!-- LOGO PRINCIPAL CON INICIALES -->
+  <div class="logo-principal">
+    <h1>ÚLTIMA HORA <span class="iniciales">R.M.K.</span></h1>
+    <p class="eslogan">SERVICIOS DE TAXIS Y TRANSPORTE</p>
   </div>
 
-  <!-- Contenido principal -->
+  <!-- CONTENIDO PRINCIPAL -->
   <main>
-    <h2>¿A dónde quieres ir?</h2>
-    <button class="btn" onclick="window.location.href='cliente.html'">Entrar como Cliente</button>
-    <button class="btn" onclick="window.location.href='chofer.html'">Entrar como Chofer</button>
-    <button class="btn" onclick="window.location.href='admin.html'">Entrar como Dueño</button>
+    <div class="botones">
+      <a href="cliente.html" class="btn-taxi">
+        <img src="img/icono-taxi.png" alt="Cliente">
+        Solicitar Viaje
+      </a>
+      <a href="chofer.html" class="btn-taxi">
+        <img src="img/icono-llave.png" alt="Chofer">
+        Soy Chofer
+      </a>
+    </div>
   </main>
 
+  <style>
+    .botones {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 3rem;
+    }
+    .btn-taxi {
+      background: var(--amarillo-taxi);
+      color: var(--negro);
+      padding: 1.5rem;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: bold;
+      text-decoration: none;
+      transition: transform 0.3s;
+    }
+    .btn-taxi:hover {
+      transform: translateY(-5px);
+    }
+  </style>
 </body>
 </html>
