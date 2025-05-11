@@ -1,64 +1,311 @@
-/* ESTILOS GENERALES */
+/* ====================== */
+/* VARIABLES Y ESTILOS BASE */
+/* ====================== */
 :root {
+  /* Colores corporativos */
   --amarillo-taxi: #FFD700;
   --amarillo-oscuro: #FFC107;
   --blanco: #FFFFFF;
   --negro: #212121;
+  --gris-claro: #f5f5f5;
+  --gris-medio: #e0e0e0;
+  
+  /* Tipografía */
+  --fuente-principal: 'Arial', sans-serif;
+  --fuente-secundaria: 'Courier New', monospace;
+  
+  /* Espaciados */
+  --espacio-base: 1rem;
+  --border-radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: var(--fuente-principal);
   margin: 0;
-  background-color: #f5f5f5;
+  background-color: var(--gris-claro);
+  color: #333;
+  line-height: 1.6;
 }
 
-/* LOGO PRINCIPAL (index.html) */
+/* ====================== */
+/* COMPONENTES PRINCIPALES */
+/* ====================== */
+
+/* LOGO PRINCIPAL */
 .logo-principal {
   text-align: center;
   padding: 2rem 0;
   background: var(--negro);
+  position: relative;
+  overflow: hidden;
 }
 
 .logo-principal h1 {
-  font-size: 3rem;
+  font-size: clamp(2rem, 5vw, 3rem);
   color: var(--amarillo-taxi);
   margin: 0;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  position: relative;
+  z-index: 1;
 }
 
 .iniciales {
   font-size: 1.8rem;
   color: var(--amarillo-oscuro);
   letter-spacing: 2px;
-  font-family: 'Courier New', monospace;
+  font-family: var(--fuente-secundaria);
+  font-weight: bold;
+  display: inline-block;
 }
 
 .eslogan {
   color: var(--blanco);
   font-style: italic;
   margin-top: 0.5rem;
+  opacity: 0.9;
 }
 
-/* LOGO HEADER (demás páginas) */
+/* HEADER SECUNDARIO */
 .logo-header {
   background: var(--negro);
   padding: 1rem;
   text-align: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.logo-header span {
-  color: var(--amarillo-taxi);
-  font-size: 1.5rem;
+.logo-header-contenido {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.logo-header sup {
-  font-size: 0.8rem;
+.logo-pequeno {
+  width: 50px;
+  height: auto;
+}
+
+.iniciales-header {
+  font-family: var(--fuente-secundaria);
   color: var(--amarillo-oscuro);
+  font-size: 0.9rem;
   letter-spacing: 1px;
+  background: rgba(0,0,0,0.3);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
 }
 
-/* EFECTOS ESPECIALES */
+.eslogan-header {
+  font-size: 0.9rem;
+  color: var(--gris-medio);
+  margin-top: 0.2rem;
+}
+
+/* ====================== */
+/* COMPONENTES DE FORMULARIOS */
+/* ====================== */
+
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 var(--espacio-base);
+}
+
+.card {
+  background: var(--blanco);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-left: 5px solid var(--amarillo-taxi);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: var(--negro);
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--gris-medio);
+  border-radius: var(--border-radius);
+  font-family: var(--fuente-principal);
+  transition: border 0.3s;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--amarillo-taxi);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+}
+
+.btn {
+  background-color: var(--amarillo-taxi);
+  color: var(--negro);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: var(--amarillo-oscuro);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+/* ====================== */
+/* COMPONENTES DE LISTADOS */
+/* ====================== */
+
+.historial {
+  margin-top: 2rem;
+}
+
+.viaje-item, .cargo-item, .excursion-item {
+  background: var(--blanco);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-left: 3px solid var(--amarillo-taxi);
+  transition: transform 0.3s;
+}
+
+.viaje-item:hover, .cargo-item:hover, .excursion-item:hover {
+  transform: translateY(-3px);
+}
+
+.trip-route, .cargo-header, .excursion-header {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--negro);
+}
+
+.trip-dates, .cargo-footer, .excursion-date {
+  font-size: 0.9rem;
+  color: #666;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.price, .precio {
+  font-weight: bold;
+  color: var(--amarillo-oscuro);
+}
+
+.commission, .earnings {
+  font-size: 0.85rem;
+}
+
+.cargo-type {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  background: var(--gris-medio);
+}
+
+/* ====================== */
+/* ALERTAS Y MENSAJES */
+/* ====================== */
+
+.alert {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
+  color: white;
+  max-width: 350px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alert-success {
+  background: #4CAF50;
+  border-left: 5px solid #2E7D32;
+}
+
+.alert-error {
+  background: #F44336;
+  border-left: 5px solid #C62828;
+}
+
+.alert-warning {
+  background: #FF9800;
+  border-left: 5px solid #F57C00;
+}
+
+.alert-info {
+  background: #2196F3;
+  border-left: 5px solid #1565C0;
+}
+
+.close-btn {
+  cursor: pointer;
+  margin-left: 1rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+.close-btn:hover {
+  opacity: 1;
+}
+
+/* ====================== */
+/* ANIMACIONES Y EFECTOS */
+/* ====================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.fade-out {
+  animation: fadeOut 0.3s forwards;
+}
+
 @keyframes palpitar {
   0% { transform: scale(1); }
   50% { transform: scale(1.05); }
@@ -68,3 +315,51 @@ body {
 .iniciales {
   animation: palpitar 3s infinite;
 }
+
+/* ====================== */
+/* DISEÑO RESPONSIVO */
+/* ====================== */
+
+@media (max-width: 768px) {
+  .logo-header-contenido {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .logo-pequeno {
+    width: 40px;
+  }
+  
+  .card {
+    padding: 1.5rem;
+  }
+  
+  .btn {
+    padding: 0.7rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-principal h1 {
+    font-size: 1.8rem;
+  }
+  
+  .iniciales {
+    font-size: 1.4rem;
+  }
+  
+  .trip-dates, .cargo-footer, .excursion-date {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+}
+
+/* ====================== */
+/* ESTILOS ESPECÍFICOS PARA CLASES DE CARGA */
+/* ====================== */
+
+.paquete { background: #E3F2FD; color: #0D47A1; }
+.mudanza { background: #E8F5E9; color: #2E7D32; }
+.mercancia { background: #FFF3E0; color: #E65100; }
+.equipaje { background: #F3E5F5; color: #6A1B9A; }
+.otros { background: #ECEFF1; color: #263238; }
