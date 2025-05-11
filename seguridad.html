@@ -3,64 +3,108 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Políticas de Seguridad - Última Hora</title>
+  <title>Políticas de Seguridad | Última Hora R.M.K.</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="img/favicon.ico">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f7f7f7;
-      padding: 0;
+    /* ESTILOS ESPECÍFICOS PARA SEGURIDAD */
+    .politicas-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
     }
-    header {
-      background: #212121;
-      color: #fff;
-      text-align: center;
+    
+    .seccion-politica {
+      background: white;
+      border-radius: 12px;
       padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-left: 5px solid var(--amarillo-taxi);
     }
-    main {
-      padding: 2rem;
-      max-width: 800px;
-      margin: auto;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h2 {
-      color: #ff6f00;
-    }
-    ul {
-      list-style-type: disc;
+    
+    .lista-politicas {
       padding-left: 1.5rem;
+    }
+    
+    .lista-politicas li {
+      margin-bottom: 0.8rem;
+      position: relative;
+      list-style-type: none;
+      padding-left: 2rem;
+    }
+    
+    .lista-politicas li:before {
+      content: "🛡️";
+      position: absolute;
+      left: 0;
+      color: var(--amarillo-oscuro);
+    }
+    
+    .titulo-seccion {
+      border-bottom: 2px solid var(--amarillo-taxi);
+      padding-bottom: 0.5rem;
+      margin-top: 0;
+    }
+    
+    .advertencia {
+      background-color: #ffebee;
+      border-left: 4px solid #c62828;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      border-radius: 0 8px 8px 0;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Políticas de Seguridad</h1>
-    <p>Comprometidos con la protección y transparencia</p>
+  <!-- HEADER ACTUALIZADO CON R.M.K. -->
+  <header class="logo-header">
+    <div class="logo-header-contenido">
+      <img src="img/logo.png" alt="Logo Última Hora" class="logo-pequeno">
+      <div>
+        <h1>Políticas de Seguridad</h1>
+        <p class="eslogan-header">Protección y transparencia para todos</p>
+      </div>
+      <span class="iniciales-header">R.M.K.</span>
+    </div>
   </header>
 
-  <main>
-    <h2>Responsabilidades del Usuario</h2>
-    <ul>
-      <li>Proporcionar datos reales para registrar viajes o servicios.</li>
-      <li>No compartir su cuenta o datos de acceso con terceros.</li>
-      <li>Reportar cualquier incidente de inmediato a la plataforma.</li>
-    </ul>
+  <!-- CONTENIDO MEJORADO -->
+  <main class="politicas-container">
+    <div class="seccion-politica">
+      <h2 class="titulo-seccion">🔒 Responsabilidades del Usuario</h2>
+      <ul class="lista-politicas">
+        <li>Proporcionar <strong>datos reales</strong> para registrar viajes o servicios.</li>
+        <li>No compartir su <strong>cuenta o datos de acceso</strong> con terceros.</li>
+        <li>Reportar cualquier <strong>incidente</strong> de inmediato a la plataforma.</li>
+        <li>Verificar la identidad del chofer/pasajero antes de cada servicio.</li>
+      </ul>
+    </div>
 
-    <h2>Responsabilidades de la Plataforma</h2>
-    <ul>
-      <li>Proteger la información personal de clientes y choferes.</li>
-      <li>Intervenir en casos de fraude, acoso o alteraciones en los precios.</li>
-      <li>Aplicar sanciones cuando se violen las normas.</li>
-    </ul>
+    <div class="seccion-politica">
+      <h2 class="titulo-seccion">🛡️ Responsabilidades de la Plataforma</h2>
+      <ul class="lista-politicas">
+        <li>Proteger la <strong>información personal</strong> de clientes y choferes.</li>
+        <li>Intervenir en casos de <strong>fraude, acoso o alteración de precios</strong>.</li>
+        <li>Aplicar <strong>sanciones</strong> cuando se violen las normas.</li>
+        <li>Garantizar transparencia en todas las transacciones.</li>
+      </ul>
+    </div>
 
-    <h2>Medidas Disciplinarias</h2>
-    <ul>
-      <li>Suspensión temporal o permanente del servicio.</li>
-      <li>Revisión directa por parte del administrador.</li>
-      <li>Eliminación del acceso tras reincidencia.</li>
-    </ul>
+    <div class="seccion-politica">
+      <h2 class="titulo-seccion">⚖️ Medidas Disciplinarias</h2>
+      <ul class="lista-politicas">
+        <li><strong>Suspensión temporal</strong> o permanente del servicio.</li>
+        <li><strong>Revisión directa</strong> por parte del administrador.</li>
+        <li><strong>Eliminación del acceso</strong> tras reincidencia.</li>
+        <li><strong>Denuncia a autoridades</strong> en casos graves.</li>
+      </ul>
+    </div>
+
+    <div class="advertencia">
+      <h3>⚠️ Importante</h3>
+      <p>Todas las interacciones en la plataforma quedan registradas para garantizar la seguridad de nuestros usuarios. Las sanciones se aplican de acuerdo al reglamento interno R.M.K.-2024.</p>
+    </div>
   </main>
 </body>
 </html>
