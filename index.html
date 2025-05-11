@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Última Hora R.M.K. | Plataforma de Transporte</title>
+  <link rel="icon" href="img/logo_fondo_taxi.png">
+  <style>
+    /* ESTILOS UNIFICADOS */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: url('img/logo_fondo_taxi.png') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .logo-corner {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 80px;
+      height: 80px;
+      background: url('img/logo_fondo_taxi.png') no-repeat center center;
+      background-size: contain;
+      z-index: 10;
+      border-radius: 50%;
+      border: 2px solid #FFD700;
+    }
+    .contenedor-principal {
+      background-color: rgba(0, 0, 0, 0.7);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0;
+      color: #FFD700;
+      text-shadow: 2px 2px 4px #000;
+    }
+    .eslogan {
+      font-size: 1.2rem;
+      margin-top: 0;
+      margin-bottom: 2rem;
+    }
+    .grid-botones {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 800px;
+      width: 90%;
+    }
+    .btn-app {
+      background: linear-gradient(135deg, #FF6F00 0%, #E65100 100%);
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+    }
+    .btn-app:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+    .btn-admin {
+      background: linear-gradient(135deg, #212121 0%, #000000 100%);
+      grid-column: span 2;
+    }
+    @media (max-width: 600px) {
+      .grid-botones {
+        grid-template-columns: 1fr;
+      }
+      .btn-admin {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- LOGO PEQUEÑO (ESQUINA) -->
+  <div class="logo-corner"></div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="contenedor-principal">
+    <h1>ÚLTIMA HORA R.M.K.</h1>
+    <p class="eslogan">SERVICIOS DE TAXIS Y TRANSPORTE</p>
+
+    <!-- BOTONES DE NAVEGACIÓN -->
+    <div class="grid-botones">
+      <a href="cliente.html" class="btn-app"><span>👤</span> Cliente</a>
+      <a href="chofer.html" class="btn-app"><span>🚖</span> Chofer</a>
+      <a href="interprovincial.html" class="btn-app"><span>🛣️</span> Interprovincial</a>
+      <a href="excursiones.html" class="btn-app"><span>🗺️</span> Excursiones</a>
+      <a href="carga.html" class="btn-app"><span>🚚</span> Servicio de Carga</a>
+      <a href="tienda.html" class="btn-app"><span>🛒</span> Tienda</a>
+      <a href="tarifas.html" class="btn-app"><span>💰</span> Tarifas</a>
+      <a href="seguridad.html" class="btn-app"><span>🔒</span> Seguridad</a>
+      <a href="admin.html" class="btn-app btn-admin"><span>🔑</span> Administrador</a>
+    </div>
+  </div>
+</body>
+</html>
