@@ -3,46 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tienda - Última Hora</title>
+  <title>Tienda | Última Hora R.M.K.</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="img/favicon.ico">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f2f2f2;
-    }
-    header {
-      background: #212121;
-      color: white;
-      padding: 2rem;
+    /* ESTILOS ESPECÍFICOS PARA TIENDA */
+    .contenedor-tienda {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
       text-align: center;
     }
-    main {
-      text-align: center;
-      padding: 4rem 2rem;
+    
+    .aviso-construccion {
+      background: white;
+      border-radius: 12px;
+      padding: 3rem;
+      margin: 2rem 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-top: 5px solid var(--amarillo-taxi);
+      position: relative;
+      overflow: hidden;
     }
-    .box {
-      background: #fff8e1;
-      border: 2px dashed #ff9800;
-      padding: 2rem;
-      border-radius: 10px;
-      font-size: 1.2rem;
-      display: inline-block;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    
+    .aviso-construccion:before {
+      content: "🚧";
+      font-size: 3rem;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      opacity: 0.1;
+    }
+    
+    .productos-proximos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    
+    .producto-card {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    
+    .producto-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .producto-icono {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--amarillo-taxi);
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <h1>Tienda Última Hora</h1>
-    <p>Próximamente productos útiles para nuestros choferes y clientes</p>
+  <!-- HEADER ACTUALIZADO CON R.M.K. -->
+  <header class="logo-header">
+    <div class="logo-header-contenido">
+      <img src="img/logo.png" alt="Logo Última Hora" class="logo-pequeno">
+      <div>
+        <h1>Tienda Última Hora</h1>
+        <p class="eslogan-header">Productos exclusivos para nuestra comunidad</p>
+      </div>
+      <span class="iniciales-header">R.M.K.</span>
+    </div>
   </header>
 
-  <main>
-    <div class="box">
-      Esta sección se encuentra en construcción. Muy pronto podrás adquirir productos como identificaciones, pulóveres, calcomanías, accesorios y más.
+  <!-- CONTENIDO MEJORADO -->
+  <main class="contenedor-tienda">
+    <div class="aviso-construccion">
+      <h2>🛒 Tienda en Construcción</h2>
+      <p>Estamos preparando productos especiales para mejorar tu experiencia con nuestros servicios.</p>
+      <p>Próximamente podrás adquirir:</p>
+    </div>
+
+    <div class="productos-proximos">
+      <div class="producto-card">
+        <div class="producto-icono">🆔</div>
+        <h3>Identificaciones</h3>
+        <p>Credenciales oficiales para choferes</p>
+      </div>
+      
+      <div class="producto-card">
+        <div class="producto-icono">👕</div>
+        <h3>Uniforme</h3>
+        <p>Pulóveres y camisetas institucionales</p>
+      </div>
+      
+      <div class="producto-card">
+        <div class="producto-icono">🚖</div>
+        <h3>Calcomanías</h3>
+        <p>Vinilos para vehículos</p>
+      </div>
+      
+      <div class="producto-card">
+        <div class="producto-icono">🎁</div>
+        <h3>Accesorios</h3>
+        <p>Artículos promocionales</p>
+      </div>
     </div>
   </main>
 
+  <!-- FOOTER FAMILIAR -->
+  <footer style="text-align: center; padding: 2rem; background: #212121; color: white; margin-top: 3rem;">
+    <p>© 2024 Última Hora R.M.K. - Todos los derechos reservados</p>
+    <p style="font-size: 0.8rem; opacity: 0.8;">Con el amor de nuestra familia</p>
+  </footer>
 </body>
 </html>
