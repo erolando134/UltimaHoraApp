@@ -1,94 +1,110 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Última Hora - Viajes Interprovinciales</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viajes Interprovinciales | Última Hora R.M.K.</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="img/favicon.ico">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #212121;
-      color: white;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    header img {
-      width: 80px;
-      height: auto;
-      margin-bottom: 1rem;
-    }
-
-    main {
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .section {
-      margin-top: 2rem;
-      padding: 1rem;
-      background-color: #ffffff;
-      border-radius: 8px;
+    /* ESTILOS ESPECÍFICOS PARA INTERPROVINCIALES */
+    .contenedor-interprovincial {
       max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: left;
+      margin: 2rem auto;
+      padding: 0 1rem;
     }
-
-    h2 {
-      text-align: center;
-      margin-top: 0;
+    
+    .card-viajes {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-left: 5px solid var(--amarillo-taxi);
     }
-
-    ul {
-      margin-left: 2rem;
+    
+    .lista-requisitos {
+      padding-left: 1.5rem;
     }
-
-    .info-box {
+    
+    .lista-requisitos li {
+      margin-bottom: 0.8rem;
+      position: relative;
+      list-style-type: none;
+    }
+    
+    .lista-requisitos li:before {
+      content: "•";
+      color: var(--amarillo-taxi);
+      font-weight: bold;
+      font-size: 1.5em;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+      vertical-align: middle;
+    }
+    
+    .info-destacado {
       background-color: #fff3e0;
-      border-left: 5px solid #ffa726;
-      padding: 1rem;
-      margin-top: 1rem;
+      border-left: 4px solid var(--amarillo-oscuro);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      border-radius: 0 8px 8px 0;
+    }
+    
+    .precio-destacado {
+      color: var(--amarillo-oscuro);
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    
+    .nested-list {
+      padding-left: 1.5rem;
+      margin-top: 0.5rem;
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <img src="img/logo.png" alt="Logo Última Hora">
-    <h1>Viajes Interprovinciales</h1>
-    <p>Todo lo que necesitas saber para ofrecer este servicio</p>
+  <!-- HEADER ACTUALIZADO CON R.M.K. -->
+  <header class="logo-header">
+    <div class="logo-header-contenido">
+      <img src="img/logo.png" alt="Logo Última Hora" class="logo-pequeno">
+      <div>
+        <h1>Viajes Interprovinciales</h1>
+        <p class="eslogan-header">Conectamos ciudades con seguridad y confianza</p>
+      </div>
+      <span class="iniciales-header">R.M.K.</span>
+    </div>
   </header>
 
-  <main>
-    <div class="section">
-      <h2>Información Importante</h2>
-      <ul>
-        <li>Debes inscribirte con un pago inicial de <strong>2000 CUP</strong>.</li>
-        <li>La plataforma retiene el <strong>20%</strong> del total pagado por cada cliente.</li>
-        <li>Debes indicar:
-          <ul>
-            <li>Hora de salida</li>
-            <li>Hora estimada de llegada</li>
-            <li>Horario de regreso</li>
+  <!-- CONTENIDO MEJORADO -->
+  <main class="contenedor-interprovincial">
+    <div class="card-viajes">
+      <h2>📌 Información Importante</h2>
+      
+      <ul class="lista-requisitos">
+        <li><strong>Inscripción inicial:</strong> <span class="precio-destacado">2000 CUP</span></li>
+        <li><strong>Comisión plataforma:</strong> <span class="precio-destacado">20%</span> del total por viaje</li>
+        <li><strong>Horarios obligatorios:</strong>
+          <ul class="nested-list">
+            <li>Hora exacta de salida</li>
+            <li>Estimado de llegada</li>
+            <li>Horario de regreso (si aplica)</li>
           </ul>
         </li>
-        <li>Los viajes deben respetar los precios acordados previamente con el dueño de la app.</li>
-        <li>El dueño podrá revisar en tiempo real las solicitudes, quejas y medidas tomadas.</li>
+        <li><strong>Precios:</strong> Deben coincidir con los acordados con el administrador</li>
+        <li><strong>Supervisión:</strong> Todas las operaciones son monitoreadas en tiempo real</li>
       </ul>
 
-      <div class="info-box">
-        Nota: Si incurres en faltas reiteradas, puedes ser expulsado definitivamente de la plataforma.
+      <div class="info-destacado">
+        <p>⚠️ Nota importante:</p>
+        <ul class="lista-requisitos">
+          <li>Faltas reiteradas pueden resultar en expulsión permanente</li>
+          <li>El administrador puede aplicar sanciones inmediatas</li>
+          <li>Los mejores choferes reciben bonificaciones especiales</li>
+        </ul>
       </div>
     </div>
   </main>
-
 </body>
 </html>
