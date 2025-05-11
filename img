@@ -1,2 +1,6 @@
-https://chat.openai.com/mnt/data/file-7L1RRbfybAsQKCYwdFzWm3
+<!-- Para el fondo -->
+background: url('img/logo_fondo_taxi.png');
+
+<!-- Para el logo pequeño -->
+<img src="img/logo_fondo_taxi.png" width="80">
 
