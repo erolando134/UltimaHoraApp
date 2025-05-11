@@ -1,192 +1,284 @@
+/**
+ * Última Hora R.M.K. - Funcionalidad Principal
+ * @file app.js
+ * @description Controla todos los formularios y lógica de la aplicación
+ */
+
 document.addEventListener("DOMContentLoaded", function () {
-  // CONSTANTES GLOBALES
-  const APP_NAME = "Última Hora R.M.K.";
-  const CUP_SYMBOL = "CUP";
-  
-  // 1. RECARGA DE SALDO (Con validación mejorada)
-  const initRecarga = () => {
-    const formRecarga = document.getElementById("formRecarga");
-    const saldoActual = document.getElementById("saldoActual");
-    const montoInput = document.getElementById("montoRecarga");
-
-    if (formRecarga && saldoActual && montoInput) {
-      formRecarga.addEventListener("submit", function (e) {
-        e.preventDefault();
-        
-        const monto = parseInt(montoInput.value);
-        if (isNaN(monto) {
-          showAlert("⚠️ Ingrese un monto válido", "error");
-          return;
-        }
-
-        let saldo = parseInt(saldoActual.textContent) || 0;
-        saldo += monto;
-        saldoActual.textContent = saldo;
-        
-        showAlert(`✅ Recarga exitosa: +${monto} ${CUP_SYMBOL}`, "success");
-        formRecarga.reset();
-        
-        // Guardar en localStorage
-        localStorage.setItem('saldoActual', saldo);
-      });
+  // ======================
+  // CONFIGURACIÓN INICIAL
+  // ======================
+  const CONFIG = {
+    appName: "Última Hora R.M.K.",
+    currency: "CUP",
+    minDeposit: 100,
+    commissionRates: {
+      urban: 0.10,
+      intercity: 0.20,
+      cargo: 0.20,
+      excursions: 0.20
     }
   };
 
-  // 2. FORMULARIO INTERPROVINCIAL (Con template string)
-  const initInterprovincial = () => {
+  // ======================
+  // 1. RECARGA DE SALDO
+  // ======================
+  const setupBalanceRecharge = () => {
+    const form = document.getElementById("formRecarga");
+    const balanceDisplay = document.getElementById("saldoActual");
+    const amountInput = document.getElementById("montoRecarga");
+
+    if (!form || !balanceDisplay || !amountInput) return;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      
+      const amount = parseInt(amountInput.value);
+      
+      // Validaciones
+      if (isNaN(amount)) {
+        showAlert("❌ Ingrese un monto válido", "error");
+        return;
+      }
+      
+      if (amount < CONFIG.minDeposit) {
+        showAlert(`⚠️ El monto mínimo es ${CONFIG.minDeposit} ${CONFIG.currency}`, "warning");
+        return;
+      }
+
+      // Actualizar saldo
+      let currentBalance = parseInt(balanceDisplay.textContent) || 0;
+      currentBalance += amount;
+      balanceDisplay.textContent = currentBalance;
+      
+      // Feedback y reset
+      showAlert(`✅ Recarga exitosa: +${amount} ${CONFIG.currency}`, "success");
+      form.reset();
+      
+      // Guardar en localStorage
+      localStorage.setItem('userBalance', currentBalance);
+    });
+  };
+
+  // ======================
+  // 2. VIAJES INTERPROVINCIALES
+  // ======================
+  const setupIntercityTrips = () => {
     const form = document.getElementById("formInterprovincial");
-    const historial = document.getElementById("historialInterprovincial");
+    const historyList = document.getElementById("historialInterprovincial");
 
-    if (form && historial) {
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        
-        const [origen, destino, salida, llegada, precio] = [
-          "origen", "destino", "salida", "llegada", "precio"
-        ].map(id => document.getElementById(id).value);
+    if (!form || !historyList) return;
 
-        if (!validateTrip(origen, destino, salida, llegada, precio)) return;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      
+      const tripData = {
+        origin: document.getElementById("origen").value,
+        destination: document.getElementById("destino").value,
+        departure: document.getElementById("salida").value,
+        arrival: document.getElementById("llegada").value,
+        price: document.getElementById("precio").value
+      };
 
-        const viaje = `
-          <li class="viaje-item">
-            <strong>${origen} → ${destino}</strong><br>
-            <small>Salida: ${formatDate(salida)}</small><br>
-            <small>Llegada: ${formatDate(llegada)}</small><br>
-            <span class="precio">${precio} ${CUP_SYMBOL}</span>
-          </li>
-        `;
-        
-        historial.insertAdjacentHTML("afterbegin", viaje);
-        form.reset();
-        showAlert("Viaje interprovincial registrado", "success");
-      });
-    }
+      // Validaciones
+      if (!tripData.origin || !tripData.destination) {
+        showAlert("❌ Origen y destino son requeridos", "error");
+        return;
+      }
+
+      if (new Date(tripData.departure) > new Date(tripData.arrival)) {
+        showAlert("⚠️ La fecha de llegada debe ser posterior", "warning");
+        return;
+      }
+
+      // Calcular comisión
+      const commission = tripData.price * CONFIG.commissionRates.intercity;
+      const driverEarnings = tripData.price - commission;
+
+      // Crear elemento de historial
+      const tripItem = document.createElement("li");
+      tripItem.className = "trip-item";
+      tripItem.innerHTML = `
+        <div class="trip-route">
+          <strong>${tripData.origin} → ${tripData.destination}</strong>
+        </div>
+        <div class="trip-dates">
+          <span>Salida: ${formatDate(tripData.departure)}</span>
+          <span>Llegada: ${formatDate(tripData.arrival)}</span>
+        </div>
+        <div class="trip-pricing">
+          <span class="price">${tripData.price} ${CONFIG.currency}</span>
+          <span class="commission">Comisión: ${commission} ${CONFIG.currency}</span>
+          <span class="earnings">Ganancias: ${driverEarnings} ${CONFIG.currency}</span>
+        </div>
+      `;
+
+      historyList.prepend(tripItem);
+      form.reset();
+      showAlert("Viaje registrado exitosamente", "success");
+    });
   };
 
-  // 3. FORMULARIO DE CARGA (Con validación de tipo)
-  const initCarga = () => {
+  // ======================
+  // 3. TRANSPORTE DE CARGA
+  // ======================
+  const setupCargoTransport = () => {
     const form = document.getElementById("formCarga");
-    const historial = document.getElementById("historialCarga");
+    const historyList = document.getElementById("historialCarga");
 
-    if (form && historial) {
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        
-        const [origen, destino, fecha, tipo, precio] = [
-          "origenCarga", "destinoCarga", "fechaCarga", "tipoCarga", "precioCarga"
-        ].map(id => document.getElementById(id).value);
+    if (!form || !historyList) return;
 
-        if (!validateCargo(tipo, precio)) return;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      
+      const cargoData = {
+        origin: document.getElementById("origenCarga").value,
+        destination: document.getElementById("destinoCarga").value,
+        date: document.getElementById("fechaCarga").value,
+        type: document.getElementById("tipoCarga").value,
+        price: document.getElementById("precioCarga").value
+      };
 
-        const carga = `
-          <li class="carga-item">
-            <div class="carga-header">
-              <span class="tipo-carga ${tipo.toLowerCase()}">${tipo}</span>
-              <span class="precio">${precio} ${CUP_SYMBOL}</span>
-            </div>
-            <div class="carga-ruta">${origen} → ${destino}</div>
-            <div class="carga-fecha">${formatDate(fecha)}</div>
-          </li>
-        `;
-        
-        historial.insertAdjacentHTML("afterbegin", carga);
-        form.reset();
-      });
-    }
+      // Validaciones
+      const validCargoTypes = ["Paquete", "Mudanza", "Mercancía", "Equipaje", "Otros"];
+      if (!validCargoTypes.includes(cargoData.type)) {
+        showAlert(`Tipo de carga inválido. Use: ${validCargoTypes.join(", ")}`, "error");
+        return;
+      }
+
+      // Calcular comisión
+      const commission = cargoData.price * CONFIG.commissionRates.cargo;
+      const driverEarnings = cargoData.price - commission;
+
+      // Crear elemento de historial
+      const cargoItem = document.createElement("li");
+      cargoItem.className = "cargo-item";
+      cargoItem.innerHTML = `
+        <div class="cargo-header">
+          <span class="cargo-type ${cargoData.type.toLowerCase()}">${cargoData.type}</span>
+          <span class="cargo-price">${cargoData.price} ${CONFIG.currency}</span>
+        </div>
+        <div class="cargo-route">
+          ${cargoData.origin} → ${cargoData.destination}
+        </div>
+        <div class="cargo-footer">
+          <span>${formatDate(cargoData.date)}</span>
+          <span class="earnings">Gana: ${driverEarnings} ${CONFIG.currency}</span>
+        </div>
+      `;
+
+      historyList.prepend(cargoItem);
+      form.reset();
+    });
   };
 
-  // 4. FORMULARIO DE EXCURSIONES (Con validación de fecha)
-  const initExcursiones = () => {
+  // ======================
+  // 4. EXCURSIONES
+  // ======================
+  const setupExcursions = () => {
     const form = document.getElementById("formExcursion");
-    const historial = document.getElementById("historialExcursion");
+    const historyList = document.getElementById("historialExcursion");
 
-    if (form && historial) {
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        
-        const [destino, fecha, hora, precio] = [
-          "destinoExcursion", "fechaExcursion", "horaExcursion", "precioExcursion"
-        ].map(id => document.getElementById(id).value);
+    if (!form || !historyList) return;
 
-        if (!validateExcursion(fecha)) return;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      
+      const excursionData = {
+        destination: document.getElementById("destinoExcursion").value,
+        date: document.getElementById("fechaExcursion").value,
+        time: document.getElementById("horaExcursion").value,
+        price: document.getElementById("precioExcursion").value
+      };
 
-        const excursion = `
-          <li class="excursion-item">
-            <h4>${destino}</h4>
-            <div class="excursion-fecha">
-              ${formatDate(fecha)} a las ${hora}
-            </div>
-            <div class="excursion-precio">
-              ${precio} ${CUP_SYMBOL} <small>/persona</small>
-            </div>
-          </li>
-        `;
-        
-        historial.insertAdjacentHTML("afterbegin", excursion);
-        form.reset();
-      });
-    }
+      // Validaciones
+      if (new Date(excursionData.date) < new Date()) {
+        showAlert("⚠️ La fecha debe ser futura", "warning");
+        return;
+      }
+
+      // Calcular comisión
+      const commission = excursionData.price * CONFIG.commissionRates.excursions;
+      const driverEarnings = excursionData.price - commission;
+
+      // Crear elemento de historial
+      const excursionItem = document.createElement("li");
+      excursionItem.className = "excursion-item";
+      excursionItem.innerHTML = `
+        <div class="excursion-header">
+          <h4>${excursionData.destination}</h4>
+          <span class="price">${excursionData.price} ${CONFIG.currency}</span>
+        </div>
+        <div class="excursion-date">
+          ${formatDate(excursionData.date)} a las ${excursionData.time}
+        </div>
+        <div class="excursion-earnings">
+          <span>Comisión: ${commission} ${CONFIG.currency}</span>
+          <span>Ganancias: ${driverEarnings} ${CONFIG.currency}</span>
+        </div>
+      `;
+
+      historyList.prepend(excursionItem);
+      form.reset();
+    });
   };
 
+  // ======================
   // FUNCIONES DE APOYO
+  // ======================
   const showAlert = (message, type) => {
     const alert = document.createElement("div");
-    alert.className = `alert ${type}`;
+    alert.className = `alert alert-${type}`;
     alert.innerHTML = `
       <p>${message}</p>
       <span class="close-btn">&times;</span>
     `;
     
     document.body.appendChild(alert);
-    setTimeout(() => alert.remove(), 5000);
+    
+    // Auto-eliminación después de 5 segundos
+    setTimeout(() => {
+      alert.classList.add('fade-out');
+      setTimeout(() => alert.remove(), 300);
+    }, 5000);
+    
+    // Cierre manual
+    alert.querySelector('.close-btn').addEventListener('click', () => {
+      alert.remove();
+    });
   };
 
   const formatDate = (dateString) => {
     if (!dateString) return "No especificado";
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    const options = { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    };
     return new Date(dateString).toLocaleDateString('es-ES', options);
   };
 
-  const validateTrip = (origen, destino, salida, llegada, precio) => {
-    if (!origen || !destino) {
-      showAlert("❌ Origen y destino son requeridos", "error");
-      return false;
+  const loadInitialData = () => {
+    // Cargar saldo desde localStorage
+    const savedBalance = localStorage.getItem('userBalance');
+    const balanceDisplay = document.getElementById("saldoActual");
+    if (balanceDisplay && savedBalance) {
+      balanceDisplay.textContent = savedBalance;
     }
-    if (new Date(salida) > new Date(llegada)) {
-      showAlert("⚠️ La fecha de llegada debe ser posterior a la salida", "warning");
-      return false;
-    }
-    return true;
+    
+    // Mostrar mensaje de inicio
+    console.log(`${CONFIG.appName} - Sistema inicializado`);
+    showAlert(`Bienvenido a ${CONFIG.appName}`, "info");
   };
 
-  const validateCargo = (tipo, precio) => {
-    const tiposValidos = ["Paquete", "Mudanza", "Mercancía", "Otros"];
-    if (!tiposValidos.includes(tipo)) {
-      showAlert(`Tipo de carga inválido. Use: ${tiposValidos.join(", ")}`, "error");
-      return false;
-    }
-    return true;
-  };
-
-  const validateExcursion = (fecha) => {
-    if (new Date(fecha) < new Date()) {
-      showAlert("⚠️ La fecha de excursión debe ser futura", "warning");
-      return false;
-    }
-    return true;
-  };
-
+  // ======================
   // INICIALIZACIÓN
-  console.log(`${APP_NAME} - JS cargado correctamente`);
-  initRecarga();
-  initInterprovincial();
-  initCarga();
-  initExcursiones();
-
-  // Cargar saldo guardado
-  const savedBalance = localStorage.getItem('saldoActual');
-  if (savedBalance) {
-    const saldoActual = document.getElementById("saldoActual");
-    if (saldoActual) saldoActual.textContent = savedBalance;
-  }
+  // ======================
+  setupBalanceRecharge();
+  setupIntercityTrips();
+  setupCargoTransport();
+  setupExcursions();
+  loadInitialData();
 });
