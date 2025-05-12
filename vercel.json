@@ -2,11 +2,17 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
-    { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/chofer", "destination": "/chofer.html" },
-    { "source": "/cliente", "destination": "/cliente.html" },
-    { "source": "/seguridad", "destination": "/seguridad.html" },
-    { "source": "/tienda", "destination": "/tienda.html" }
+    { "source": "/admin", "destination": "/admin/admin.html" },
+    { "source": "/choferes", "destination": "/choferes/choferes.html" },
+    { "source": "/clientes", "destination": "/clientes/cliente.html" },
+    { "source": "/seguridad", "destination": "/seguridad/seguridad.html" },
+    { "source": "/tienda", "destination": "/tienda/tienda.html" },
+    { "source": "/interprovincial", "destination": "/interprovincial/interprovincial.html" },
+    { "source": "/excursiones", "destination": "/excursiones/excursiones.html" },
+    { "source": "/carga", "destination": "/carga/carga.html" },
+    { "source": "/mensajeria", "destination": "/mensajeria/mensajeria.html" },
+    { "source": "/choferes/eventual", "destination": "/choferes/inscripcion-eventual.html" },
+    { "source": "/choferes/taxi", "destination": "/choferes/inscripcion-taxi.html" },
+    { "source": "/choferes/carga", "destination": "/choferes/inscripcion-carga.html" }
   ]
 }
-
