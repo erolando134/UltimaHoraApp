@@ -3,11 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FFD700">
   <title>Viajes Interprovinciales | Última Hora R.M.K.</title>
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="icon" href="img/favicon.ico">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="../img/logo_fondo_taxi.png">
+  <link rel="manifest" href="/manifest.json">
   <style>
     /* ESTILOS ESPECÍFICOS PARA INTERPROVINCIALES */
+    :root {
+      --amarillo-taxi: #FFD700;
+      --amarillo-oscuro: #E65100;
+    }
+
     .contenedor-interprovincial {
       max-width: 800px;
       margin: 2rem auto;
@@ -15,12 +22,13 @@
     }
     
     .card-viajes {
-      background: white;
+      background: rgba(255, 255, 255, 0.9);
       border-radius: 12px;
       padding: 2rem;
       margin-bottom: 2rem;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       border-left: 5px solid var(--amarillo-taxi);
+      color: #333;
     }
     
     .lista-requisitos {
@@ -62,13 +70,24 @@
       padding-left: 1.5rem;
       margin-top: 0.5rem;
     }
+
+    .btn-crear-viaje {
+      background: linear-gradient(135deg, var(--amarillo-taxi) 0%, var(--amarillo-oscuro) 100%);
+      color: white !important;
+      padding: 12px 25px;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
-  <!-- HEADER ACTUALIZADO CON R.M.K. -->
-  <header class="logo-header">
+  <div class="logo-corner"></div>
+  <div id="alert-container" class="alert-container"></div>
+
+  <!-- HEADER ACTUALIZADO -->
+  <header class="logo-header" onclick="window.location.href='../index.html'">
     <div class="logo-header-contenido">
-      <img src="img/logo.png" alt="Logo Última Hora" class="logo-pequeno">
+      <img src="../img/logo_fondo_taxi.png" alt="Logo Última Hora" class="logo-pequeno">
       <div>
         <h1>Viajes Interprovinciales</h1>
         <p class="eslogan-header">Conectamos ciudades con seguridad y confianza</p>
@@ -104,7 +123,75 @@
           <li>Los mejores choferes reciben bonificaciones especiales</li>
         </ul>
       </div>
+
+      <!-- Formulario de creación de viaje -->
+      <form id="formViaje" class="formulario-viaje">
+        <h3>🚌 Programar Nuevo Viaje</h3>
+        <div class="campo-formulario">
+          <label>Ruta:</label>
+          <input type="text" required placeholder="Ej: La Habana - Varadero">
+        </div>
+        
+        <div class="campo-dual">
+          <div class="campo-formulario">
+            <label>Fecha y Hora de Salida:</label>
+            <input type="datetime-local" required>
+          </div>
+          
+          <div class="campo-formulario">
+            <label>Precio por Pasajero (CUP):</label>
+            <input type="number" min="0" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-app btn-crear-viaje">🚀 Publicar Viaje</button>
+      </form>
+    </div>
+
+    <!-- Listado de Viajes -->
+    <div class="card-viajes">
+      <h2>🚍 Viajes Programados</h2>
+      <div id="listaViajes" class="lista-viajes">
+        <!-- Los viajes se cargarán dinámicamente aquí -->
+      </div>
     </div>
   </main>
+
+  <script>
+    // Registro del Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('../sw.js')
+          .then(registration => console.log('Service Worker registrado'))
+          .catch(err => console.log('Error:', err));
+      });
+    }
+
+    // Manejo del formulario
+    document.getElementById('formViaje').addEventListener('submit', function(e) {
+      e.preventDefault();
+      showAlert('🚌 Viaje publicado exitosamente!', 'success');
+      this.reset();
+    });
+
+    // Función para mostrar alertas
+    function showAlert(message, type) {
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${type}`;
+      alert.innerHTML = `
+        ${message}
+        <button class="close-btn">&times;</button>
+      `;
+      
+      document.getElementById('alert-container').appendChild(alert);
+      
+      alert.querySelector('.close-btn').addEventListener('click', () => {
+        alert.classList.add('fade-out');
+        setTimeout(() => alert.remove(), 300);
+      });
+      
+      setTimeout(() => alert.remove(), 5000);
+    }
+  </script>
 </body>
 </html>
