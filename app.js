@@ -11,6 +11,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const CONFIG = {
     appName: "Última Hora R.M.K.",
     currency: "CUP",
+    currencyOptions: {
+      style: 'currency',
+      currency: 'CUP',
+      minimumFractionDigits: 2
+    },
     minDeposit: 100,
     commissionRates: {
       urban: 0.10,
@@ -30,32 +35,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!form || !balanceDisplay || !amountInput) return;
 
+    const formatCurrency = (amount) => {
+      return amount.toLocaleString('es-CU', CONFIG.currencyOptions);
+    };
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       
-      const amount = parseInt(amountInput.value);
+      const amount = parseFloat(amountInput.value.replace(/,/g, ''));
       
       // Validaciones
-      if (isNaN(amount)) {
+      if (isNaN(amount) || amount <= 0) {
         showAlert("❌ Ingrese un monto válido", "error");
         return;
       }
       
       if (amount < CONFIG.minDeposit) {
-        showAlert(`⚠️ El monto mínimo es ${CONFIG.minDeposit} ${CONFIG.currency}`, "warning");
+        showAlert(`⚠️ El monto mínimo es ${formatCurrency(CONFIG.minDeposit)}`, "warning");
         return;
       }
 
       // Actualizar saldo
-      let currentBalance = parseInt(balanceDisplay.textContent) || 0;
+      let currentBalance = parseFloat(localStorage.getItem('userBalance')) || 0;
       currentBalance += amount;
-      balanceDisplay.textContent = currentBalance;
       
-      // Feedback y reset
-      showAlert(`✅ Recarga exitosa: +${amount} ${CONFIG.currency}`, "success");
+      balanceDisplay.textContent = formatCurrency(currentBalance);
+      showAlert(`✅ Recarga exitosa: ${formatCurrency(amount)}`, "success");
       form.reset();
       
-      // Guardar en localStorage
       localStorage.setItem('userBalance', currentBalance);
     });
   };
@@ -69,15 +76,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!form || !historyList) return;
 
+    const formatCurrency = (amount) => {
+      return amount.toLocaleString('es-CU', CONFIG.currencyOptions);
+    };
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       
       const tripData = {
-        origin: document.getElementById("origen").value,
-        destination: document.getElementById("destino").value,
+        origin: document.getElementById("origen").value.trim(),
+        destination: document.getElementById("destino").value.trim(),
         departure: document.getElementById("salida").value,
         arrival: document.getElementById("llegada").value,
-        price: document.getElementById("precio").value
+        price: parseFloat(document.getElementById("precio").value)
       };
 
       // Validaciones
@@ -86,12 +97,20 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      if (new Date(tripData.departure) > new Date(tripData.arrival)) {
+      if (isNaN(tripData.price) || tripData.price <= 0) {
+        showAlert("❌ Precio inválido", "error");
+        return;
+      }
+
+      const departureDate = new Date(tripData.departure);
+      const arrivalDate = new Date(tripData.arrival);
+      
+      if (departureDate >= arrivalDate) {
         showAlert("⚠️ La fecha de llegada debe ser posterior", "warning");
         return;
       }
 
-      // Calcular comisión
+      // Calcular comisión y ganancias
       const commission = tripData.price * CONFIG.commissionRates.intercity;
       const driverEarnings = tripData.price - commission;
 
@@ -107,9 +126,9 @@ document.addEventListener("DOMContentLoaded", function () {
           <span>Llegada: ${formatDate(tripData.arrival)}</span>
         </div>
         <div class="trip-pricing">
-          <span class="price">${tripData.price} ${CONFIG.currency}</span>
-          <span class="commission">Comisión: ${commission} ${CONFIG.currency}</span>
-          <span class="earnings">Ganancias: ${driverEarnings} ${CONFIG.currency}</span>
+          <span class="price">${formatCurrency(tripData.price)}</span>
+          <span class="commission">Comisión: ${formatCurrency(commission)}</span>
+          <span class="earnings">Ganancias: ${formatCurrency(driverEarnings)}</span>
         </div>
       `;
 
@@ -128,25 +147,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!form || !historyList) return;
 
+    const formatCurrency = (amount) => {
+      return amount.toLocaleString('es-CU', CONFIG.currencyOptions);
+    };
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       
       const cargoData = {
-        origin: document.getElementById("origenCarga").value,
-        destination: document.getElementById("destinoCarga").value,
+        origin: document.getElementById("origenCarga").value.trim(),
+        destination: document.getElementById("destinoCarga").value.trim(),
         date: document.getElementById("fechaCarga").value,
         type: document.getElementById("tipoCarga").value,
-        price: document.getElementById("precioCarga").value
+        price: parseFloat(document.getElementById("precioCarga").value)
       };
 
       // Validaciones
       const validCargoTypes = ["Paquete", "Mudanza", "Mercancía", "Equipaje", "Otros"];
       if (!validCargoTypes.includes(cargoData.type)) {
-        showAlert(`Tipo de carga inválido. Use: ${validCargoTypes.join(", ")}`, "error");
+        showAlert(`❌ Tipo de carga inválido. Use: ${validCargoTypes.join(", ")}`, "error");
         return;
       }
 
-      // Calcular comisión
+      if (isNaN(cargoData.price) || cargoData.price <= 0) {
+        showAlert("❌ Precio inválido", "error");
+        return;
+      }
+
+      // Calcular comisión y ganancias
       const commission = cargoData.price * CONFIG.commissionRates.cargo;
       const driverEarnings = cargoData.price - commission;
 
@@ -156,19 +184,20 @@ document.addEventListener("DOMContentLoaded", function () {
       cargoItem.innerHTML = `
         <div class="cargo-header">
           <span class="cargo-type ${cargoData.type.toLowerCase()}">${cargoData.type}</span>
-          <span class="cargo-price">${cargoData.price} ${CONFIG.currency}</span>
+          <span class="cargo-price">${formatCurrency(cargoData.price)}</span>
         </div>
         <div class="cargo-route">
           ${cargoData.origin} → ${cargoData.destination}
         </div>
         <div class="cargo-footer">
           <span>${formatDate(cargoData.date)}</span>
-          <span class="earnings">Gana: ${driverEarnings} ${CONFIG.currency}</span>
+          <span class="earnings">Gana: ${formatCurrency(driverEarnings)}</span>
         </div>
       `;
 
       historyList.prepend(cargoItem);
       form.reset();
+      showAlert("Carga registrada exitosamente", "success");
     });
   };
 
@@ -181,14 +210,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!form || !historyList) return;
 
+    const formatCurrency = (amount) => {
+      return amount.toLocaleString('es-CU', CONFIG.currencyOptions);
+    };
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       
       const excursionData = {
-        destination: document.getElementById("destinoExcursion").value,
+        destination: document.getElementById("destinoExcursion").value.trim(),
         date: document.getElementById("fechaExcursion").value,
         time: document.getElementById("horaExcursion").value,
-        price: document.getElementById("precioExcursion").value
+        price: parseFloat(document.getElementById("precioExcursion").value)
       };
 
       // Validaciones
@@ -197,7 +230,12 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // Calcular comisión
+      if (isNaN(excursionData.price) || excursionData.price <= 0) {
+        showAlert("❌ Precio inválido", "error");
+        return;
+      }
+
+      // Calcular comisión y ganancias
       const commission = excursionData.price * CONFIG.commissionRates.excursions;
       const driverEarnings = excursionData.price - commission;
 
@@ -207,19 +245,20 @@ document.addEventListener("DOMContentLoaded", function () {
       excursionItem.innerHTML = `
         <div class="excursion-header">
           <h4>${excursionData.destination}</h4>
-          <span class="price">${excursionData.price} ${CONFIG.currency}</span>
+          <span class="price">${formatCurrency(excursionData.price)}</span>
         </div>
         <div class="excursion-date">
           ${formatDate(excursionData.date)} a las ${excursionData.time}
         </div>
         <div class="excursion-earnings">
-          <span>Comisión: ${commission} ${CONFIG.currency}</span>
-          <span>Ganancias: ${driverEarnings} ${CONFIG.currency}</span>
+          <span>Comisión: ${formatCurrency(commission)}</span>
+          <span>Ganancias: ${formatCurrency(driverEarnings)}</span>
         </div>
       `;
 
       historyList.prepend(excursionItem);
       form.reset();
+      showAlert("Excursión registrada exitosamente", "success");
     });
   };
 
@@ -229,12 +268,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const showAlert = (message, type) => {
     const alert = document.createElement("div");
     alert.className = `alert alert-${type}`;
+    alert.setAttribute('role', 'alert');
     alert.innerHTML = `
       <p>${message}</p>
-      <span class="close-btn">&times;</span>
+      <button class="close-btn" aria-label="Cerrar">&times;</button>
     `;
     
-    document.body.appendChild(alert);
+    document.getElementById('alert-container').appendChild(alert);
     
     // Auto-eliminación después de 5 segundos
     setTimeout(() => {
@@ -249,28 +289,31 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   const formatDate = (dateString) => {
-    if (!dateString) return "No especificado";
-    const options = { 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    };
-    return new Date(dateString).toLocaleDateString('es-ES', options);
+    try {
+      const options = { 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      };
+      return new Date(dateString).toLocaleDateString('es-ES', options);
+    } catch (error) {
+      console.error("Error al formatear fecha:", error);
+      return "Fecha no especificada";
+    }
   };
 
   const loadInitialData = () => {
     // Cargar saldo desde localStorage
-    const savedBalance = localStorage.getItem('userBalance');
+    const savedBalance = parseFloat(localStorage.getItem('userBalance')) || 0;
     const balanceDisplay = document.getElementById("saldoActual");
-    if (balanceDisplay && savedBalance) {
-      balanceDisplay.textContent = savedBalance;
+    if (balanceDisplay) {
+      balanceDisplay.textContent = savedBalance.toLocaleString('es-CU', CONFIG.currencyOptions);
     }
     
     // Mostrar mensaje de inicio
     console.log(`${CONFIG.appName} - Sistema inicializado`);
-    showAlert(`Bienvenido a ${CONFIG.appName}`, "info");
   };
 
   // ======================
