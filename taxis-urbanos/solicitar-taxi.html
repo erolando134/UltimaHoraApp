@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FFD700">
+  <title>Solicitar Taxi Urbano | R.M.K.</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="../img/logo_fondo_taxi.png">
+  <style>
+    .solicitud-taxi {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .campo-formulario {
+      margin-bottom: 1.5rem;
+    }
+
+    .info-destacado {
+      background: #fff3cd;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-corner"></div>
+  <div id="alert-container" class="alert-container"></div>
+
+  <main class="solicitud-taxi">
+    <h1>🚕 Solicitar Taxi Urbano</h1>
+    
+    <form id="solicitudTaxi" onsubmit="handleSubmit(event)">
+      <div class="campo-formulario">
+        <label>📍 Dirección de Recogida:</label>
+        <input type="text" required placeholder="Ej: Calle 23 #456, Vedado">
+      </div>
+      
+      <div class="campo-formulario">
+        <label>🏁 Destino:</label>
+        <input type="text" required placeholder="Ej: Avenida 5ta, Miramar">
+      </div>
+
+      <div class="campo-dual">
+        <div class="campo-formulario">
+          <label>🕒 Hora de Recogida:</label>
+          <input type="datetime-local" required>
+        </div>
+        
+        <div class="campo-formulario">
+          <label>👥 Pasajeros:</label>
+          <input type="number" min="1" max="4" value="1" required>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-app btn-cliente">🚖 Solicitar Taxi Ahora</button>
+    </form>
+
+    <div class="info-destacado">
+      <p>¿Eres taxista? <a href="registro-taxistas.html">Regístrate aquí</a> para ofrecer tu servicio</p>
+    </div>
+  </main>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      showAlert('🚕 Taxi solicitado! Buscando conductor disponible...', 'success');
+      setTimeout(() => {
+        window.location.href = '../index.html';
+      }, 3000);
+    }
+
+    function showAlert(message, type) {
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${type}`;
+      alert.innerHTML = `${message}<button class="close-btn">&times;</button>`;
+      
+      document.getElementById('alert-container').appendChild(alert);
+      
+      alert.querySelector('.close-btn').onclick = () => alert.remove();
+      setTimeout(() => alert.remove(), 5000);
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('../sw.js')
+          .then(reg => console.log('SW registrado para taxis'))
+          .catch(err => console.log('Error SW:', err));
+      });
+    }
+  </script>
+</body>
+</html>
