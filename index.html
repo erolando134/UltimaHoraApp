@@ -6,7 +6,15 @@
   <title>Última Hora R.M.K. | Plataforma de Transporte</title>
   <link rel="icon" href="img/logo_fondo_taxi.png">
   <style>
-    /* ESTILOS ACTUALIZADOS */
+    /* ESTILOS OPTIMIZADOS Y COMPLETOS */
+    :root {
+      --amarillo-primario: #FFD700;
+      --naranja-secundario: #E65100;
+      --azul-chofer: #1E88E5;
+      --verde-especial: #4CAF50;
+      --fondo-oscuro: rgba(0, 0, 0, 0.85);
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -18,101 +26,142 @@
       display: flex;
       flex-direction: column;
     }
+
     .logo-corner {
-      position: absolute;
+      position: fixed;
       top: 15px;
       left: 15px;
       width: 80px;
       height: 80px;
       background: url('img/logo_fondo_taxi.png') no-repeat center center;
       background-size: contain;
-      z-index: 10;
+      z-index: 1000;
       border-radius: 50%;
-      border: 2px solid #FFD700;
+      border: 2px solid var(--amarillo-primario);
+      transition: transform 0.3s;
     }
+
+    .logo-corner:hover {
+      transform: rotate(15deg);
+    }
+
     .contenedor-principal {
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: var(--fondo-oscuro);
       flex: 1;
-      padding: 20px;
+      padding: 2rem 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      backdrop-filter: blur(5px);
     }
+
     h1 {
       font-size: 2.5rem;
-      margin-bottom: 0;
-      color: #FFD700;
+      margin: 0 0 1rem;
+      color: var(--amarillo-primario);
       text-shadow: 2px 2px 4px #000;
       text-align: center;
     }
+
     .servicios-lista {
       text-align: center;
       margin: 1rem 0 2rem;
       font-size: 1.1rem;
       line-height: 1.6;
+      max-width: 800px;
+      padding: 0 15px;
     }
+
     .grid-columnas {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(300px, 1fr));
       gap: 30px;
-      max-width: 1200px;
       width: 95%;
+      max-width: 1200px;
       margin-bottom: 2rem;
     }
+
     .columna {
       background: rgba(255, 255, 255, 0.1);
-      padding: 20px;
-      border-radius: 10px;
+      padding: 25px;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
+
     .columna h2 {
-      color: #FFD700;
+      color: var(--amarillo-primario);
       text-align: center;
-      margin-top: 0;
+      margin: 0 0 1.5rem;
+      font-size: 1.8rem;
     }
+
     .grupo-botones {
       display: flex;
       flex-direction: column;
       gap: 15px;
     }
-    .btn-cliente {
-      background: linear-gradient(135deg, #FF6F00 0%, #E65100 100%);
-      color: white;
-    }
-    .btn-chofer {
-      background: linear-gradient(135deg, #1E88E5 0%, #0D47A1 100%);
-      color: white;
-    }
-    .btn-especial {
-      background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
-      color: white;
-      width: 100%;
-      max-width: 500px;
-      margin: 10px 0;
-    }
+
     .btn-app {
-      padding: 15px;
-      border-radius: 8px;
+      padding: 15px 20px;
+      border-radius: 10px;
       text-decoration: none;
       font-weight: bold;
       text-align: center;
-      transition: all 0.3s;
-      border: none;
-      cursor: pointer;
+      transition: all 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
+      font-size: 1.1rem;
     }
+
+    .btn-cliente {
+      background: linear-gradient(135deg, var(--naranja-secundario) 0%, #BF360C 100%);
+      color: white !important;
+    }
+
+    .btn-chofer {
+      background: linear-gradient(135deg, var(--azul-chofer) 0%, #0D47A1 100%);
+      color: white !important;
+    }
+
+    .btn-especial {
+      background: linear-gradient(135deg, var(--verde-especial) 0%, #1B5E20 100%);
+      width: 100%;
+      max-width: 500px;
+      margin: 15px 0;
+    }
+
     .btn-app:hover {
       transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+      filter: brightness(1.1);
     }
+
     @media (max-width: 768px) {
       .grid-columnas {
         grid-template-columns: 1fr;
+        gap: 20px;
       }
+      
       h1 {
         font-size: 2rem;
+      }
+      
+      .columna {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .btn-app {
+        font-size: 1rem;
+        padding: 12px 15px;
+      }
+      
+      .logo-corner {
+        width: 60px;
+        height: 60px;
       }
     }
   </style>
@@ -125,44 +174,42 @@
     
     <div class="servicios-lista">
       Servicios que ofrecemos:<br>
-      • Taxis Urbanos<br>
-      • Transporte Interprovincial<br>
-      • Transporte de Carga<br>
-      • Tienda (Publicar/Comprar Autos y Partes)<br>
-      • Mensajería
+      • Taxis Urbanos • Transporte Interprovincial<br>
+      • Transporte de Carga • Tienda Automotriz<br>
+      • Mensajería Express • Excursiones Guiadas
     </div>
 
     <div class="grid-columnas">
       <!-- Columna Clientes -->
       <div class="columna">
-        <h2>👤 Para Clientes</h2>
+        <h2>👤 Zona de Clientes</h2>
         <div class="grupo-botones">
-          <a href="solicitar-taxi.html" class="btn-app btn-cliente">🚖 Solicitar Taxi</a>
-          <a href="viaje-interprovincial.html" class="btn-app btn-cliente">🛣️ Viaje Interprovincial/Reservar</a>
-          <a href="transporte-carga.html" class="btn-app btn-cliente">🚚 Transporte de Carga</a>
-          <a href="tienda.html" class="btn-app btn-cliente">🛒 Tienda</a>
-          <a href="mensajeria.html" class="btn-app btn-cliente">📦 Mensajería</a>
-          <a href="excursiones.html" class="btn-app btn-cliente">🗺️ Reservar Excursión</a>
+          <a href="clientes/solicitar-taxi.html" class="btn-app btn-cliente">🚖 Solicitar Taxi Urgente</a>
+          <a href="clientes/viaje-interprovincial.html" class="btn-app btn-cliente">🛣️ Reservar Viaje Interprovincial</a>
+          <a href="clientes/transporte-carga.html" class="btn-app btn-cliente">🚚 Contratar Transporte de Carga</a>
+          <a href="tienda/tienda.html" class="btn-app btn-cliente">🛒 Acceder a la Tienda</a>
+          <a href="clientes/mensajeria.html" class="btn-app btn-cliente">📦 Solicitar Servicio de Mensajería</a>
+          <a href="excursiones/excursiones.html" class="btn-app btn-cliente">🗺️ Reservar Excursión Turística</a>
         </div>
       </div>
 
       <!-- Columna Choferes -->
       <div class="columna">
-        <h2>🚖 Para Choferes</h2>
+        <h2>🚖 Zona de Choferes</h2>
         <div class="grupo-botones">
-          <a href="inscripcion-taxi.html" class="btn-app btn-chofer">📝 Inscripción Taxis</a>
-          <a href="inscripcion-interprovincial.html" class="btn-app btn-chofer">📝 Inscripción Interprovincial</a>
-          <a href="inscripcion-carga.html" class="btn-app btn-chofer">📝 Inscripción Transporte de Carga</a>
-          <a href="inscripcion-mensajeria.html" class="btn-app btn-chofer">📝 Inscripción Mensajería</a>
-          <a href="inscripcion-excursiones.html" class="btn-app btn-chofer">📝 Inscripción Excursiones</a>
-          <a href="tienda-choferes.html" class="btn-app btn-chofer">🛒 Tienda (Publicar/Comprar)</a>
+          <a href="choferes/inscripcion-taxi.html" class="btn-app btn-chofer">📝 Registro Taxistas</a>
+          <a href="choferes/inscripcion-interprovincial.html" class="btn-app btn-chofer">📝 Registro Interprovincial</a>
+          <a href="choferes/inscripcion-carga.html" class="btn-app btn-chofer">📝 Registro Transporte de Carga</a>
+          <a href="choferes/inscripcion-mensajeria.html" class="btn-app btn-chofer">📝 Registro Mensajería</a>
+          <a href="choferes/inscripcion-excursiones.html" class="btn-app btn-chofer">📝 Registro Guías Turísticos</a>
+          <a href="tienda/tienda-choferes.html" class="btn-app btn-chofer">🛒 Tienda para Choferes</a>
         </div>
       </div>
     </div>
 
-    <!-- Botones Inferiores -->
-    <a href="seguridad.html" class="btn-app btn-especial">🔒 Seguridad</a>
-    <a href="admin.html" class="btn-app btn-especial">🔑 Administrador</a>
+    <!-- Sección Especial -->
+    <a href="seguridad/seguridad.html" class="btn-app btn-especial">🔒 Centro de Seguridad</a>
+    <a href="admin/admin.html" class="btn-app btn-especial">🔑 Panel de Administración</a>
   </div>
 </body>
 </html>
