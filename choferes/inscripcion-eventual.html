@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inscripción Eventual | R.M.K.</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="../img/logo_fondo_taxi.png">
+  <style>
+    .formulario-eventual {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      color: #333;
+    }
+
+    .campo-dual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .requisitos-eventual {
+      background: #fff3cd;
+      padding: 1rem;
+      border-radius: 5px;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-corner"></div>
+  
+  <div class="formulario-eventual">
+    <h1>⏱️ Inscripción para Servicios Eventuales</h1>
+    
+    <div class="requisitos-eventual">
+      <h3>Requisitos Especiales:</h3>
+      <ul>
+        <li>Disponibilidad mínima de 4 horas continuas</li>
+        <li>Vehículo en buen estado mecánico</li>
+        <li>Depósito único de S/ 50.00</li>
+      </ul>
+    </div>
+
+    <form id="formEventual">
+      <div class="campo-dual">
+        <div class="campo-formulario">
+          <label>Nombre Completo:</label>
+          <input type="text" required>
+        </div>
+        
+        <div class="campo-formulario">
+          <label>Teléfono:</label>
+          <input type="tel" pattern="[0-9]{9}" required>
+        </div>
+      </div>
+
+      <div class="campo-formulario">
+        <label>Tipo de Servicio:</label>
+        <select required>
+          <option value="">Seleccione...</option>
+          <option>Eventos Especiales</option>
+          <option>Servicio por Horas</option>
+          <option>Apoyo Logístico</option>
+          <option>Otros</option>
+        </select>
+      </div>
+
+      <div class="campo-formulario">
+        <label>Horarios Disponibles:</label>
+        <input type="text" placeholder="Ej: Lunes a Viernes 18:00 - 22:00" required>
+      </div>
+
+      <div class="campo-formulario">
+        <label>Número de Tarjeta para Depósito:</label>
+        <input type="text" value="9227 9598 7147 8801" readonly>
+      </div>
+
+      <button type="submit" class="btn-chofer">Enviar Solicitud</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('formEventual').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Lógica de envío aquí
+      alert('Solicitud enviada para verificación');
+      window.location.href = '../index.html';
+    });
+  </script>
+</body>
+</html>
