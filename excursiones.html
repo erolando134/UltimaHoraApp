@@ -3,11 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FFD700">
   <title>Excursiones | Última Hora R.M.K.</title>
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="icon" href="img/favicon.ico">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="../img/logo_fondo_taxi.png">
+  <link rel="manifest" href="/manifest.json">
   <style>
     /* ESTILOS ESPECÍFICOS PARA EXCURSIONES */
+    :root {
+      --amarillo-taxi: #FFD700;
+      --amarillo-oscuro: #E65100;
+    }
+
     .contenedor-excursiones {
       max-width: 800px;
       margin: 2rem auto;
@@ -15,12 +22,13 @@
     }
     
     .card-excursion {
-      background: white;
+      background: rgba(255, 255, 255, 0.9);
       border-radius: 12px;
       padding: 2rem;
       margin-bottom: 2rem;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       border-left: 5px solid var(--amarillo-taxi);
+      color: #333;
     }
     
     .lista-requisitos {
@@ -55,13 +63,24 @@
       font-weight: bold;
       font-size: 1.1em;
     }
+
+    .btn-crear-excursion {
+      background: linear-gradient(135deg, var(--amarillo-taxi) 0%, var(--amarillo-oscuro) 100%);
+      color: white !important;
+      padding: 12px 25px;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
-  <!-- HEADER ACTUALIZADO CON R.M.K. -->
-  <header class="logo-header">
+  <div class="logo-corner"></div>
+  <div id="alert-container" class="alert-container"></div>
+
+  <!-- HEADER ACTUALIZADO -->
+  <header class="logo-header" onclick="window.location.href='../index.html'">
     <div class="logo-header-contenido">
-      <img src="img/logo.png" alt="Logo Última Hora" class="logo-pequeno">
+      <img src="../img/logo_fondo_taxi.png" alt="Logo Última Hora" class="logo-pequeno">
       <div>
         <h1>Excursiones Programadas</h1>
         <p class="eslogan-header">Organiza viajes turísticos con nuestra plataforma</p>
@@ -98,7 +117,75 @@
           <li>Comunicación constante con los participantes</li>
         </ul>
       </div>
+
+      <!-- Formulario de creación de excursión -->
+      <form id="formExcursion" class="formulario-excursion">
+        <h3>📅 Crear Nueva Excursión</h3>
+        <div class="campo-formulario">
+          <label>Nombre de la Excursión:</label>
+          <input type="text" required>
+        </div>
+        
+        <div class="campo-dual">
+          <div class="campo-formulario">
+            <label>Fecha de Salida:</label>
+            <input type="datetime-local" required>
+          </div>
+          
+          <div class="campo-formulario">
+            <label>Precio por Persona (CUP):</label>
+            <input type="number" min="0" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-app btn-crear-excursion">🚀 Publicar Excursión</button>
+      </form>
+    </div>
+
+    <!-- Listado de Excursiones -->
+    <div class="card-excursion">
+      <h2>📌 Excursiones Activas</h2>
+      <div id="listaExcursiones" class="lista-excursiones">
+        <!-- Las excursiones se cargarán dinámicamente aquí -->
+      </div>
     </div>
   </main>
+
+  <script>
+    // Registro del Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('../sw.js')
+          .then(registration => console.log('Service Worker registrado'))
+          .catch(err => console.log('Error:', err));
+      });
+    }
+
+    // Manejo del formulario
+    document.getElementById('formExcursion').addEventListener('submit', function(e) {
+      e.preventDefault();
+      showAlert('🚀 Excursión creada exitosamente!', 'success');
+      this.reset();
+    });
+
+    // Función para mostrar alertas
+    function showAlert(message, type) {
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${type}`;
+      alert.innerHTML = `
+        ${message}
+        <button class="close-btn">&times;</button>
+      `;
+      
+      document.getElementById('alert-container').appendChild(alert);
+      
+      alert.querySelector('.close-btn').addEventListener('click', () => {
+        alert.classList.add('fade-out');
+        setTimeout(() => alert.remove(), 300);
+      });
+      
+      setTimeout(() => alert.remove(), 5000);
+    }
+  </script>
 </body>
 </html>
