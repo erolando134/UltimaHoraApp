@@ -1,100 +1,169 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Última Hora - Chóferes</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Choferes | Última Hora R.M.K.</title>
+  <link rel="icon" href="../img/logo_fondo_taxi.png">
   <style>
+    :root {
+      --naranja-primario: #FF6F00;
+      --gris-oscuro: #212121;
+      --blanco: #ffffff;
+      --verde-exito: #4CAF50;
+      --rojo-error: #f44336;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
+      background: #f5f5f5;
     }
 
-    header {
-      background-color: #212121;
+    .header-choferes {
+      background: var(--gris-oscuro);
       color: white;
       padding: 2rem;
       text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
 
-    header img {
-      width: 80px;
-      height: auto;
-      margin-bottom: 1rem;
-    }
-
-    main {
+    .grid-modalidades {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
       padding: 2rem;
-      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    .btn {
-      display: block;
-      background-color: #ff6f00;
-      color: white;
-      padding: 1rem;
-      margin: 1rem auto;
-      width: 90%;
-      max-width: 400px;
-      font-size: 1.2rem;
+    .btn-modalidad {
+      background: var(--naranja-primario);
+      color: var(--blanco);
+      padding: 1.5rem;
+      border-radius: 10px;
       text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .btn:hover {
-      background-color: #e65100;
-    }
-
-    .section {
-      margin-top: 2rem;
-      padding: 1rem;
-      background-color: #ffffff;
-      border-radius: 8px;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: left;
-    }
-
-    h2 {
       text-align: center;
-      margin-top: 0;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
-    ul {
-      margin-left: 2rem;
+    .btn-modalidad:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      background: #E65100;
+    }
+
+    .icono-modalidad {
+      font-size: 2.5rem;
+    }
+
+    .requisitos {
+      background: var(--blanco);
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .actualizacion-tarjeta {
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    .volver-inicio {
+      display: block;
+      text-align: center;
+      margin: 2rem auto;
+      color: var(--naranja-primario);
+      text-decoration: none;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <img src="img/logo.png" alt="Logo Última Hora">
-    <h1>Chóferes</h1>
-    <p>Requisitos y accesos para cada modalidad</p>
+  <header class="header-choferes">
+    <h1>Registro de Choferes R.M.K.</h1>
+    <p>Selecciona tu modalidad de trabajo</p>
   </header>
 
-  <main>
-    <a class="btn" href="interprovincial.html">Viajes Interprovinciales</a>
-    <a class="btn" href="excursiones.html">Excursiones</a>
-    <a class="btn" href="carga.html">Transporte de Carga</a>
+  <div class="grid-modalidades">
+    <a href="choferes/inscripcion-taxi.html" class="btn-modalidad">
+      <span class="icono-modalidad">🚖</span>
+      Taxi Urbano
+    </a>
+    
+    <a href="choferes/inscripcion-interprovincial.html" class="btn-modalidad">
+      <span class="icono-modalidad">🛣️</span>
+      Interprovincial
+    </a>
+    
+    <a href="choferes/inscripcion-carga.html" class="btn-modalidad">
+      <span class="icono-modalidad">🚚</span>
+      Transporte de Carga
+    </a>
+    
+    <a href="choferes/inscripcion-mensajeria.html" class="btn-modalidad">
+      <span class="icono-modalidad">📦</span>
+      Mensajería
+    </a>
+    
+    <a href="choferes/inscripcion-eventual.html" class="btn-modalidad">
+      <span class="icono-modalidad">⏱️</span>
+      Servicio Eventual
+    </a>
+    
+    <a href="choferes/inscripcion-tienda.html" class="btn-modalidad">
+      <span class="icono-modalidad">🛒</span>
+      Tienda/Autopartes
+    </a>
+  </div>
 
-    <div class="section">
-      <h2>Reglas Generales</h2>
-      <ul>
-        <li>Debes realizar un depósito previo según la modalidad.</li>
-        <li>La plataforma retiene el 10% por viajes urbanos y el 20% en interprovinciales y carga.</li>
-        <li>Al finalizar tu saldo, se te notificará para recargar y continuar.</li>
-        <li>La cuenta puede ser suspendida si violas reglas o alteras precios.</li>
-        <li>Buena atención puede hacerte merecedor de una exención del % por una sola vez.</li>
-      </ul>
-    </div>
-  </main>
+  <div class="requisitos">
+    <h2>📋 Requisitos Comunes para Todas las Modalidades</h2>
+    <ul>
+      <li>Depósito inicial requerido: S/ 100.00</li>
+      <li>Número de cuenta para depósito: 
+        <span id="numeroTarjetaDeposito">Cargando...</span>
+      </li>
+      <li>Documentación obligatoria:
+        <ul>
+          <li>Carnet de identidad vigente</li>
+          <li>Licencia de conducir adecuada</li>
+          <li>SOAT vigente (según modalidad)</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="actualizacion-tarjeta" id="actualizacionTarjeta"></div>
+  </div>
 
+  <a href="../index.html" class="volver-inicio">← Volver al Inicio</a>
+
+  <script>
+    // Configuración dinámica
+    document.addEventListener('DOMContentLoaded', () => {
+      // Simulación de datos - Reemplazar con conexión real a backend
+      const configuracion = {
+        numeroTarjeta: '9227-9598-7147-8801',
+        actualizadoEl: '2024-02-20'
+      };
+      
+      // Actualizar elementos en la página
+      document.getElementById('numeroTarjetaDeposito').textContent = configuracion.numeroTarjeta;
+      document.getElementById('actualizacionTarjeta').textContent = 
+        `Última actualización: ${configuracion.actualizadoEl}`;
+      
+      // Para implementación real, usar:
+      // fetch('/configuracion').then(response => response.json()).then(data => {...});
+    });
+  </script>
 </body>
 </html>
