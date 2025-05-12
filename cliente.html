@@ -4,14 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clientes | Última Hora R.M.K.</title>
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="icon" href="img/favicon.ico">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="../img/logo_fondo_taxi.png">
   <style>
-    /* ESTILOS ESPECÍFICOS PARA CLIENTE.HTML */
+    /* ESTILOS ACTUALIZADOS PARA CLIENTES */
+    :root {
+      --amarillo-taxi: #FFD700;
+      --amarillo-oscuro: #E65100;
+      --negro: #1a1a1a;
+    }
+
+    body {
+      background: #f8f9fa;
+      color: var(--negro);
+    }
+
     .contenedor-servicios {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
       padding: 2rem;
       max-width: 1200px;
       margin: 0 auto;
@@ -19,79 +30,145 @@
     
     .card-servicio {
       background: white;
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: var(--negro);
       border-top: 4px solid var(--amarillo-taxi);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
     
     .card-servicio:hover {
       transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
     }
     
-    .tarjeta-deposito {
-      background: #fff8e1;
-      border: 2px dashed var(--amarillo-oscuro);
-      padding: 1.5rem;
-      margin-top: 2rem;
-      border-radius: 10px;
+    .card-servicio h2 {
+      color: var(--amarillo-oscuro);
+      margin: 1rem 0;
+      font-size: 1.5rem;
     }
     
-    .numero-tarjeta {
-      font-family: 'Courier New', monospace;
-      font-size: 1.3rem;
-      letter-spacing: 2px;
-      color: var(--negro);
-      background: #f5f5f5;
-      padding: 0.5rem;
-      border-radius: 5px;
-      display: inline-block;
+    .card-servicio p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .logo-header {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo-header-contenido {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo-pequeno {
+      width: 60px;
+      height: 60px;
+    }
+
+    .iniciales-header {
+      color: var(--amarillo-taxi);
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+
+    .eslogan-header {
+      color: #fff;
+      opacity: 0.9;
+      margin-top: 0.5rem;
+    }
+
+    footer {
+      background: #1a1a1a;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .logo-header-contenido {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+      
+      .contenedor-servicios {
+        padding: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- HEADER ACTUALIZADO CON R.M.K. -->
+  <!-- HEADER ACTUALIZADO -->
   <header class="logo-header">
     <div class="logo-header-contenido">
-      <img src="img/logo.png" alt="Logo Última Hora" class="logo-pequeno">
+      <img src="../img/logo_fondo_taxi.png" alt="Logo Última Hora" class="logo-pequeno">
       <div>
-        <h1>Clientes</h1>
-        <p class="eslogan-header">Solicita viajes, excursiones o transporte de carga</p>
+        <h1 style="color: var(--amarillo-taxi);">Clientes R.M.K.</h1>
+        <p class="eslogan-header">Solicita servicios de transporte con garantía</p>
       </div>
       <span class="iniciales-header">R.M.K.</span>
     </div>
   </header>
 
-  <!-- CONTENIDO MEJORADO (MISMA FUNCIONALIDAD) -->
+  <!-- CONTENIDO PRINCIPAL ACTUALIZADO -->
   <main>
     <div class="contenedor-servicios">
-      <a href="interprovincial.html" class="card-servicio">
-        <h2>🚖 Viajes Interprovinciales</h2>
-        <p>Viajes seguros entre ciudades con choferes verificados</p>
+      <a href="../solicitar-taxi.html" class="card-servicio">
+        <h2>🚖 Taxi Urbano</h2>
+        <p>Solicita un taxi inmediato en tu ciudad</p>
+        <small>Disponibilidad 24/7</small>
       </a>
       
-      <a href="excursiones.html" class="card-servicio">
-        <h2>🏞️ Excursiones</h2>
-        <p>Paquetes turísticos con itinerarios programados</p>
+      <a href="../viaje-interprovincial.html" class="card-servicio">
+        <h2>🛣️ Viaje Interprovincial</h2>
+        <p>Viajes programados entre ciudades</p>
+        <small>Reserva con anticipación</small>
       </a>
       
-      <a href="carga.html" class="card-servicio">
+      <a href="../transporte-carga.html" class="card-servicio">
         <h2>📦 Transporte de Carga</h2>
-        <p>Soluciones logísticas para tus envíos</p>
+        <p>Envíos seguros de paquetes y mercancías</p>
+        <small>Cobertura nacional</small>
       </a>
       
-      <a href="tienda.html" class="card-servicio">
-        <h2>🛒 Tienda</h2>
-        <p>Productos exclusivos para clientes frecuentes</p>
+      <a href="../tienda.html" class="card-servicio">
+        <h2>🛒 Tienda Online</h2>
+        <p>Compra/vende autos y repuestos</p>
+        <small>Garantía verificada</small>
       </a>
-    </div>
-
-    <div class="section tarjeta-deposito">
-      <h2>💳 Datos para Depósitos</h2>
-      <div class="numero-tarjeta">9227 9598 7147 8801</div>
-      <p class="nota-importante">Usa tu nombre real como referencia al depositar. Este número es exclusivo para clientes registrados.</p>
+      
+      <a href="../mensajeria.html" class="card-servicio">
+        <h2>📨 Mensajería Express</h2>
+        <p>Envíos urgentes en la ciudad</p>
+        <small>Entrega en menos de 2h</small>
+      </a>
+      
+      <a href="../excursiones.html" class="card-servicio">
+        <h2>🗺️ Excursiones</h2>
+        <p>Paquetes turísticos personalizados</p>
+        <small>Guías certificados</small>
+      </a>
     </div>
   </main>
+
+  <!-- FOOTER INFORMATIVO -->
+  <footer>
+    <p>© 2024 Última Hora R.M.K. - Todos los derechos reservados</p>
+    <p>Contacto: clientes@ultimahora-rmk.com | Tel: +51 987 654 321</p>
+  </footer>
 </body>
 </html>
