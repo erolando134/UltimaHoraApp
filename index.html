@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FFD700">
   <title>Última Hora R.M.K. | Plataforma de Transporte</title>
   <link rel="icon" href="img/logo_fondo_taxi.png">
+  <link rel="manifest" href="/manifest.json">
   <style>
-    /* ESTILOS OPTIMIZADOS Y COMPLETOS */
+    /* ESTILOS PRINCIPALES */
     :root {
       --amarillo-primario: #FFD700;
       --naranja-secundario: #E65100;
@@ -138,6 +140,71 @@
       filter: brightness(1.1);
     }
 
+    /* ESTILOS PARA ALERTAS */
+    .alert-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      max-width: 300px;
+    }
+
+    .alert {
+      padding: 15px;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    .alert-success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .alert-error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .alert-warning {
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeeba;
+    }
+
+    .alert-info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0 0 0 1rem;
+    }
+
+    .fade-out {
+      animation: fadeOut 0.3s ease-in forwards;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
     @media (max-width: 768px) {
       .grid-columnas {
         grid-template-columns: 1fr;
@@ -150,6 +217,12 @@
       
       .columna {
         padding: 20px;
+      }
+
+      .alert-container {
+        max-width: 90%;
+        left: 5%;
+        right: 5%;
       }
     }
 
@@ -168,6 +241,7 @@
 </head>
 <body>
   <div class="logo-corner"></div>
+  <div id="alert-container" class="alert-container"></div>
 
   <div class="contenedor-principal">
     <h1>ÚLTIMA HORA R.M.K.</h1>
@@ -176,7 +250,8 @@
       Servicios que ofrecemos:<br>
       • Taxis Urbanos • Transporte Interprovincial<br>
       • Transporte de Carga • Tienda Automotriz<br>
-      • Mensajería Express • Excursiones Guiadas
+      • Mensajería Express • Excursiones Guiadas<br>
+      • Servicios Eventuales ⏱️
     </div>
 
     <div class="grid-columnas">
@@ -201,7 +276,7 @@
           <a href="choferes/inscripcion-interprovincial.html" class="btn-app btn-chofer">📝 Registro Interprovincial</a>
           <a href="choferes/inscripcion-carga.html" class="btn-app btn-chofer">📝 Registro Transporte de Carga</a>
           <a href="choferes/inscripcion-mensajeria.html" class="btn-app btn-chofer">📝 Registro Mensajería</a>
-          <a href="choferes/inscripcion-excursiones.html" class="btn-app btn-chofer">📝 Registro Guías Turísticos</a>
+          <a href="choferes/inscripcion-eventual.html" class="btn-app btn-chofer">⏱️ Inscripción Eventual</a>
           <a href="tienda/tienda-choferes.html" class="btn-app btn-chofer">🛒 Tienda para Choferes</a>
         </div>
       </div>
@@ -211,5 +286,40 @@
     <a href="seguridad/seguridad.html" class="btn-app btn-especial">🔒 Centro de Seguridad</a>
     <a href="admin/admin.html" class="btn-app btn-especial">🔑 Panel de Administración</a>
   </div>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('ServiceWorker registrado:', registration.scope);
+            setInterval(() => registration.update(), 86400000);
+          })
+          .catch(err => console.log('Error:', err));
+      });
+
+      const showNetworkStatus = (message, color) => {
+        const status = document.createElement('div');
+        status.style.cssText = `
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          padding: 15px;
+          background: ${color};
+          color: white;
+          border-radius: 5px;
+          z-index: 1000;
+        `;
+        status.textContent = message;
+        document.body.appendChild(status);
+        setTimeout(() => status.remove(), 5000);
+      };
+
+      window.addEventListener('online', () => showNetworkStatus('✅ Conexión restablecida', '#4CAF50'));
+      window.addEventListener('offline', () => showNetworkStatus('⚠️ Modo offline activado', '#FF9800'));
+    }
+
+    document.write('<noscript><div style="position:fixed;top:0;left:0;right:0;background:red;color:white;padding:1rem;text-align:center;z-index:9999">¡Habilite JavaScript para usar la aplicación!</div></noscript>');
+  </script>
 </body>
 </html>
