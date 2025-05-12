@@ -6,7 +6,7 @@
   <title>Última Hora R.M.K. | Plataforma de Transporte</title>
   <link rel="icon" href="img/logo_fondo_taxi.png">
   <style>
-    /* ESTILOS UNIFICADOS */
+    /* ESTILOS ACTUALIZADOS */
     body {
       margin: 0;
       padding: 0;
@@ -14,7 +14,7 @@
       background: url('img/logo_fondo_taxi.png') no-repeat center center fixed;
       background-size: cover;
       color: white;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
@@ -31,87 +31,138 @@
       border: 2px solid #FFD700;
     }
     .contenedor-principal {
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.8);
       flex: 1;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      text-align: center;
-      padding: 20px;
     }
     h1 {
       font-size: 2.5rem;
       margin-bottom: 0;
       color: #FFD700;
       text-shadow: 2px 2px 4px #000;
+      text-align: center;
     }
-    .eslogan {
-      font-size: 1.2rem;
-      margin-top: 0;
-      margin-bottom: 2rem;
+    .servicios-lista {
+      text-align: center;
+      margin: 1rem 0 2rem;
+      font-size: 1.1rem;
+      line-height: 1.6;
     }
-    .grid-botones {
+    .grid-columnas {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      max-width: 800px;
-      width: 90%;
+      gap: 30px;
+      max-width: 1200px;
+      width: 95%;
+      margin-bottom: 2rem;
     }
-    .btn-app {
-      background: linear-gradient(135deg, #FF6F00 0%, #E65100 100%);
-      color: white;
-      padding: 15px;
+    .columna {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
       border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.1rem;
-      transition: all 0.3s;
+    }
+    .columna h2 {
+      color: #FFD700;
+      text-align: center;
+      margin-top: 0;
+    }
+    .grupo-botones {
       display: flex;
       flex-direction: column;
+      gap: 15px;
+    }
+    .btn-cliente {
+      background: linear-gradient(135deg, #FF6F00 0%, #E65100 100%);
+      color: white;
+    }
+    .btn-chofer {
+      background: linear-gradient(135deg, #1E88E5 0%, #0D47A1 100%);
+      color: white;
+    }
+    .btn-especial {
+      background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+      color: white;
+      width: 100%;
+      max-width: 500px;
+      margin: 10px 0;
+    }
+    .btn-app {
+      padding: 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      text-align: center;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 80px;
+      gap: 8px;
     }
     .btn-app:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
-    .btn-admin {
-      background: linear-gradient(135deg, #212121 0%, #000000 100%);
-      grid-column: span 2;
-    }
-    @media (max-width: 600px) {
-      .grid-botones {
+    @media (max-width: 768px) {
+      .grid-columnas {
         grid-template-columns: 1fr;
       }
-      .btn-admin {
-        grid-column: span 1;
+      h1 {
+        font-size: 2rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- LOGO PEQUEÑO (ESQUINA) -->
   <div class="logo-corner"></div>
 
-  <!-- CONTENIDO PRINCIPAL -->
   <div class="contenedor-principal">
     <h1>ÚLTIMA HORA R.M.K.</h1>
-    <p class="eslogan">SERVICIOS DE TAXIS Y TRANSPORTE</p>
-
-    <!-- BOTONES DE NAVEGACIÓN -->
-    <div class="grid-botones">
-      <a href="cliente.html" class="btn-app"><span>👤</span> Cliente</a>
-      <a href="chofer.html" class="btn-app"><span>🚖</span> Chofer</a>
-      <a href="interprovincial.html" class="btn-app"><span>🛣️</span> Interprovincial</a>
-      <a href="excursiones.html" class="btn-app"><span>🗺️</span> Excursiones</a>
-      <a href="carga.html" class="btn-app"><span>🚚</span> Servicio de Carga</a>
-      <a href="tienda.html" class="btn-app"><span>🛒</span> Tienda</a>
-      <a href="tarifas.html" class="btn-app"><span>💰</span> Tarifas</a>
-      <a href="seguridad.html" class="btn-app"><span>🔒</span> Seguridad</a>
-      <a href="admin.html" class="btn-app btn-admin"><span>🔑</span> Administrador</a>
+    
+    <div class="servicios-lista">
+      Servicios que ofrecemos:<br>
+      • Taxis Urbanos<br>
+      • Transporte Interprovincial<br>
+      • Transporte de Carga<br>
+      • Tienda (Publicar/Comprar Autos y Partes)<br>
+      • Mensajería
     </div>
+
+    <div class="grid-columnas">
+      <!-- Columna Clientes -->
+      <div class="columna">
+        <h2>👤 Para Clientes</h2>
+        <div class="grupo-botones">
+          <a href="solicitar-taxi.html" class="btn-app btn-cliente">🚖 Solicitar Taxi</a>
+          <a href="viaje-interprovincial.html" class="btn-app btn-cliente">🛣️ Viaje Interprovincial/Reservar</a>
+          <a href="transporte-carga.html" class="btn-app btn-cliente">🚚 Transporte de Carga</a>
+          <a href="tienda.html" class="btn-app btn-cliente">🛒 Tienda</a>
+          <a href="mensajeria.html" class="btn-app btn-cliente">📦 Mensajería</a>
+          <a href="excursiones.html" class="btn-app btn-cliente">🗺️ Reservar Excursión</a>
+        </div>
+      </div>
+
+      <!-- Columna Choferes -->
+      <div class="columna">
+        <h2>🚖 Para Choferes</h2>
+        <div class="grupo-botones">
+          <a href="inscripcion-taxi.html" class="btn-app btn-chofer">📝 Inscripción Taxis</a>
+          <a href="inscripcion-interprovincial.html" class="btn-app btn-chofer">📝 Inscripción Interprovincial</a>
+          <a href="inscripcion-carga.html" class="btn-app btn-chofer">📝 Inscripción Transporte de Carga</a>
+          <a href="inscripcion-mensajeria.html" class="btn-app btn-chofer">📝 Inscripción Mensajería</a>
+          <a href="inscripcion-excursiones.html" class="btn-app btn-chofer">📝 Inscripción Excursiones</a>
+          <a href="tienda-choferes.html" class="btn-app btn-chofer">🛒 Tienda (Publicar/Comprar)</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botones Inferiores -->
+    <a href="seguridad.html" class="btn-app btn-especial">🔒 Seguridad</a>
+    <a href="admin.html" class="btn-app btn-especial">🔑 Administrador</a>
   </div>
 </body>
 </html>
