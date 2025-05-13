@@ -2,23 +2,39 @@
   "version": 2,
   "routes": [
     {
-      "src": "/taxis-urbanos/solicitar-taxi",
+      "src": "/taxis-urbanos/solicitar-taxi\\.html",
       "dest": "/taxis-urbanos/solicitar-taxi.html"
     },
     {
-      "src": "/interprovincial/reservar-viaje",
+      "src": "/interprovincial/reservar-viaje\\.html",
       "dest": "/interprovincial/reservar-viaje.html"
     },
     {
-      "src": "/carga/solicitar-servicio",
+      "src": "/carga/solicitar-servicio\\.html",
       "dest": "/carga/solicitar-servicio.html"
     },
     {
-      "src": "/servicios-eventuales/registro",
+      "src": "/servicios-eventuales/registro\\.html",
       "dest": "/servicios-eventuales/registro.html"
     },
     {
-      "src": "/admin",
+      "src": "/tienda/tienda\\.html",
+      "dest": "/tienda/tienda.html"
+    },
+    {
+      "src": "/mensajeria/solicitar\\.html",
+      "dest": "/mensajeria/solicitar.html"
+    },
+    {
+      "src": "/excursiones/excursiones\\.html",
+      "dest": "/excursiones/excursiones.html"
+    },
+    {
+      "src": "/seguridad/seguridad\\.html",
+      "dest": "/seguridad/seguridad.html"
+    },
+    {
+      "src": "/admin/admin\\.html",
       "dest": "/admin/admin.html"
     },
     {
@@ -28,6 +44,10 @@
     {
       "src": "/css/(.*)",
       "dest": "/css/$1"
+    },
+    {
+      "src": "/js/(.*)",
+      "dest": "/js/$1"
     },
     {
       "src": "/(.*)",
