@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro de Choferes Eventuales | R.M.K.</title>
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="icon" href="../img/logo_fondo_taxi.png">
@@ -10,29 +11,30 @@
       max-width: 800px;
       margin: 2rem auto;
       padding: 2rem;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.98);
       border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
 
     .campo-dual {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1.5rem;
-      margin: 1rem 0;
+      margin: 1.5rem 0;
     }
 
     .requisitos-eventual {
-      background: #e3f2fd;
+      background: #e8f4fc;
       padding: 1.5rem;
       border-radius: 8px;
       margin: 2rem 0;
-      border-left: 4px solid #2196F3;
+      border-left: 4px solid var(--amarillo-taxi);
     }
 
     #tarjetaDeposito {
-      background: #f5f5f5;
+      background: #f8f9fa;
       cursor: not-allowed;
+      border: 1px solid #dee2e6;
     }
   </style>
 </head>
@@ -41,28 +43,33 @@
   <div id="alert-container"></div>
 
   <div class="formulario-eventual">
-    <h1>🚖 Registro de Choferes Eventuales</h1>
+    <h1 class="titulo-principal">🚖 Registro de Choferes Eventuales</h1>
     
     <div class="requisitos-eventual">
       <h3>📋 Requisitos Obligatorios:</h3>
-      <ul>
-        <li>Disponibilidad mínima de 4 horas continuas</li>
-        <li>Vehículo con revisión técnica vigente</li>
-        <li>Depósito único de 500 CUP (No reembolsable)</li>
-        <li>Licencia de conducción tipo A1 mínimo</li>
+      <ul class="lista-requisitos">
+        <li>• Disponibilidad mínima de 4 horas continuas</li>
+        <li>• Vehículo con revisión técnica vigente</li>
+        <li>• Depósito único de 500 CUP (No reembolsable)</li>
+        <li>• Licencia de conducción tipo A1 mínimo</li>
       </ul>
     </div>
 
-    <form id="formEventual">
+    <form id="formEventual" class="formulario-validado">
       <div class="campo-dual">
         <div class="campo-formulario">
           <label for="nombreCompleto">Nombre Completo:</label>
-          <input type="text" id="nombreCompleto" required>
+          <input type="text" id="nombreCompleto" required 
+                 pattern="[A-Za-zÁ-Úá-ú\s]{5,50}"
+                 title="Mínimo 5 caracteres, solo letras y espacios">
         </div>
         
         <div class="campo-formulario">
           <label for="telefono">Teléfono:</label>
-          <input type="tel" id="telefono" pattern="[0-9]{8}" placeholder="Ej: 52123456" required>
+          <input type="tel" id="telefono" 
+                 pattern="[0-9]{8}" 
+                 placeholder="Ej: 52123456" 
+                 required>
         </div>
       </div>
 
@@ -80,64 +87,93 @@
 
         <div class="campo-formulario">
           <label for="horasDisponibles">Horas Disponibles:</label>
-          <input type="number" id="horasDisponibles" min="4" max="12" required>
+          <input type="number" id="horasDisponibles" 
+                 min="4" max="12" 
+                 required>
         </div>
       </div>
 
       <div class="campo-formulario">
-        <label for="tarjetaDeposito">Número de Tarjeta para Depósito:</label>
-        <input type="text" id="tarjetaDeposito" value="Cargando..." readonly>
+        <label for="tarjetaDeposito">Cuenta para Depósito:</label>
+        <input type="text" id="tarjetaDeposito" 
+               class="campo-deshabilitado"
+               readonly>
       </div>
 
-      <button type="submit" class="btn-chofer">Enviar Registro</button>
+      <button type="submit" class="btn-app btn-chofer">
+        ⚡ Enviar Solicitud
+      </button>
     </form>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Cargar tarjeta desde configuración
-      const tarjetaDeposito = document.getElementById('tarjetaDeposito');
-      tarjetaDeposito.value = localStorage.getItem('numeroTarjeta') || '9227-9598-7147-8801';
+      // Cargar configuración bancaria
+      const tarjetaInput = document.getElementById('tarjetaDeposito');
+      const config = JSON.parse(localStorage.getItem('configuracionRMK') || {};
+      tarjetaInput.value = config.numeroTarjeta || '9227-9598-7147-8801';
+      
+      // Cargar datos existentes si existen
+      const datosGuardados = JSON.parse(localStorage.getItem('registroEventual'));
+      if(datosGuardados) {
+        Object.keys(datosGuardados).forEach(key => {
+          const campo = document.getElementById(key);
+          if(campo) campo.value = datosGuardados[key];
+        });
+      }
     });
 
     document.getElementById('formEventual').addEventListener('submit', function(e) {
       e.preventDefault();
       
-      const formData = {
-        nombre: document.getElementById('nombreCompleto').value.trim(),
+      const datos = {
+        nombreCompleto: document.getElementById('nombreCompleto').value.trim(),
         telefono: document.getElementById('telefono').value,
-        servicio: document.getElementById('tipoServicio').value,
-        horas: document.getElementById('horasDisponibles').value
+        tipoServicio: document.getElementById('tipoServicio').value,
+        horasDisponibles: document.getElementById('horasDisponibles').value
       };
 
-      // Validación básica
-      if (!formData.servicio || formData.horas < 4) {
-        showAlert('❌ Complete todos los campos requeridos correctamente', 'error');
+      // Validación avanzada
+      if(Object.values(datos).some(valor => !valor)) {
+        showAlert('❌ Complete todos los campos requeridos', 'error');
         return;
       }
 
-      // Simular envío exitoso
-      showAlert('✅ Registro recibido - En validación administrativa', 'success');
+      if(!/^[A-Za-zÁ-Úá-ú\s]{5,50}$/.test(datos.nombreCompleto)) {
+        showAlert('❌ Nombre inválido (mín. 5 caracteres)', 'error');
+        return;
+      }
+
+      // Guardar en localStorage
+      localStorage.setItem('registroEventual', JSON.stringify(datos));
+      
+      // Mostrar confirmación
+      showAlert('✅ Registro exitoso - Redirigiendo...', 'success');
+      
       setTimeout(() => {
         window.location.href = '../index.html';
-      }, 3000);
+      }, 2000);
     });
 
-    function showAlert(message, type) {
-      const alert = document.createElement('div');
-      alert.className = `alert alert-${type}`;
-      alert.innerHTML = `
-        ${message}
+    function showAlert(mensaje, tipo) {
+      const alerta = document.createElement('div');
+      alerta.className = `alert alert-${tipo} animate__animated animate__fadeInUp`;
+      alerta.innerHTML = `
+        <span>${mensaje}</span>
         <button class="close-btn">&times;</button>
       `;
       
-      document.getElementById('alert-container').appendChild(alert);
+      document.getElementById('alert-container').appendChild(alerta);
       
-      alert.querySelector('.close-btn').addEventListener('click', () => {
-        alert.remove();
+      alerta.querySelector('.close-btn').addEventListener('click', () => {
+        alerta.classList.add('animate__fadeOutRight');
+        setTimeout(() => alerta.remove(), 500);
       });
       
-      setTimeout(() => alert.remove(), 5000);
+      setTimeout(() => {
+        alerta.classList.add('animate__fadeOutRight');
+        setTimeout(() => alerta.remove(), 500);
+      }, 5000);
     }
   </script>
 </body>
