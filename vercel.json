@@ -1,30 +1,55 @@
 {
   "version": 2,
+  "builds": [
+    {
+      "src": "/*",
+      "use": "@vercel/static"
+    }
+  ],
   "routes": [
-    // 1. Servicio Worker (prioridad máxima)
+    // 1. Archivos críticos (máxima prioridad)
     {
       "src": "/sw.js",
-      "dest": "/sw.js"
+      "dest": "/sw.js",
+      "headers": {
+        "Cache-Control": "no-cache"
+      }
+    },
+    {
+      "src": "/manifest.json",
+      "dest": "/manifest.json"
     },
 
-    // 2. Assets estáticos
+    // 2. Assets estáticos (caché prolongada)
     {
       "src": "/img/(.*)",
-      "dest": "/img/$1"
+      "dest": "/img/$1",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
     },
     {
       "src": "/css/(.*)",
-      "dest": "/css/$1"
+      "dest": "/css/$1",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000"
+      }
     },
     {
       "src": "/js/(.*)",
-      "dest": "/js/$1"
+      "dest": "/js/$1",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000"
+      }
     },
 
-    // 3. Páginas principales (versión limpia sin .html)
+    // 3. Páginas principales (HTML sin extensión)
     {
       "src": "/taxis-urbanos/solicitar-taxi",
-      "dest": "/taxis-urbanos/solicitar-taxi.html"
+      "dest": "/taxis-urbanos/solicitar-taxi.html",
+      "headers": {
+        "Cache-Control": "no-cache"
+      }
     },
     {
       "src": "/interprovincial/reservar-viaje",
@@ -64,11 +89,46 @@
       "src": "/offline",
       "dest": "/offline.html"
     },
+    {
+      "src": "/service-worker.js",
+      "dest": "/sw.js",
+      "status": 301
+    },
 
-    // 5. Catch-all para SPA (último en la lista)
+    // 5. Redirecciones inteligentes
+    {
+      "src": "/taxis-urbanos/solicitar-taxi.html",
+      "dest": "/taxis-urbanos/solicitar-taxi",
+      "status": 301
+    },
+    {
+      "src": "/servicios-eventuales/inscripcion-eventual.html",
+      "dest": "/servicios-eventuales/inscripcion-eventual",
+      "status": 301
+    },
+
+    // 6. Catch-all para SPA (última prioridad)
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/index.html",
+      "headers": {
+        "Cache-Control": "no-cache"
+      }
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
     }
   ]
 }
