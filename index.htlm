@@ -5,16 +5,89 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#FFD700">
   <title>Última Hora R.M.K. | Plataforma de Transporte</title>
-  <link rel="icon" href="/img/logo_fondo_taxi.png">
-  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="logo_fondo_taxi.png">
+  <link rel="manifest" href="manifest.json">
   <style>
-    /* [Mantener todos los estilos anteriores igual] */
+    :root {
+      --amarillo-taxi: #FFD700;
+      --gris-oscuro: #212121;
+      --blanco: #ffffff;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+
+    .contenedor-principal {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    h1 {
+      color: var(--amarillo-taxi);
+      background: var(--gris-oscuro);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+
+    .grid-columnas {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .columna {
+      background: var(--blanco);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .btn-app {
+      display: block;
+      padding: 15px;
+      margin: 10px 0;
+      background: var(--amarillo-taxi);
+      color: var(--gris-oscuro);
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .btn-app:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .alert-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      max-width: 300px;
+      z-index: 1000;
+    }
+
+    .alert {
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
   </style>
 </head>
 <body>
-  <div class="logo-corner"></div>
-  <div id="alert-container" class="alert-container"></div>
-
   <div class="contenedor-principal">
     <h1>ÚLTIMA HORA R.M.K.</h1>
     
@@ -31,71 +104,52 @@
       <div class="columna">
         <h2>👤 Zona de Clientes</h2>
         <div class="grupo-botones">
-          <a href="/taxis-urbanos/solicitar-taxi.html" class="btn-app btn-cliente">🚖 Solicitar Taxi Urgente</a>
-          <a href="/interprovincial/reservar-viaje.html" class="btn-app btn-cliente">🛣️ Reservar Viaje Interprovincial</a>
-          <a href="/carga/solicitar-servicio.html" class="btn-app btn-cliente">🚚 Contratar Transporte de Carga</a>
-          <a href="/tienda/tienda.html" class="btn-app btn-cliente">🛒 Acceder a la Tienda</a>
-          <a href="/mensajeria/solicitar.html" class="btn-app btn-cliente">📦 Solicitar Servicio de Mensajería</a>
-          <a href="/excursiones/excursiones.html" class="btn-app btn-cliente">🗺️ Reservar Excursión Turística</a>
+          <a href="solicitar-taxi.html" class="btn-app btn-cliente">🚖 Solicitar Taxi Urgente</a>
+          <a href="interprovincial.html" class="btn-app btn-cliente">🛣️ Reservar Viaje Interprovincial</a>
+          <a href="carga.html" class="btn-app btn-cliente">🚚 Contratar Transporte de Carga</a>
+          <a href="tienda.html" class="btn-app btn-cliente">🛒 Acceder a la Tienda</a>
+          <a href="mensajeria.html" class="btn-app btn-cliente">📦 Solicitar Servicio de Mensajería</a>
+          <a href="excursiones.html" class="btn-app btn-cliente">🗺️ Reservar Excursión Turística</a>
         </div>
       </div>
 
-      <!-- Columna Choferes - Enlace actualizado -->
+      <!-- Columna Choferes -->
       <div class="columna">
         <h2>🚖 Zona de Choferes</h2>
         <div class="grupo-botones">
-          <a href="/taxis-urbanos/registro-taxistas.html" class="btn-app btn-chofer">📝 Registro Taxistas</a>
-          <a href="/interprovincial/registro-choferes.html" class="btn-app btn-chofer">📝 Registro Interprovincial</a>
-          <a href="/carga/registro-transporte.html" class="btn-app btn-chofer">📝 Registro Transporte de Carga</a>
-          <a href="/mensajeria/registro.html" class="btn-app btn-chofer">📝 Registro Mensajería</a>
-          <!-- Enlace corregido -->
-          <a href="/servicios-eventuales/inscripcion-eventual.html" class="btn-app btn-chofer">⏱️ Registro de Choferes Eventuales</a>
-          <a href="/tienda/tienda-choferes.html" class="btn-app btn-chofer">🛒 Tienda para Choferes</a>
+          <a href="registro-taxistas.html" class="btn-app btn-chofer">📝 Registro Taxistas</a>
+          <a href="registro-interprovincial.html" class="btn-app btn-chofer">📝 Registro Interprovincial</a>
+          <a href="registro-carga.html" class="btn-app btn-chofer">📝 Registro Transporte de Carga</a>
+          <a href="registro-mensajeria.html" class="btn-app btn-chofer">📝 Registro Mensajería</a>
+          <a href="inscripcion-eventual.html" class="btn-app btn-chofer">⏱️ Registro Eventuales</a>
+          <a href="tienda-choferes.html" class="btn-app btn-chofer">🛒 Tienda para Choferes</a>
         </div>
       </div>
     </div>
 
     <!-- Sección Especial -->
-    <a href="/seguridad/seguridad.html" class="btn-app btn-especial">🔒 Centro de Seguridad</a>
-    <a href="/admin/admin.html" class="btn-app btn-especial">🔑 Panel de Administración</a>
+    <div class="grupo-botones">
+      <a href="seguridad.html" class="btn-app btn-especial">🔒 Centro de Seguridad</a>
+      <a href="admin.html" class="btn-app btn-especial">🔑 Panel de Administración</a>
+    </div>
   </div>
 
+  <div id="alert-container" class="alert-container"></div>
+
   <script>
+    // Registro del Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register('sw.js')
           .then(registration => {
             console.log('ServiceWorker registrado:', registration.scope);
-            setInterval(() => registration.update(), 86400000);
+            registration.update();
           })
-          .catch(err => {
-            console.error('Error al registrar Service Worker:', err);
-            showAlert('⚠️ Funcionalidad offline no disponible', 'error');
-          });
+          .catch(err => console.error('Error al registrar SW:', err));
       });
-
-      const showNetworkStatus = (message, color) => {
-        const status = document.createElement('div');
-        status.style.cssText = `
-          position: fixed;
-          bottom: 20px;
-          right: 20px;
-          padding: 15px;
-          background: ${color};
-          color: white;
-          border-radius: 5px;
-          z-index: 1000;
-        `;
-        status.textContent = message;
-        document.body.appendChild(status);
-        setTimeout(() => status.remove(), 5000);
-      };
-
-      window.addEventListener('online', () => showNetworkStatus('✅ Conexión restablecida', '#4CAF50'));
-      window.addEventListener('offline', () => showNetworkStatus('⚠️ Modo offline activado', '#FF9800'));
     }
 
-    // Sistema de alertas mejorado
+    // Sistema de alertas
     function showAlert(message, type = 'success') {
       const alert = document.createElement('div');
       alert.className = `alert alert-${type}`;
@@ -107,28 +161,15 @@
       document.getElementById('alert-container').appendChild(alert);
       
       alert.querySelector('.close-btn').addEventListener('click', () => {
-        alert.classList.add('fade-out');
-        setTimeout(() => alert.remove(), 300);
+        alert.remove();
       });
       
       setTimeout(() => alert.remove(), 5000);
     }
 
-    // Mensaje para usuarios sin JavaScript
-    const noscriptAlert = document.createElement('div');
-    noscriptAlert.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: red;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-      z-index: 9999;
-    `;
-    noscriptAlert.textContent = '¡Habilite JavaScript para usar la aplicación!';
-    document.body.prepend(noscriptAlert);
+    // Detectar conexión
+    window.addEventListener('online', () => showAlert('✅ Conexión restablecida', 'success'));
+    window.addEventListener('offline', () => showAlert('⚠️ Modo offline activado', 'warning'));
   </script>
 </body>
 </html>
