@@ -1,42 +1,7 @@
 {
   "version": 2,
   "routes": [
-    {
-      "src": "/taxis-urbanos/solicitar-taxi\\.html",
-      "dest": "/taxis-urbanos/solicitar-taxi.html"
-    },
-    {
-      "src": "/interprovincial/reservar-viaje\\.html",
-      "dest": "/interprovincial/reservar-viaje.html"
-    },
-    {
-      "src": "/carga/solicitar-servicio\\.html",
-      "dest": "/carga/solicitar-servicio.html"
-    },
-    {
-      "src": "/servicios-eventuales/registro\\.html",
-      "dest": "/servicios-eventuales/registro.html"
-    },
-    {
-      "src": "/tienda/tienda\\.html",
-      "dest": "/tienda/tienda.html"
-    },
-    {
-      "src": "/mensajeria/solicitar\\.html",
-      "dest": "/mensajeria/solicitar.html"
-    },
-    {
-      "src": "/excursiones/excursiones\\.html",
-      "dest": "/excursiones/excursiones.html"
-    },
-    {
-      "src": "/seguridad/seguridad\\.html",
-      "dest": "/seguridad/seguridad.html"
-    },
-    {
-      "src": "/admin/admin\\.html",
-      "dest": "/admin/admin.html"
-    },
+    // Rutas estáticas
     {
       "src": "/img/(.*)",
       "dest": "/img/$1"
@@ -49,6 +14,19 @@
       "src": "/js/(.*)",
       "dest": "/js/$1"
     },
+    
+    // Rutas de páginas principales
+    {
+      "src": "/taxis-urbanos/solicitar-taxi",
+      "dest": "/taxis-urbanos/solicitar-taxi.html"
+    },
+    {
+      "src": "/servicios-eventuales/registro",
+      "dest": "/servicios-eventuales/registro.html"
+    },
+    // ... otras rutas
+    
+    // Catch-all para SPA
     {
       "src": "/(.*)",
       "dest": "/index.html"
