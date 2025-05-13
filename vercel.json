@@ -1,53 +1,15 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "/*",
-      "use": "@vercel/static"
-    }
-  ],
+  "builds": [{"src": "/*", "use": "@vercel/static"}],
   "routes": [
-    // 1. Archivos críticos (máxima prioridad)
     {
       "src": "/sw.js",
       "dest": "/sw.js",
-      "headers": {
-        "Cache-Control": "no-cache"
-      }
+      "headers": {"Cache-Control": "no-cache"}
     },
     {
-      "src": "/manifest.json",
-      "dest": "/manifest.json",
-      "headers": {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-cache"
-      }
-    },
-
-    // 2. Assets estáticos (incluyendo JSON)
-    {
-      "src": "/data/(.*).json",
-      "dest": "/data/$1.json",
-      "headers": {
-        "Content-Type": "application/json",
-        "Cache-Control": "public, max-age=3600"
-      }
-    },
-    {
-      "src": "/img/(.*)",
-      "dest": "/img/$1"
-    },
-    // ... (resto de rutas existentes)
-
-    // Nueva ruta catch-all para JSON
-    {
-      "src": "/(.*).json",
-      "dest": "/$1.json",
-      "headers": {
-        "Content-Type": "application/json"
-      }
-    },
-    
-    // Resto de tu configuración existente...
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
   ]
 }
