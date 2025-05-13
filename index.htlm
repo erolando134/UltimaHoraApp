@@ -40,7 +40,7 @@
         </div>
       </div>
 
-      <!-- Columna Choferes -->
+      <!-- Columna Choferes - Enlace actualizado -->
       <div class="columna">
         <h2>🚖 Zona de Choferes</h2>
         <div class="grupo-botones">
@@ -48,7 +48,8 @@
           <a href="/interprovincial/registro-choferes.html" class="btn-app btn-chofer">📝 Registro Interprovincial</a>
           <a href="/carga/registro-transporte.html" class="btn-app btn-chofer">📝 Registro Transporte de Carga</a>
           <a href="/mensajeria/registro.html" class="btn-app btn-chofer">📝 Registro Mensajería</a>
-          <a href="/servicios-eventuales/registro.html" class="btn-app btn-chofer">⏱️ Registro de Choferes Eventuales</a>
+          <!-- Enlace corregido -->
+          <a href="/servicios-eventuales/inscripcion-eventual.html" class="btn-app btn-chofer">⏱️ Registro de Choferes Eventuales</a>
           <a href="/tienda/tienda-choferes.html" class="btn-app btn-chofer">🛒 Tienda para Choferes</a>
         </div>
       </div>
