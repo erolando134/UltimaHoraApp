@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Inscripción Eventual | R.M.K.</title>
+  <title>Registro de Choferes Eventuales | R.M.K.</title>
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="icon" href="../img/logo_fondo_taxi.png">
   <style>
@@ -10,85 +10,135 @@
       max-width: 800px;
       margin: 2rem auto;
       padding: 2rem;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 10px;
-      color: #333;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 
     .campo-dual {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      gap: 1.5rem;
+      margin: 1rem 0;
     }
 
     .requisitos-eventual {
-      background: #fff3cd;
-      padding: 1rem;
-      border-radius: 5px;
-      margin: 1rem 0;
+      background: #e3f2fd;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 2rem 0;
+      border-left: 4px solid #2196F3;
+    }
+
+    #tarjetaDeposito {
+      background: #f5f5f5;
+      cursor: not-allowed;
     }
   </style>
 </head>
 <body>
   <div class="logo-corner"></div>
-  
+  <div id="alert-container"></div>
+
   <div class="formulario-eventual">
-    <h1>⏱️ Inscripción para Servicios Eventuales</h1>
+    <h1>🚖 Registro de Choferes Eventuales</h1>
     
     <div class="requisitos-eventual">
-      <h3>Requisitos Especiales:</h3>
+      <h3>📋 Requisitos Obligatorios:</h3>
       <ul>
         <li>Disponibilidad mínima de 4 horas continuas</li>
-        <li>Vehículo en buen estado mecánico</li>
-        <li>Depósito único de S/ 50.00</li>
+        <li>Vehículo con revisión técnica vigente</li>
+        <li>Depósito único de 500 CUP (No reembolsable)</li>
+        <li>Licencia de conducción tipo A1 mínimo</li>
       </ul>
     </div>
 
     <form id="formEventual">
       <div class="campo-dual">
         <div class="campo-formulario">
-          <label>Nombre Completo:</label>
-          <input type="text" required>
+          <label for="nombreCompleto">Nombre Completo:</label>
+          <input type="text" id="nombreCompleto" required>
         </div>
         
         <div class="campo-formulario">
-          <label>Teléfono:</label>
-          <input type="tel" pattern="[0-9]{9}" required>
+          <label for="telefono">Teléfono:</label>
+          <input type="tel" id="telefono" pattern="[0-9]{8}" placeholder="Ej: 52123456" required>
+        </div>
+      </div>
+
+      <div class="campo-dual">
+        <div class="campo-formulario">
+          <label for="tipoServicio">Tipo de Servicio:</label>
+          <select id="tipoServicio" required>
+            <option value="">Seleccione...</option>
+            <option>Servicio por Horas</option>
+            <option>Eventos Especiales</option>
+            <option>Apoyo Logístico</option>
+            <option>Servicios Temporales</option>
+          </select>
+        </div>
+
+        <div class="campo-formulario">
+          <label for="horasDisponibles">Horas Disponibles:</label>
+          <input type="number" id="horasDisponibles" min="4" max="12" required>
         </div>
       </div>
 
       <div class="campo-formulario">
-        <label>Tipo de Servicio:</label>
-        <select required>
-          <option value="">Seleccione...</option>
-          <option>Eventos Especiales</option>
-          <option>Servicio por Horas</option>
-          <option>Apoyo Logístico</option>
-          <option>Otros</option>
-        </select>
+        <label for="tarjetaDeposito">Número de Tarjeta para Depósito:</label>
+        <input type="text" id="tarjetaDeposito" value="Cargando..." readonly>
       </div>
 
-      <div class="campo-formulario">
-        <label>Horarios Disponibles:</label>
-        <input type="text" placeholder="Ej: Lunes a Viernes 18:00 - 22:00" required>
-      </div>
-
-      <div class="campo-formulario">
-        <label>Número de Tarjeta para Depósito:</label>
-        <input type="text" value="9227 9598 7147 8801" readonly>
-      </div>
-
-      <button type="submit" class="btn-chofer">Enviar Solicitud</button>
+      <button type="submit" class="btn-chofer">Enviar Registro</button>
     </form>
   </div>
 
   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Cargar tarjeta desde configuración
+      const tarjetaDeposito = document.getElementById('tarjetaDeposito');
+      tarjetaDeposito.value = localStorage.getItem('numeroTarjeta') || '9227-9598-7147-8801';
+    });
+
     document.getElementById('formEventual').addEventListener('submit', function(e) {
       e.preventDefault();
-      // Lógica de envío aquí
-      alert('Solicitud enviada para verificación');
-      window.location.href = '../index.html';
+      
+      const formData = {
+        nombre: document.getElementById('nombreCompleto').value.trim(),
+        telefono: document.getElementById('telefono').value,
+        servicio: document.getElementById('tipoServicio').value,
+        horas: document.getElementById('horasDisponibles').value
+      };
+
+      // Validación básica
+      if (!formData.servicio || formData.horas < 4) {
+        showAlert('❌ Complete todos los campos requeridos correctamente', 'error');
+        return;
+      }
+
+      // Simular envío exitoso
+      showAlert('✅ Registro recibido - En validación administrativa', 'success');
+      setTimeout(() => {
+        window.location.href = '../index.html';
+      }, 3000);
     });
+
+    function showAlert(message, type) {
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${type}`;
+      alert.innerHTML = `
+        ${message}
+        <button class="close-btn">&times;</button>
+      `;
+      
+      document.getElementById('alert-container').appendChild(alert);
+      
+      alert.querySelector('.close-btn').addEventListener('click', () => {
+        alert.remove();
+      });
+      
+      setTimeout(() => alert.remove(), 5000);
+    }
   </script>
 </body>
 </html>
