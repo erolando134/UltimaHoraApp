@@ -17,118 +17,37 @@
     },
     {
       "src": "/manifest.json",
-      "dest": "/manifest.json"
+      "dest": "/manifest.json",
+      "headers": {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache"
+      }
     },
 
-    // 2. Assets estáticos (caché prolongada)
+    // 2. Assets estáticos (incluyendo JSON)
+    {
+      "src": "/data/(.*).json",
+      "dest": "/data/$1.json",
+      "headers": {
+        "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600"
+      }
+    },
     {
       "src": "/img/(.*)",
-      "dest": "/img/$1",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
+      "dest": "/img/$1"
     },
-    {
-      "src": "/css/(.*)",
-      "dest": "/css/$1",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000"
-      }
-    },
-    {
-      "src": "/js/(.*)",
-      "dest": "/js/$1",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000"
-      }
-    },
+    // ... (resto de rutas existentes)
 
-    // 3. Páginas principales (HTML sin extensión)
+    // Nueva ruta catch-all para JSON
     {
-      "src": "/taxis-urbanos/solicitar-taxi",
-      "dest": "/taxis-urbanos/solicitar-taxi.html",
+      "src": "/(.*).json",
+      "dest": "/$1.json",
       "headers": {
-        "Cache-Control": "no-cache"
+        "Content-Type": "application/json"
       }
     },
-    {
-      "src": "/interprovincial/reservar-viaje",
-      "dest": "/interprovincial/reservar-viaje.html"
-    },
-    {
-      "src": "/carga/solicitar-servicio",
-      "dest": "/carga/solicitar-servicio.html"
-    },
-    {
-      "src": "/servicios-eventuales/inscripcion-eventual",
-      "dest": "/servicios-eventuales/inscripcion-eventual.html"
-    },
-    {
-      "src": "/tienda/tienda",
-      "dest": "/tienda/tienda.html"
-    },
-    {
-      "src": "/mensajeria/solicitar",
-      "dest": "/mensajeria/solicitar.html"
-    },
-    {
-      "src": "/excursiones/excursiones",
-      "dest": "/excursiones/excursiones.html"
-    },
-    {
-      "src": "/seguridad/seguridad",
-      "dest": "/seguridad/seguridad.html"
-    },
-    {
-      "src": "/admin/admin",
-      "dest": "/admin/admin.html"
-    },
-
-    // 4. Páginas especiales
-    {
-      "src": "/offline",
-      "dest": "/offline.html"
-    },
-    {
-      "src": "/service-worker.js",
-      "dest": "/sw.js",
-      "status": 301
-    },
-
-    // 5. Redirecciones inteligentes
-    {
-      "src": "/taxis-urbanos/solicitar-taxi.html",
-      "dest": "/taxis-urbanos/solicitar-taxi",
-      "status": 301
-    },
-    {
-      "src": "/servicios-eventuales/inscripcion-eventual.html",
-      "dest": "/servicios-eventuales/inscripcion-eventual",
-      "status": 301
-    },
-
-    // 6. Catch-all para SPA (última prioridad)
-    {
-      "src": "/(.*)",
-      "dest": "/index.html",
-      "headers": {
-        "Cache-Control": "no-cache"
-      }
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        }
-      ]
-    }
+    
+    // Resto de tu configuración existente...
   ]
 }
