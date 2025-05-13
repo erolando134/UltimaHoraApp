@@ -6,16 +6,28 @@
       "dest": "/taxis-urbanos/solicitar-taxi.html"
     },
     {
-      "src": "/viajes-interprovinciales",
+      "src": "/interprovincial/reservar-viaje",
       "dest": "/interprovincial/reservar-viaje.html"
     },
     {
-      "src": "/transporte-carga",
+      "src": "/carga/solicitar-servicio",
       "dest": "/carga/solicitar-servicio.html"
+    },
+    {
+      "src": "/servicios-eventuales/registro",
+      "dest": "/servicios-eventuales/registro.html"
     },
     {
       "src": "/admin",
       "dest": "/admin/admin.html"
+    },
+    {
+      "src": "/img/(.*)",
+      "dest": "/img/$1"
+    },
+    {
+      "src": "/css/(.*)",
+      "dest": "/css/$1"
     },
     {
       "src": "/(.*)",
