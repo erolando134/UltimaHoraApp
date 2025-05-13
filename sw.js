@@ -1,5 +1,5 @@
-// Service Worker para Última Hora R.M.K. (v3.0)
-const CACHE_NAME = 'ultima-hora-cache-v4';
+// Service Worker para Última Hora R.M.K. (v4.0)
+const CACHE_NAME = 'ultima-hora-cache-v5';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -11,7 +11,7 @@ const ASSETS_TO_CACHE = [
   '/admin/admin.html',
   '/taxis-urbanos/solicitar-taxi.html',
   '/taxis-urbanos/registro-taxistas.html',
-  '/servicios-eventuales/registro.html',
+  '/servicios-eventuales/inscripcion-eventual.html', // Nombre actualizado
   '/interprovincial/reservar-viaje.html',
   '/carga/solicitar-servicio.html',
   '/offline.html'
@@ -22,7 +22,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then(cache => {
         console.log('[SW] Almacenando recursos críticos');
-        return cache.addAll(ASSETS_TO_CACHE); // Quitamos el filtro de HTML
+        return cache.addAll(ASSETS_TO_CACHE);
       })
       .then(() => self.skipWaiting())
   );
@@ -30,36 +30,66 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('fetch', (event) => {
   const request = event.request;
-  
-  // Estrategia actualizada para SPA
+  const url = new URL(request.url);
+
+  // Estrategia para documentos HTML
   if (request.mode === 'navigate') {
     event.respondWith(
       caches.match('/index.html')
-        .then(cachedResponse => cachedResponse || fetch(request))
+        .then(cachedResponse => cachedResponse || fetch(request)
+          .then(networkResponse => {
+            const responseClone = networkResponse.clone();
+            caches.open(CACHE_NAME)
+              .then(cache => cache.put(request, responseClone));
+            return networkResponse;
+          })
+          .catch(() => caches.match('/offline.html'))
+        )
     );
     return;
   }
 
-  // Estrategia Cache First para assets
+  // Estrategia Cache First para otros recursos
   event.respondWith(
     caches.match(request)
-      .then(cachedResponse => {
-        return cachedResponse || fetch(request)
-          .then(networkResponse => {
-            if (networkResponse.ok) {
-              const responseClone = networkResponse.clone();
-              caches.open(CACHE_NAME).then(cache => cache.put(request, responseClone));
-            }
-            return networkResponse;
-          })
-          .catch(() => {
-            if (request.destination === 'image') {
-              return caches.match('/img/logo_fondo_taxi.png');
-            }
-            return caches.match('/offline.html');
-          });
-      })
+      .then(cachedResponse => cachedResponse || fetch(request)
+        .then(networkResponse => {
+          if (networkResponse.ok) {
+            const responseClone = networkResponse.clone();
+            caches.open(CACHE_NAME)
+              .then(cache => cache.put(request, responseClone));
+          }
+          return networkResponse;
+        })
+        .catch(() => {
+          if (request.destination === 'image') {
+            return caches.match('/img/logo_fondo_taxi.png');
+          }
+          return new Response('Recurso no disponible en modo offline');
+        })
+      )
   );
 });
 
-// Resto del código sin cambios...
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => 
+      Promise.all(
+        cacheNames.map(cacheName => 
+          cacheName !== CACHE_NAME ? caches.delete(cacheName) : null
+        )
+      ).then(() => self.clients.claim())
+    )
+  );
+});
+
+// Manejo de actualizaciones push (opcional)
+self.addEventListener('push', event => {
+  const data = event.data?.json();
+  event.waitUntil(
+    self.registration.showNotification(data?.title || 'Nueva actualización', {
+      body: data?.body || 'Hay nuevas actualizaciones disponibles',
+      icon: '/img/notification-icon.png'
+    })
+  );
+});
