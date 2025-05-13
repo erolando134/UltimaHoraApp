@@ -1,45 +1,13 @@
 {
   "version": 2,
   "routes": [
-    // Rutas principales
+    // 1. Servicio Worker (prioridad máxima)
     {
-      "src": "/taxis-urbanos/solicitar-taxi.html",
-      "dest": "/taxis-urbanos/solicitar-taxi.html"
-    },
-    {
-      "src": "/interprovincial/reservar-viaje.html",
-      "dest": "/interprovincial/reservar-viaje.html"
-    },
-    {
-      "src": "/carga/solicitar-servicio.html",
-      "dest": "/carga/solicitar-servicio.html"
-    },
-    {
-      "src": "/servicios-eventuales/inscripcion-eventual.html",
-      "dest": "/servicios-eventuales/inscripcion-eventual.html"
-    },
-    {
-      "src": "/tienda/tienda.html",
-      "dest": "/tienda/tienda.html"
-    },
-    {
-      "src": "/mensajeria/solicitar.html",
-      "dest": "/mensajeria/solicitar.html"
-    },
-    {
-      "src": "/excursiones/excursiones.html",
-      "dest": "/excursiones/excursiones.html"
-    },
-    {
-      "src": "/seguridad/seguridad.html",
-      "dest": "/seguridad/seguridad.html"
-    },
-    {
-      "src": "/admin/admin.html",
-      "dest": "/admin/admin.html"
+      "src": "/sw.js",
+      "dest": "/sw.js"
     },
 
-    // Assets estáticos
+    // 2. Assets estáticos
     {
       "src": "/img/(.*)",
       "dest": "/img/$1"
@@ -53,7 +21,51 @@
       "dest": "/js/$1"
     },
 
-    // Catch-all para SPA
+    // 3. Páginas principales (versión limpia sin .html)
+    {
+      "src": "/taxis-urbanos/solicitar-taxi",
+      "dest": "/taxis-urbanos/solicitar-taxi.html"
+    },
+    {
+      "src": "/interprovincial/reservar-viaje",
+      "dest": "/interprovincial/reservar-viaje.html"
+    },
+    {
+      "src": "/carga/solicitar-servicio",
+      "dest": "/carga/solicitar-servicio.html"
+    },
+    {
+      "src": "/servicios-eventuales/inscripcion-eventual",
+      "dest": "/servicios-eventuales/inscripcion-eventual.html"
+    },
+    {
+      "src": "/tienda/tienda",
+      "dest": "/tienda/tienda.html"
+    },
+    {
+      "src": "/mensajeria/solicitar",
+      "dest": "/mensajeria/solicitar.html"
+    },
+    {
+      "src": "/excursiones/excursiones",
+      "dest": "/excursiones/excursiones.html"
+    },
+    {
+      "src": "/seguridad/seguridad",
+      "dest": "/seguridad/seguridad.html"
+    },
+    {
+      "src": "/admin/admin",
+      "dest": "/admin/admin.html"
+    },
+
+    // 4. Páginas especiales
+    {
+      "src": "/offline",
+      "dest": "/offline.html"
+    },
+
+    // 5. Catch-all para SPA (último en la lista)
     {
       "src": "/(.*)",
       "dest": "/index.html"
