@@ -1,11 +1,13 @@
 {
   "name": "Última Hora R.M.K.",
   "short_name": "UltimaHoraRMK",
-  "start_url": "/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#FFFFFF",
   "theme_color": "#FFD700",
   "description": "Servicios de taxis y transporte familiar con calidad",
+  "lang": "es",
   "icons": [
     {
       "src": "/img/icons/icon-72x72.png",
@@ -16,7 +18,7 @@
       "src": "/img/icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     },
     {
       "src": "/img/icons/icon-512x512.png",
