@@ -5,54 +5,142 @@
     {
       "src": "index.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "sw.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "manifest.json",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "css/styles.css",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "js/aplicacion.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "admin/admin.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "taxis-urbanos/solicitar-taxi.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "taxis-urbanos/registro-taxistas.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "servicios-eventuales/inscripcion-eventual.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "interprovincial/reservar-viaje.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "carga/solicitar-servicio.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "img/logo_fondo_taxi.png",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "img/icons/icon-192x192.png",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "img/icons/icon-512x512.png",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "img/notification-icon.png",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/sw.js",
-      "dest": "/sw.js",
       "headers": {
         "Cache-Control": "no-cache",
         "Service-Worker-Allowed": "/"
-      }
+      },
+      "dest": "/sw.js"
     },
     {
       "src": "/manifest.json",
-      "dest": "/manifest.json",
       "headers": {
         "Cache-Control": "no-cache"
-      }
+      },
+      "dest": "/manifest.json"
     },
     {
       "src": "/img/(.*)",
-      "dest": "/img/$1",
       "headers": {
         "Cache-Control": "public, max-age=31536000, immutable"
-      }
+      },
+      "dest": "/img/$1"
     },
     {
-      "src": "/estilo/(.*)",
-      "dest": "/estilo/$1",
+      "src": "/css/(.*)",
       "headers": {
         "Cache-Control": "public, max-age=31536000"
-      }
+      },
+      "dest": "/css/$1"
     },
     {
       "src": "/js/(.*)",
-      "dest": "/js/$1",
       "headers": {
         "Cache-Control": "public, max-age=31536000"
-      }
+      },
+      "dest": "/js/$1"
+    },
+    {
+      "src": "/admin/(.*)",
+      "headers": {
+        "Cache-Control": "no-cache"
+      },
+      "dest": "/admin/$1"
+    },
+    {
+      "src": "/taxis-urbanos/(.*)",
+      "headers": {
+        "Cache-Control": "no-cache"
+      },
+      "dest": "/taxis-urbanos/$1"
+    },
+    {
+      "src": "/servicios-eventuales/(.*)",
+      "headers": {
+        "Cache-Control": "no-cache"
+      },
+      "dest": "/servicios-eventuales/$1"
+    },
+    {
+      "src": "/interprovincial/(.*)",
+      "headers": {
+        "Cache-Control": "no-cache"
+      },
+      "dest": "/interprovincial/$1"
+    },
+    {
+      "src": "/carga/(.*)",
+      "headers": {
+        "Cache-Control": "no-cache"
+      },
+      "dest": "/carga/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html",
       "headers": {
         "Cache-Control": "no-cache"
-      }
+      },
+      "dest": "/index.html"
     }
-  ],
-  "cleanUrls": true,
-  "trailingSlash": false
+  ]
 }
-
