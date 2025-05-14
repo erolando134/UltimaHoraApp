@@ -21,7 +21,7 @@ const ASSETS_TO_CACHE = [
   '/img/notification-icon.png'
 ];
 
-// Instalación del Service Worker y precacheo de recursos esenciales
+// Instalación del Service Worker y precacheo
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -36,75 +36,78 @@ self.addEventListener('install', event => {
   );
 });
 
-// Activación del Service Worker y limpieza de cachés antiguas
+// Activación y limpieza de cachés antiguas
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames =>
       Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
+        cacheNames
+          .filter(cacheName => cacheName !== CACHE_NAME)
+          .map(cacheName => {
             console.log('[SW] Eliminando caché antigua:', cacheName);
             return caches.delete(cacheName);
-          }
-        })
+          })
       )
-    ).then(() => self.clients.claim())
+    ).then(() => {
+      self.clients.claim();
+      self.skipWaiting();
+    })
   );
 });
 
-// Estrategia de caché para solicitudes de navegación y recursos estáticos
+// Estrategia de caché para navegación y recursos
 self.addEventListener('fetch', event => {
   const { request } = event;
 
-  // Estrategia para navegación (páginas HTML)
+  // Evitar errores con "only-if-cached"
+  if (request.cache === 'only-if-cached' && request.mode !== 'same-origin') {
+    return;
+  }
+
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
         .then(response => {
-          // Clonar y almacenar en caché la respuesta
-          const responseClone = response.clone();
-          caches.open(CACHE_NAME)
-            .then(cache => cache.put(request, responseClone));
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
           return response;
         })
-        .catch(() =>
-          caches.match(request)
-            .then(cachedResponse => cachedResponse || caches.match(OFFLINE_URL))
+        .catch(() => caches.match(request)
+          .then(cached => cached || caches.match(OFFLINE_URL))
         )
     );
     return;
   }
 
-  // Estrategia para otros recursos (CSS, JS, imágenes)
   event.respondWith(
-    caches.match(request)
-      .then(cachedResponse => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        return fetch(request)
-          .then(networkResponse => {
-            if (networkResponse && networkResponse.status === 200) {
-              const responseClone = networkResponse.clone();
-              caches.open(CACHE_NAME)
-                .then(cache => cache.put(request, responseClone));
-            }
-            return networkResponse;
-          })
-          .catch(() => {
-            if (request.destination === 'image') {
-              return caches.match('/img/logo_fondo_taxi.png');
-            }
-            return new Response(
-              '<h1>Contenido no disponible offline</h1>',
-              { headers: { 'Content-Type': 'text/html' } }
-            );
-          });
-      })
+    caches.match(request).then(cached => {
+      if (cached) return cached;
+
+      return fetch(request)
+        .then(response => {
+          if (response && response.status === 200) {
+            const responseClone = response.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(request, responseClone));
+          }
+          return response;
+        })
+        .catch(() => {
+          if (request.destination === 'image') {
+            return caches.match('/img/logo_fondo_taxi.png');
+          }
+          if (request.headers.get('accept')?.includes('text/html')) {
+            return caches.match(OFFLINE_URL);
+          }
+          return new Response(
+            '<h1>Contenido no disponible offline</h1>',
+            { headers: { 'Content-Type': 'text/html' } }
+          );
+        });
+    })
   );
 });
 
-// Manejo de notificaciones push
+// Notificaciones push
 self.addEventListener('push', event => {
   const data = event.data?.json() || {};
 
@@ -123,21 +126,21 @@ self.addEventListener('push', event => {
   );
 });
 
-// Manejo de clic en notificaciones
+// Clic en notificaciones
 self.addEventListener('notificationclick', event => {
   event.notification.close();
   const urlToOpen = event.notification.data?.url || '/';
+
   event.waitUntil(
-    clients.matchAll({ type: 'window', includeUncontrolled: true })
-      .then(clientList => {
-        for (const client of clientList) {
-          if (client.url === urlToOpen && 'focus' in client) {
-            return client.focus();
-          }
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clientList => {
+      for (const client of clientList) {
+        if (client.url === urlToOpen && 'focus' in client) {
+          return client.focus();
         }
-        if (clients.openWindow) {
-          return clients.openWindow(urlToOpen);
-        }
-      })
+      }
+      if (clients.openWindow) {
+        return clients.openWindow(urlToOpen);
+      }
+    })
   );
 });
