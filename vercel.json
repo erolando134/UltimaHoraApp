@@ -23,7 +23,11 @@
       "use": "@vercel/static"
     },
     {
-      "src": "admin/admin.html",
+      "src": "admin_dashboard.htm",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "login_admin.html",
       "use": "@vercel/static"
     },
     {
@@ -101,11 +105,19 @@
       "dest": "/js/$1"
     },
     {
+      "src": "/admin",
+      "dest": "/login_admin.html"
+    },
+    {
       "src": "/admin/(.*)",
       "headers": {
         "Cache-Control": "no-cache"
       },
       "dest": "/admin/$1"
+    },
+    {
+      "src": "/admin-dashboard",
+      "dest": "/admin_dashboard.htm"
     },
     {
       "src": "/taxis-urbanos/(.*)",
