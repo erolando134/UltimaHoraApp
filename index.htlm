@@ -4,110 +4,93 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Última Hora - Inicio</title>
-  <link rel="stylesheet" href="estilo.css">
   <style>
     body {
-      background-image: url('Logo_fondo_taxi.png');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-      background-color: #fff;
       font-family: Arial, sans-serif;
-    }
-    .logo {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-    }
-    .logo img {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-    }
-    h1 {
-      text-align: center;
-      color: #228B22;
-      margin-top: 80px;
-    }
-    .columns {
-      display: flex;
-      justify-content: center;
-      gap: 100px;
-      margin-top: 40px;
-    }
-    .column {
-      text-align: center;
-    }
-    .column h2 {
-      color: #228B22;
-    }
-    .btn-container {
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-top: 20px;
+      align-items: center;
     }
-    .boton {
-      display: inline-block;
-      padding: 10px 20px;
+    header {
       background-color: #228B22;
       color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-    }
-    .boton:hover {
-      background-color: #1e7e1e;
-    }
-    .admin-section {
+      width: 100%;
+      padding: 20px 0;
       text-align: center;
-      margin-top: 60px;
+    }
+    header img {
+      max-width: 100px;
+      height: auto;
+    }
+    header h1 {
+      margin: 10px 0 0 0;
+    }
+    main {
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .description {
+      margin-bottom: 30px;
+      font-size: 1.2em;
+    }
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    .buttons a {
+      text-decoration: none;
+    }
+    .buttons button {
+      width: 100%;
+      padding: 15px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #fff;
+    }
+    .cliente {
+      background-color: #007BFF;
+    }
+    .chofer {
+      background-color: #28A745;
+    }
+    .admin {
+      background-color: #FFC107;
+      color: #000;
+    }
+    footer {
+      background-color: #228B22;
+      color: #fff;
+      width: 100%;
+      text-align: center;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
     }
   </style>
 </head>
 <body>
-
-  <!-- Logo superior izquierdo -->
-  <div class="logo">
-    <img src="Logo.png" alt="Logo Última Hora">
-  </div>
-
-  <h1>Bienvenidos a Última Hora</h1>
-
-  <div class="columns">
-    <!-- Columna CLIENTES -->
-    <div class="column">
-      <h2>Clientes</h2>
-      <div class="btn-container">
-        <a href="taxis_hurbanos_cliente.html" class="boton">Taxis Urbanos</a>
-        <a href="interprovincial_cliente.html" class="boton">Viajes Interprovinciales</a>
-        <a href="excursiones_cliente.html" class="boton">Excursiones</a>
-        <a href="mensajeria_cliente.html" class="boton">Mensajería</a>
-        <a href="carga_cliente.html" class="boton">Carga</a>
-        <a href="tienda_cliente.html" class="boton">Tienda</a>
-        <a href="seguridad.html" class="boton">Seguridad</a>
-      </div>
+  <header>
+    <img src="logo.png" alt="Logotipo de Última Hora">
+    <h1>Última Hora</h1>
+  </header>
+  <main>
+    <p class="description">Bienvenido a la aplicación de transporte "Última Hora". Selecciona tu perfil para continuar:</p>
+    <div class="buttons">
+      <a href="clientes.html"><button class="cliente">Clientes</button></a>
+      <a href="choferes.html"><button class="chofer">Choferes</button></a>
+      <a href="login_admin.html"><button class="admin">Administrador</button></a>
     </div>
-
-    <!-- Columna CHÓFERES -->
-    <div class="column">
-      <h2>Chóferes</h2>
-      <div class="btn-container">
-        <a href="modalidad_hurbano.html" class="boton">Taxis Urbanos</a>
-        <a href="modalidad_interprovincial.html" class="boton">Interprovincial</a>
-        <a href="modalidad_excursiones.html" class="boton">Excursiones</a>
-        <a href="modalidad_mensajeria.html" class="boton">Mensajería</a>
-        <a href="modalidad_carga.html" class="boton">Carga</a>
-        <a href="modalidad_eventual.html" class="boton">Eventual</a>
-        <a href="tienda_chofer.html" class="boton">Tienda</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Sección de Administrador -->
-  <div class="admin-section">
-    <a href="login_admin.html" class="boton" style="background-color: #FFA500;">Administrador</a>
-  </div>
-
+  </main>
+  <footer>
+    &copy; 2025 Última Hora. Todos los derechos reservados.
+  </footer>
 </body>
 </html>
