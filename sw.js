@@ -1,11 +1,14 @@
-// Service Worker para Última Hora R.M.K. (v5.0)
+// Service Worker para Última Hora R.M.K. (v6.0)
+
 const CACHE_NAME = 'ultima-hora-cache-v6';
+const OFFLINE_URL = '/offline.html';
+
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
-  '/offline.html', // Página personalizada offline
-  '/css/styles.css',
-  '/js/aplicacion.js',
+  OFFLINE_URL,
+  '/estilo/estilo.css',
+  '/js/ws.js',
   '/admin/admin.html',
   '/taxis-urbanos/solicitar-taxi.html',
   '/taxis-urbanos/registro-taxistas.html',
@@ -15,48 +18,59 @@ const ASSETS_TO_CACHE = [
   '/img/logo_fondo_taxi.png',
   '/img/icons/icon-192x192.png',
   '/img/icons/icon-512x512.png',
-  '/img/notification-icon.png' // Icono para notificaciones push
+  '/img/notification-icon.png'
 ];
 
-self.addEventListener('install', (event) => {
+// Instalación del Service Worker y precacheo de recursos esenciales
+self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('[SW] Almacenando recursos críticos');
-        return cache.addAll(ASSETS_TO_CACHE)
-          .catch(error => {
-            console.error('[SW] Error al cachear recursos:', error);
-          });
+        console.log('[SW] Precaching recursos esenciales');
+        return cache.addAll(ASSETS_TO_CACHE);
+      })
+      .catch(error => {
+        console.error('[SW] Error al precachear recursos:', error);
       })
       .then(() => self.skipWaiting())
   );
 });
 
-self.addEventListener('fetch', (event) => {
-  const request = event.request;
-  const url = new URL(request.url);
+// Activación del Service Worker y limpieza de cachés antiguas
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames =>
+      Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME) {
+            console.log('[SW] Eliminando caché antigua:', cacheName);
+            return caches.delete(cacheName);
+          }
+        })
+      )
+    ).then(() => self.clients.claim())
+  );
+});
+
+// Estrategia de caché para solicitudes de navegación y recursos estáticos
+self.addEventListener('fetch', event => {
+  const { request } = event;
 
   // Estrategia para navegación (páginas HTML)
   if (request.mode === 'navigate') {
     event.respondWith(
-      caches.match(request)
-        .then(cachedResponse => {
-          // Intentar red si no hay caché
-          return cachedResponse || fetch(request)
-            .then(networkResponse => {
-              // Actualizar caché con nueva respuesta
-              const responseClone = networkResponse.clone();
-              caches.open(CACHE_NAME)
-                .then(cache => cache.put(request, responseClone));
-              return networkResponse;
-            })
-            .catch(async () => {
-              // Fallback 1: Versión genérica offline
-              const offlineResponse = await caches.match('/offline.html');
-              // Fallback 2: Página principal si no existe offline
-              return offlineResponse || caches.match('/index.html');
-            });
+      fetch(request)
+        .then(response => {
+          // Clonar y almacenar en caché la respuesta
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME)
+            .then(cache => cache.put(request, responseClone));
+          return response;
         })
+        .catch(() =>
+          caches.match(request)
+            .then(cachedResponse => cachedResponse || caches.match(OFFLINE_URL))
+        )
     );
     return;
   }
@@ -65,13 +79,12 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(request)
       .then(cachedResponse => {
-        // Devuelve caché si existe
-        if (cachedResponse) return cachedResponse;
-
-        // Si no, busca en red y actualiza caché
+        if (cachedResponse) {
+          return cachedResponse;
+        }
         return fetch(request)
           .then(networkResponse => {
-            if (networkResponse.ok) {
+            if (networkResponse && networkResponse.status === 200) {
               const responseClone = networkResponse.clone();
               caches.open(CACHE_NAME)
                 .then(cache => cache.put(request, responseClone));
@@ -79,48 +92,30 @@ self.addEventListener('fetch', (event) => {
             return networkResponse;
           })
           .catch(() => {
-            // Manejo específico para imágenes
             if (request.destination === 'image') {
               return caches.match('/img/logo_fondo_taxi.png');
             }
-            
-            // Respuesta genérica para otros recursos
             return new Response(
-              '<h1>Contenido no disponible offline</h1>', 
-              { headers: {'Content-Type': 'text/html'} }
+              '<h1>Contenido no disponible offline</h1>',
+              { headers: { 'Content-Type': 'text/html' } }
             );
           });
       })
   );
 });
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('[SW] Eliminando caché obsoleta:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    }).then(() => {
-      console.log('[SW] Listo para manejar peticiones');
-      return self.clients.claim();
-    })
-  );
-});
-
-// Manejo de notificaciones push (solo si está implementado)
+// Manejo de notificaciones push
 self.addEventListener('push', event => {
   const data = event.data?.json() || {};
-  
+
   const title = data.title || 'Nueva actualización';
   const options = {
     body: data.body || 'Hay nuevos contenidos disponibles',
     icon: '/img/notification-icon.png',
-    badge: '/img/icons/icon-192x192.png'
+    badge: '/img/icons/icon-192x192.png',
+    data: {
+      url: data.url || '/'
+    }
   };
 
   event.waitUntil(
@@ -131,7 +126,18 @@ self.addEventListener('push', event => {
 // Manejo de clic en notificaciones
 self.addEventListener('notificationclick', event => {
   event.notification.close();
+  const urlToOpen = event.notification.data?.url || '/';
   event.waitUntil(
-    clients.openWindow('https://tu-dominio.com/')
+    clients.matchAll({ type: 'window', includeUncontrolled: true })
+      .then(clientList => {
+        for (const client of clientList) {
+          if (client.url === urlToOpen && 'focus' in client) {
+            return client.focus();
+          }
+        }
+        if (clients.openWindow) {
+          return clients.openWindow(urlToOpen);
+        }
+      })
   );
 });
