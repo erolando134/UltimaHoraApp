@@ -5,7 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Última Hora - Inicio</title>
   <link rel="stylesheet" href="estilo.css">
+  <style>
+    .btn-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .boton {
+      padding: 12px 20px;
+      background-color: #228B22;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .boton:hover {
+      background-color: #1e7a1e;
+    }
+  </style>
 </head>
+
 <body style="background-image: url('Logo_fondo_taxi.png'); background-repeat: no-repeat; background-position: center; background-size: contain; background-color: #fff;">
 
   <!-- Logo superior izquierdo -->
@@ -13,42 +36,46 @@
     <img src="Logo.png" alt="Logo Última Hora" style="width: 60px; height: 60px; border-radius: 50%;">
   </div>
 
+  <!-- Título principal -->
   <h1 style="text-align: center; color: #228B22; margin-top: 80px;">Bienvenidos a Última Hora</h1>
 
+  <!-- Contenedor de columnas -->
   <div style="display: flex; justify-content: center; gap: 100px; margin-top: 40px;">
-    <!-- Columna CLIENTES -->
+
+    <!-- Columna Clientes -->
     <div>
       <h2 style="text-align: center; color: #228B22;">Clientes</h2>
       <div class="btn-container">
-        <a href="taxis_hurbanos_cliente.html" class="boton">Taxis Urbanos</a>
-        <a href="interprovincial_cliente.html" class="boton">Viajes Interprovinciales</a>
-        <a href="excursiones_cliente.html" class="boton">Excursiones</a>
-        <a href="mensajeria_cliente.html" class="boton">Mensajería</a>
-        <a href="carga_cliente.html" class="boton">Carga</a>
-        <a href="tienda_cliente.html" class="boton">Tienda</a>
-        <a href="seguridad.html" class="boton">Seguridad</a>
+        <a href="clientes/taxis_hurbanos_cliente.html" class="boton">Taxis Urbanos</a>
+        <a href="clientes/interprovincial_cliente.html" class="boton">Viajes Interprovinciales</a>
+        <a href="clientes/excursiones_cliente.html" class="boton">Excursiones</a>
+        <a href="clientes/mensajeria_cliente.html" class="boton">Mensajería</a>
+        <a href="clientes/carga_cliente.html" class="boton">Carga</a>
+        <a href="clientes/tienda_cliente.html" class="boton">Tienda</a>
+        <a href="clientes/seguridad.html" class="boton">Seguridad</a>
       </div>
     </div>
 
-    <!-- Columna CHÓFERES -->
+    <!-- Columna Chóferes -->
     <div>
       <h2 style="text-align: center; color: #228B22;">Chóferes</h2>
       <div class="btn-container">
-        <a href="modalidad_hurbano.html" class="boton">Taxis Urbanos</a>
-        <a href="modalidad_interprovincial.html" class="boton">Interprovincial</a>
-        <a href="modalidad_excursiones.html" class="boton">Excursiones</a>
-        <a href="modalidad_mensajeria.html" class="boton">Mensajería</a>
-        <a href="modalidad_carga.html" class="boton">Carga</a>
-        <a href="modalidad_eventual.html" class="boton">Eventual</a>
-        <a href="tienda_chofer.html" class="boton">Tienda</a>
+        <a href="choferes/modalidad_hurbano.html" class="boton">Taxis Urbanos</a>
+        <a href="choferes/modalidad_interprovincial.html" class="boton">Interprovincial</a>
+        <a href="choferes/modalidad_excursiones.html" class="boton">Excursiones</a>
+        <a href="choferes/modalidad_mensajeria.html" class="boton">Mensajería</a>
+        <a href="choferes/modalidad_carga.html" class="boton">Carga</a>
+        <a href="choferes/modalidad_eventual.html" class="boton">Eventual</a>
+        <a href="choferes/tienda_chofer.html" class="boton">Tienda</a>
       </div>
     </div>
   </div>
 
-  <!-- Botón de administrador -->
+  <!-- Botón Administrador -->
   <div style="text-align: center; margin-top: 60px;">
-    <a href="login_admin.html" class="boton" style="background-color: #FFA500;">Administrador</a>
+    <a href="admin/login_admin.html" class="boton" style="background-color: #FFA500;">Administrador</a>
   </div>
 
 </body>
 </html>
+
