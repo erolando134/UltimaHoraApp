@@ -65,6 +65,9 @@
       background-color: #FFC107;
       color: #000;
     }
+    .carga {
+      background-color: #FF5722;
+    }
     footer {
       background-color: #228B22;
       color: #fff;
@@ -87,6 +90,7 @@
       <a href="clientes.html"><button class="cliente">Clientes</button></a>
       <a href="choferes.html"><button class="chofer">Choferes</button></a>
       <a href="login_admin.html"><button class="admin">Administrador</button></a>
+      <a href="servicios/solicitar-servicio.html"><button class="carga">Carga</button></a>
     </div>
   </main>
   <footer>
