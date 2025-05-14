@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Administración - Última Hora</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e9ecef;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #228B22;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+    }
+    section {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #228B22;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-top: 10px;
+    }
+    input[type="text"], input[type="email"] {
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #228B22;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1e7e1e;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      background-color: #f8f9fa;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Panel de Administración - Última Hora</h1>
+  </header>
+  <main>
+    <section>
+      <h2>Gestión de Tarjetas Bancarias</h2>
+      <form id="card-form">
+        <label for="card-number">Número de Tarjeta:</label>
+        <input type="text" id="card-number" name="card-number" required>
+        <button type="submit">Agregar Tarjeta</button>
+      </form>
+      <ul id="card-list">
+        <!-- Lista de tarjetas agregadas -->
+      </ul>
+    </section>
+    <section>
+      <h2>Enviar Formulario a Empleados</h2>
+      <form id="employee-form">
+        <label for="employee-email">Correo del Empleado:</label>
+        <input type="email" id="employee-email" name="employee-email" required>
+        <button type="submit">Enviar Formulario</button>
+      </form>
+    </section>
+  </main>
+  <script>
+    // Manejo de tarjetas
+    const cardForm = document.getElementById('card-form');
+    const cardList = document.getElementById('card-list');
+
+    cardForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const cardNumber = document.getElementById('card-number').value;
+      const li = document.createElement('li');
+      li.textContent = cardNumber;
+      cardList.appendChild(li);
+      cardForm.reset();
+    });
+
+    // Envío de formularios a empleados
+    const employeeForm = document.getElementById('employee-form');
+
+    employeeForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('employee-email').value;
+      alert('Formulario enviado a ' + email);
+      employeeForm.reset();
+    });
+  </script>
+</body>
+</html>
