@@ -96,5 +96,8 @@
   <footer>
     &copy; 2025 Última Hora. Todos los derechos reservados.
   </footer>
+<!-- Firebase App y Messaging JS -->
+<script type="module" src="/js/firebase-messaging.js"></script>
+
 </body>
 </html>
