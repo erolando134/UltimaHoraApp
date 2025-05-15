@@ -4,38 +4,64 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Última Hora - Clientes</title>
+  <link rel="icon" href="../img/logo_fondo_taxi.png">
   <style>
+    :root {
+      --verde-principal: #228B22;
+      --azul: #007BFF;
+      --gris: #6C757D;
+      --amarillo: #FFC107;
+      --blanco: #ffffff;
+    }
+
     body {
       font-family: Arial, sans-serif;
-      background-color: #ffffff;
+      background: url('../img/fondo_amarillo_taxi.jpg') no-repeat center center fixed;
+      background-size: cover;
       margin: 0;
       padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-height: 100vh;
     }
+
     header {
-      background-color: #228B22;
-      color: #fff;
+      background-color: rgba(34, 139, 34, 0.95);
+      color: var(--blanco);
       width: 100%;
       padding: 20px 0;
       text-align: center;
+      position: relative;
     }
+
     header img {
-      max-width: 100px;
-      height: auto;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      height: 50px;
     }
+
     header h1 {
-      margin: 10px 0 0 0;
+      margin: 0;
     }
+
     main {
       padding: 40px 20px;
       text-align: center;
+      flex: 1;
     }
+
     .description {
       margin-bottom: 30px;
       font-size: 1.2em;
+      color: #333;
+      background-color: rgba(255,255,255,0.85);
+      padding: 10px 20px;
+      border-radius: 8px;
+      display: inline-block;
     }
+
     .buttons {
       display: flex;
       flex-direction: column;
@@ -43,56 +69,69 @@
       max-width: 300px;
       margin: 0 auto;
     }
+
     .buttons a {
       text-decoration: none;
     }
+
     .buttons button {
       width: 100%;
       padding: 15px;
       font-size: 1em;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
-      color: #fff;
+      color: var(--blanco);
+      transition: all 0.2s ease;
     }
+
     .solicitar {
-      background-color: #007BFF;
+      background-color: var(--azul);
     }
+
     .historial {
       background-color: #28A745;
     }
+
     .perfil {
-      background-color: #6C757D;
+      background-color: var(--gris);
     }
+
     .inicio {
-      background-color: #FFC107;
+      background-color: var(--amarillo);
       color: #000;
     }
+
+    .buttons button:hover {
+      transform: translateY(-2px);
+      opacity: 0.95;
+    }
+
     footer {
-      background-color: #228B22;
-      color: #fff;
+      background-color: rgba(34, 139, 34, 0.95);
+      color: var(--blanco);
       width: 100%;
       text-align: center;
       padding: 10px 0;
-      position: fixed;
-      bottom: 0;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="Logotipo de Última Hora">
+    <img src="../img/logo_fondo_taxi.png" alt="Logo Última Hora">
     <h1>Última Hora</h1>
   </header>
+
   <main>
     <p class="description">Bienvenido, cliente. Selecciona una opción para continuar:</p>
     <div class="buttons">
-      <a href="solicitar_servicio.html"><button class="solicitar">Solicitar Servicio</button></a>
-      <a href="historial_servicios.html"><button class="historial">Historial de Servicios</button></a>
-      <a href="perfil_cliente.html"><button class="perfil">Perfil</button></a>
-      <a href="index.html"><button class="inicio">Volver al Inicio</button></a>
+      <a href="solicitar_servicio.html"><button class="solicitar">🚖 Solicitar Servicio</button></a>
+      <a href="historial_servicios.html"><button class="historial">📜 Historial de Servicios</button></a>
+      <a href="perfil_cliente.html"><button class="perfil">👤 Perfil</button></a>
+      <a href="../index.html"><button class="inicio">← Volver al Inicio</button></a>
     </div>
   </main>
+
   <footer>
     &copy; 2025 Última Hora. Todos los derechos reservados.
   </footer>
