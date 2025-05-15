@@ -18,15 +18,24 @@
       font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-      background: #f5f5f5;
+      background: url('../img/fondo_amarillo_taxi.jpg') no-repeat center center fixed;
+      background-size: cover;
     }
 
     .header-choferes {
-      background: var(--gris-oscuro);
+      background: rgba(33, 33, 33, 0.9);
       color: white;
       padding: 2rem;
       text-align: center;
       box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .logo {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      height: 50px;
     }
 
     .grid-modalidades {
@@ -64,7 +73,7 @@
     }
 
     .requisitos {
-      background: var(--blanco);
+      background: rgba(255, 255, 255, 0.95);
       padding: 2rem;
       margin: 2rem auto;
       max-width: 800px;
@@ -86,11 +95,16 @@
       color: var(--naranja-primario);
       text-decoration: none;
       font-weight: bold;
+      background: rgba(255,255,255,0.8);
+      padding: 10px 20px;
+      border-radius: 8px;
+      width: fit-content;
     }
   </style>
 </head>
 <body>
   <header class="header-choferes">
+    <img src="../img/logo_fondo_taxi.png" alt="Logo Última Hora" class="logo">
     <h1>Registro de Choferes R.M.K.</h1>
     <p>Selecciona tu modalidad de trabajo</p>
   </header>
@@ -100,27 +114,22 @@
       <span class="icono-modalidad">🚖</span>
       Taxi Urbano
     </a>
-    
     <a href="choferes/inscripcion-interprovincial.html" class="btn-modalidad">
       <span class="icono-modalidad">🛣️</span>
       Interprovincial
     </a>
-    
     <a href="choferes/inscripcion-carga.html" class="btn-modalidad">
       <span class="icono-modalidad">🚚</span>
       Transporte de Carga
     </a>
-    
     <a href="choferes/inscripcion-mensajeria.html" class="btn-modalidad">
       <span class="icono-modalidad">📦</span>
       Mensajería
     </a>
-    
     <a href="choferes/inscripcion-eventual.html" class="btn-modalidad">
       <span class="icono-modalidad">⏱️</span>
       Servicio Eventual
     </a>
-    
     <a href="choferes/inscripcion-tienda.html" class="btn-modalidad">
       <span class="icono-modalidad">🛒</span>
       Tienda/Autopartes
@@ -148,21 +157,15 @@
   <a href="../index.html" class="volver-inicio">← Volver al Inicio</a>
 
   <script>
-    // Configuración dinámica
     document.addEventListener('DOMContentLoaded', () => {
-      // Simulación de datos - Reemplazar con conexión real a backend
       const configuracion = {
         numeroTarjeta: '9227-9598-7147-8801',
         actualizadoEl: '2024-02-20'
       };
       
-      // Actualizar elementos en la página
       document.getElementById('numeroTarjetaDeposito').textContent = configuracion.numeroTarjeta;
       document.getElementById('actualizacionTarjeta').textContent = 
         `Última actualización: ${configuracion.actualizadoEl}`;
-      
-      // Para implementación real, usar:
-      // fetch('/configuracion').then(response => response.json()).then(data => {...});
     });
   </script>
 </body>
