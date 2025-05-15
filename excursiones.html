@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#FFD700">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#FFD700" />
   <title>Excursiones | Última Hora R.M.K.</title>
-  <link rel="stylesheet" href="../css/styles.css">
-  <link rel="icon" href="../img/logo_fondo_taxi.png">
-  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="icon" href="../img/logo_fondo_taxi.png" />
+  <link rel="manifest" href="/manifest.json" />
+
   <style>
-    /* ESTILOS ESPECÍFICOS PARA EXCURSIONES */
     :root {
       --amarillo-taxi: #FFD700;
       --amarillo-oscuro: #E65100;
@@ -20,7 +20,7 @@
       margin: 2rem auto;
       padding: 0 1rem;
     }
-    
+
     .card-excursion {
       background: rgba(255, 255, 255, 0.9);
       border-radius: 12px;
@@ -30,17 +30,17 @@
       border-left: 5px solid var(--amarillo-taxi);
       color: #333;
     }
-    
+
     .lista-requisitos {
       padding-left: 1.5rem;
     }
-    
+
     .lista-requisitos li {
       margin-bottom: 0.8rem;
-      position: relative;
       list-style-type: none;
+      position: relative;
     }
-    
+
     .lista-requisitos li:before {
       content: "→";
       color: var(--amarillo-taxi);
@@ -49,7 +49,7 @@
       width: 1.5em;
       margin-left: -1.5em;
     }
-    
+
     .info-destacado {
       background-color: #fff8e1;
       border-left: 4px solid var(--amarillo-oscuro);
@@ -57,7 +57,7 @@
       margin-top: 1.5rem;
       border-radius: 0 8px 8px 0;
     }
-    
+
     .precio-destacado {
       color: var(--amarillo-oscuro);
       font-weight: bold;
@@ -65,127 +65,9 @@
     }
 
     .btn-crear-excursion {
-      background: linear-gradient(135deg, var(--amarillo-taxi) 0%, var(--amarillo-oscuro) 100%);
-      color: white !important;
+      background: linear-gradient(135deg, var(--amarillo-taxi), var(--amarillo-oscuro));
+      color: white;
       padding: 12px 25px;
       border-radius: 8px;
       margin-top: 1rem;
-    }
-  </style>
-</head>
-<body>
-  <div class="logo-corner"></div>
-  <div id="alert-container" class="alert-container"></div>
-
-  <!-- HEADER ACTUALIZADO -->
-  <header class="logo-header" onclick="window.location.href='../index.html'">
-    <div class="logo-header-contenido">
-      <img src="../img/logo_fondo_taxi.png" alt="Logo Última Hora" class="logo-pequeno">
-      <div>
-        <h1>Excursiones Programadas</h1>
-        <p class="eslogan-header">Organiza viajes turísticos con nuestra plataforma</p>
-      </div>
-      <span class="iniciales-header">R.M.K.</span>
-    </div>
-  </header>
-
-  <!-- CONTENIDO MEJORADO -->
-  <main class="contenedor-excursiones">
-    <div class="card-excursion">
-      <h2>🌟 Requisitos y Beneficios</h2>
-      
-      <ul class="lista-requisitos">
-        <li><strong>Inscripción inicial:</strong> <span class="precio-destacado">2000 CUP</span></li>
-        <li><strong>Comisión plataforma:</strong> <span class="precio-destacado">20%</span> del pago total</li>
-        <li><strong>Detalles obligatorios:</strong>
-          <ul class="lista-requisitos">
-            <li>Destino y fecha exactos</li>
-            <li>Horario de salida y regreso</li>
-            <li>Precio por persona</li>
-            <li>Lugares de encuentro</li>
-          </ul>
-        </li>
-        <li><strong>Mínimo participantes:</strong> 5 para activar la excursión</li>
-        <li><strong>Transparencia:</strong> Verás el desglose de ganancias</li>
-      </ul>
-
-      <div class="info-destacado">
-        <p>El éxito de tus excursiones depende de:</p>
-        <ul class="lista-requisitos">
-          <li>Claridad en la descripción</li>
-          <li>Puntualidad en los horarios</li>
-          <li>Comunicación constante con los participantes</li>
-        </ul>
-      </div>
-
-      <!-- Formulario de creación de excursión -->
-      <form id="formExcursion" class="formulario-excursion">
-        <h3>📅 Crear Nueva Excursión</h3>
-        <div class="campo-formulario">
-          <label>Nombre de la Excursión:</label>
-          <input type="text" required>
-        </div>
-        
-        <div class="campo-dual">
-          <div class="campo-formulario">
-            <label>Fecha de Salida:</label>
-            <input type="datetime-local" required>
-          </div>
-          
-          <div class="campo-formulario">
-            <label>Precio por Persona (CUP):</label>
-            <input type="number" min="0" required>
-          </div>
-        </div>
-
-        <button type="submit" class="btn-app btn-crear-excursion">🚀 Publicar Excursión</button>
-      </form>
-    </div>
-
-    <!-- Listado de Excursiones -->
-    <div class="card-excursion">
-      <h2>📌 Excursiones Activas</h2>
-      <div id="listaExcursiones" class="lista-excursiones">
-        <!-- Las excursiones se cargarán dinámicamente aquí -->
-      </div>
-    </div>
-  </main>
-
-  <script>
-    // Registro del Service Worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('../sw.js')
-          .then(registration => console.log('Service Worker registrado'))
-          .catch(err => console.log('Error:', err));
-      });
-    }
-
-    // Manejo del formulario
-    document.getElementById('formExcursion').addEventListener('submit', function(e) {
-      e.preventDefault();
-      showAlert('🚀 Excursión creada exitosamente!', 'success');
-      this.reset();
-    });
-
-    // Función para mostrar alertas
-    function showAlert(message, type) {
-      const alert = document.createElement('div');
-      alert.className = `alert alert-${type}`;
-      alert.innerHTML = `
-        ${message}
-        <button class="close-btn">&times;</button>
-      `;
-      
-      document.getElementById('alert-container').appendChild(alert);
-      
-      alert.querySelector('.close-btn').addEventListener('click', () => {
-        alert.classList.add('fade-out');
-        setTimeout(() => alert.remove(), 300);
-      });
-      
-      setTimeout(() => alert.remove(), 5000);
-    }
-  </script>
-</body>
-</html>
+      border: none;
