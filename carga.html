@@ -7,16 +7,23 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f5f5f5;
+      background: url('fondo.jpg') no-repeat center center fixed;
+      background-size: cover;
       margin: 0;
       padding: 0;
+      color: #333;
     }
 
     header {
-      background-color: #212121;
+      background-color: rgba(33, 33, 33, 0.85);
       color: white;
       padding: 2rem;
       text-align: center;
+    }
+
+    header img {
+      width: 120px;
+      margin-bottom: 1rem;
     }
 
     main {
@@ -25,12 +32,12 @@
     }
 
     .section {
-      background: white;
+      background: rgba(255, 255, 255, 0.95);
       padding: 2rem;
       margin: 2rem auto;
       max-width: 700px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
     }
 
     h2 {
@@ -45,7 +52,7 @@
       line-height: 1.6;
     }
 
-    .btn {
+    .btn, button {
       display: inline-block;
       background-color: #ff6f00;
       color: white;
@@ -57,16 +64,53 @@
       font-weight: bold;
       font-size: 1.1rem;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
-    .btn:hover {
+    .btn:hover, button:hover {
       background-color: #e65100;
+    }
+
+    form {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input, textarea {
+      padding: 0.8rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .success {
+      color: green;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    .error {
+      color: red;
+      font-weight: bold;
+      margin-top: 1rem;
     }
   </style>
 </head>
 <body>
 
   <header>
+    <img src="logo.png" alt="Logo Última Hora" />
     <h1>Servicio de Transporte de Carga</h1>
     <p>Movemos tus cargas de forma segura y rápida</p>
   </header>
@@ -81,10 +125,31 @@
         <li>Incluye opción de recogida y entrega programada</li>
         <li>Seguimiento del estado del traslado en tiempo real</li>
       </ul>
-      <p>Este servicio es ideal para mudanzas, mercancías, y envíos programados.</p>
+      <p>Este servicio es ideal para mudanzas, mercancías y envíos programados.</p>
       <p style="margin-top: 1rem;">
         Número de tarjeta para depósitos: <strong>9227 9598 7147 8801</strong>
       </p>
+    </div>
+
+    <div class="section">
+      <h2>Solicita tu Transporte de Carga</h2>
+      <form id="formularioCarga">
+        <label for="descripcion">Descripción de la carga:</label>
+        <textarea id="descripcion" required></textarea>
+
+        <label for="origen">Lugar de recogida:</label>
+        <input type="text" id="origen" required />
+
+        <label for="destino">Destino:</label>
+        <input type="text" id="destino" required />
+
+        <label for="telefono">Teléfono de contacto:</label>
+        <input type="tel" id="telefono" required />
+
+        <button type="submit">Enviar solicitud</button>
+        <p id="mensaje"></p>
+      </form>
+
       <a href="index.html" class="btn">Volver al Inicio</a>
     </div>
   </main>
@@ -94,7 +159,6 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-    // Configuración de Firebase (usa tus datos aquí)
     const firebaseConfig = {
       apiKey: "AIzaSyCc1ESGadJJnuXkNGfxoUM77FHv3fc3CPY",
       authDomain: "ultimahora-d3b6f.firebaseapp.com",
@@ -105,20 +169,37 @@
       measurementId: "G-GN9BFRSVT1"
     };
 
-    // Inicializar Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // Prueba: Añadir un documento a Firestore cuando se carga la página
-    addDoc(collection(db, "testConexion"), {
-      mensaje: "Prueba de conexión exitosa",
-      fecha: new Date().toISOString()
-    })
-    .then(() => {
-      console.log("✅ Conexión a Firebase confirmada y documento creado");
-    })
-    .catch((error) => {
-      console.error("❌ Error al conectar con Firebase:", error);
+    const form = document.getElementById("formularioCarga");
+    const mensaje = document.getElementById("mensaje");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const descripcion = document.getElementById("descripcion").value.trim();
+      const origen = document.getElementById("origen").value.trim();
+      const destino = document.getElementById("destino").value.trim();
+      const telefono = document.getElementById("telefono").value.trim();
+
+      try {
+        await addDoc(collection(db, "solicitudesCarga"), {
+          descripcion,
+          origen,
+          destino,
+          telefono,
+          fecha: new Date().toISOString()
+        });
+
+        mensaje.textContent = "✅ Solicitud enviada correctamente";
+        mensaje.className = "success";
+        form.reset();
+      } catch (error) {
+        mensaje.textContent = "❌ Error al enviar. Intente más tarde.";
+        mensaje.className = "error";
+        console.error("Error al guardar la solicitud:", error);
+      }
     });
   </script>
 
