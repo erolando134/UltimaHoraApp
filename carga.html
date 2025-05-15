@@ -7,23 +7,16 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: url('fondo.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background: #f5f5f5;
       margin: 0;
       padding: 0;
-      color: #333;
     }
 
     header {
-      background-color: rgba(33, 33, 33, 0.85);
+      background-color: #212121;
       color: white;
       padding: 2rem;
       text-align: center;
-    }
-
-    header img {
-      width: 120px;
-      margin-bottom: 1rem;
     }
 
     main {
@@ -32,12 +25,12 @@
     }
 
     .section {
-      background: rgba(255, 255, 255, 0.95);
+      background: white;
       padding: 2rem;
       margin: 2rem auto;
       max-width: 700px;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
     h2 {
@@ -52,7 +45,7 @@
       line-height: 1.6;
     }
 
-    .btn, button {
+    .btn {
       display: inline-block;
       background-color: #ff6f00;
       color: white;
@@ -64,10 +57,9 @@
       font-weight: bold;
       font-size: 1.1rem;
       cursor: pointer;
-      transition: background-color 0.3s ease;
     }
 
-    .btn:hover, button:hover {
+    .btn:hover {
       background-color: #e65100;
     }
 
@@ -75,42 +67,22 @@
       margin-top: 2rem;
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 1rem;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: left;
-    }
-
-    label {
-      font-weight: bold;
     }
 
     input, textarea {
-      padding: 0.8rem;
-      border-radius: 6px;
+      padding: 0.7rem;
+      width: 80%;
+      max-width: 500px;
+      border-radius: 5px;
       border: 1px solid #ccc;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .success {
-      color: green;
-      font-weight: bold;
-      margin-top: 1rem;
-    }
-
-    .error {
-      color: red;
-      font-weight: bold;
-      margin-top: 1rem;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <img src="logo.png" alt="Logo Última Hora" />
     <h1>Servicio de Transporte de Carga</h1>
     <p>Movemos tus cargas de forma segura y rápida</p>
   </header>
@@ -125,29 +97,18 @@
         <li>Incluye opción de recogida y entrega programada</li>
         <li>Seguimiento del estado del traslado en tiempo real</li>
       </ul>
-      <p>Este servicio es ideal para mudanzas, mercancías y envíos programados.</p>
+      <p>Este servicio es ideal para mudanzas, mercancías, y envíos programados.</p>
       <p style="margin-top: 1rem;">
         Número de tarjeta para depósitos: <strong>9227 9598 7147 8801</strong>
       </p>
-    </div>
 
-    <div class="section">
-      <h2>Solicita tu Transporte de Carga</h2>
-      <form id="formularioCarga">
-        <label for="descripcion">Descripción de la carga:</label>
-        <textarea id="descripcion" required></textarea>
-
-        <label for="origen">Lugar de recogida:</label>
-        <input type="text" id="origen" required />
-
-        <label for="destino">Destino:</label>
-        <input type="text" id="destino" required />
-
-        <label for="telefono">Teléfono de contacto:</label>
-        <input type="tel" id="telefono" required />
-
-        <button type="submit">Enviar solicitud</button>
-        <p id="mensaje"></p>
+      <form id="formCarga">
+        <input type="text" id="nombre" placeholder="Nombre del cliente" required />
+        <input type="text" id="origen" placeholder="Dirección de origen" required />
+        <input type="text" id="destino" placeholder="Dirección de destino" required />
+        <input type="file" id="fotoCarga" accept="image/*" required />
+        <textarea id="detalles" rows="4" placeholder="Detalles del encargo" required></textarea>
+        <button type="submit" class="btn">Enviar solicitud</button>
       </form>
 
       <a href="index.html" class="btn">Volver al Inicio</a>
@@ -158,6 +119,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCc1ESGadJJnuXkNGfxoUM77FHv3fc3CPY",
@@ -171,34 +133,44 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const storage = getStorage(app);
 
-    const form = document.getElementById("formularioCarga");
-    const mensaje = document.getElementById("mensaje");
+    const form = document.getElementById("formCarga");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const nombre = document.getElementById("nombre").value;
+      const origen = document.getElementById("origen").value;
+      const destino = document.getElementById("destino").value;
+      const detalles = document.getElementById("detalles").value;
+      const foto = document.getElementById("fotoCarga").files[0];
 
-      const descripcion = document.getElementById("descripcion").value.trim();
-      const origen = document.getElementById("origen").value.trim();
-      const destino = document.getElementById("destino").value.trim();
-      const telefono = document.getElementById("telefono").value.trim();
+      if (!foto) {
+        alert("Por favor, adjunta una foto del encargo.");
+        return;
+      }
 
       try {
+        const storageRef = ref(storage, 'cargas/' + Date.now() + '_' + foto.name);
+        await uploadBytes(storageRef, foto);
+        const fotoURL = await getDownloadURL(storageRef);
+
         await addDoc(collection(db, "solicitudesCarga"), {
-          descripcion,
+          nombre,
           origen,
           destino,
-          telefono,
+          detalles,
+          fotoURL,
           fecha: new Date().toISOString()
         });
 
-        mensaje.textContent = "✅ Solicitud enviada correctamente";
-        mensaje.className = "success";
+        console.log("📦 Solicitud de carga enviada con imagen. Revisa Firestore.");
+        alert("¡Solicitud enviada correctamente!");
+
         form.reset();
       } catch (error) {
-        mensaje.textContent = "❌ Error al enviar. Intente más tarde.";
-        mensaje.className = "error";
-        console.error("Error al guardar la solicitud:", error);
+        console.error("❌ Error al enviar solicitud:", error);
+        alert("Error al enviar. Intenta nuevamente.");
       }
     });
   </script>
