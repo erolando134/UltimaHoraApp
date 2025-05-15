@@ -89,5 +89,38 @@
     </div>
   </main>
 
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    // Configuración de Firebase (usa tus datos aquí)
+    const firebaseConfig = {
+      apiKey: "AIzaSyCc1ESGadJJnuXkNGfxoUM77FHv3fc3CPY",
+      authDomain: "ultimahora-d3b6f.firebaseapp.com",
+      projectId: "ultimahora-d3b6f",
+      storageBucket: "ultimahora-d3b6f.appspot.com",
+      messagingSenderId: "926436765867",
+      appId: "1:926436765867:web:4a46d444a2f1b87a9107ee",
+      measurementId: "G-GN9BFRSVT1"
+    };
+
+    // Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Prueba: Añadir un documento a Firestore cuando se carga la página
+    addDoc(collection(db, "testConexion"), {
+      mensaje: "Prueba de conexión exitosa",
+      fecha: new Date().toISOString()
+    })
+    .then(() => {
+      console.log("✅ Conexión a Firebase confirmada y documento creado");
+    })
+    .catch((error) => {
+      console.error("❌ Error al conectar con Firebase:", error);
+    });
+  </script>
+
 </body>
 </html>
