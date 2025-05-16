@@ -81,7 +81,7 @@
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="Logotipo de Última Hora">
+    <img src="logo_fondo_taxi.png" alt="Logotipo de Última Hora">
     <h1>Última Hora</h1>
   </header>
   <main>
@@ -96,8 +96,8 @@
   <footer>
     &copy; 2025 Última Hora. Todos los derechos reservados.
   </footer>
-<!-- Firebase App y Messaging JS -->
-<script type="module" src="/js/firebase-messaging.js"></script>
 
+  <!-- Firebase App y Messaging JS -->
+  <script type="module" src="/js/firebase-messaging.js"></script>
 </body>
 </html>
