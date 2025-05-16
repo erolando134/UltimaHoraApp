@@ -4,92 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Última Hora - Inicio</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    header {
-      background-color: #228B22;
-      color: #fff;
-      width: 100%;
-      padding: 20px 0;
-      text-align: center;
-    }
-    header img {
-      max-width: 100px;
-      height: auto;
-    }
-    header h1 {
-      margin: 10px 0 0 0;
-    }
-    main {
-      padding: 40px 20px;
-      text-align: center;
-    }
-    .description {
-      margin-bottom: 30px;
-      font-size: 1.2em;
-    }
-    .buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      max-width: 300px;
-      margin: 0 auto;
-    }
-    .buttons a {
-      text-decoration: none;
-    }
-    .buttons button {
-      width: 100%;
-      padding: 15px;
-      font-size: 1em;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      color: #fff;
-    }
-    .cliente {
-      background-color: #007BFF;
-    }
-    .chofer {
-      background-color: #28A745;
-    }
-    .admin {
-      background-color: #FFC107;
-      color: #000;
-    }
-    .carga {
-      background-color: #FF5722;
-    }
-    footer {
-      background-color: #228B22;
-      color: #fff;
-      width: 100%;
-      text-align: center;
-      padding: 10px 0;
-      position: fixed;
-      bottom: 0;
-    }
-  </style>
+  <link rel="stylesheet" href="css/estilos.css" />
 </head>
 <body>
   <header>
-    <img src="logo_fondo_taxi.png" alt="Logotipo de Última Hora">
+    <img src="images/logo_fondo_taxi.png" alt="Logotipo de Última Hora">
     <h1>Última Hora</h1>
   </header>
   <main>
     <p class="description">Bienvenido a la aplicación de transporte "Última Hora". Selecciona tu perfil para continuar:</p>
     <div class="buttons">
-      <a href="clientes.html"><button class="cliente">Clientes</button></a>
-      <a href="choferes.html"><button class="chofer">Choferes</button></a>
-      <a href="login_admin.html"><button class="admin">Administrador</button></a>
+      <a href="clientes/clientes.html"><button class="cliente">Clientes</button></a>
+      <a href="choferes/choferes.html"><button class="chofer">Choferes</button></a>
+      <a href="admin/login_admin.html"><button class="admin">Administrador</button></a>
       <a href="servicios/solicitar-servicio.html"><button class="carga">Carga</button></a>
     </div>
   </main>
@@ -98,6 +25,6 @@
   </footer>
 
   <!-- Firebase App y Messaging JS -->
-  <script type="module" src="/js/firebase-messaging.js"></script>
+  <script type="module" src="js/firebase-messaging.js"></script>
 </body>
 </html>
